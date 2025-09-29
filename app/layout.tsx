@@ -51,7 +51,7 @@ export default function RootLayout({
               <div className="space-y-2">
                 <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit SoccerHUB verbunden</p>
                 <p>
-                  &copy; {new Date().getFullYear()} SoccerHUB. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Elias.
+                  &copy; {new Date().getFullYear()} SoccerHUB. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Sharky.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
