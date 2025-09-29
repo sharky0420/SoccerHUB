@@ -114,24 +114,22 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         />
 
         <div className="space-y-8">
-          <div className="flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-white/10 px-6 py-5 text-slate-100 shadow-[0_35px_100px_-45px_rgba(8,47,73,0.8)] backdrop-blur sm:flex-row sm:items-center">
+          <div className="glass-panel theme-transition flex flex-col justify-between gap-4 rounded-3xl border border-[color:var(--border-subtle)]/80 px-6 py-5 text-[color:var(--text-primary)] sm:flex-row sm:items-center">
             <div className="space-y-1">
-              <h2 className="text-xl font-semibold text-white">
-                {sortedVenues.length} Hallen gefunden
-              </h2>
-              <p className="text-sm text-slate-200">
+              <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Hallen gefunden</h2>
+              <p className="text-sm text-[color:var(--text-secondary)]">
                 Vergleiche Preise, Ausstattung und buche mit einem Klick direkt beim Anbieter.
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <label htmlFor="sort" className="text-sm font-medium text-slate-200">
+              <label htmlFor="sort" className="text-sm font-medium text-[color:var(--text-secondary)]">
                 Sortierung
               </label>
               <select
                 id="sort"
                 value={sort}
                 onChange={(event) => setSort(event.target.value as SortOption)}
-                className="rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-medium text-white focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="theme-transition rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-5 py-2 text-sm font-medium text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
               >
                 {(Object.keys(sortLabels) as SortOption[]).map((option) => (
                   <option key={option} value={option}>
@@ -149,7 +147,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-white/20 bg-white/5 p-10 text-center text-slate-200 backdrop-blur">
+            <div className="rounded-3xl border border-dashed border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/60 p-10 text-center text-[color:var(--text-secondary)] backdrop-blur">
               Keine Halle gefunden. Passe die Filter an oder setze sie zurück.
             </div>
           )}
@@ -159,7 +157,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               <button
                 type="button"
                 onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
-                className="rounded-full bg-gradient-to-r from-primary via-primary/80 to-secondary px-8 py-3 text-sm font-semibold text-white shadow-[0_25px_60px_-30px_rgba(14,124,123,0.8)] transition hover:brightness-110"
+                className="theme-transition rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
               >
                 Mehr anzeigen
               </button>
