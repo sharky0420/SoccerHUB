@@ -7,7 +7,12 @@
 }
 
 body {
-  @apply bg-slate-50 text-slate-900 antialiased;
+  @apply bg-slate-950 text-slate-100 antialiased;
+  background-image:
+    radial-gradient(1200px 800px at 90% -200px, rgba(14, 124, 123, 0.28), transparent),
+    radial-gradient(900px 600px at -10% 20%, rgba(148, 163, 184, 0.22), transparent),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92));
+  background-attachment: fixed;
 }
 
 a {

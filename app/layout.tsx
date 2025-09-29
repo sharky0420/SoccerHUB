@@ -38,11 +38,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" className={clsx(inter.variable)}>
-      <body className="min-h-screen bg-slate-50">
+      <body className="min-h-screen text-slate-100">
         <SiteHeader />
-        <main className="pb-16 pt-10">{children}</main>
-        <footer id="kontakt" className="border-t border-slate-200 bg-white py-10">
-          <div className="container-narrow flex flex-col gap-2 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <main className="relative pb-20 pt-16">{children}</main>
+        <footer id="kontakt" className="border-t border-white/10 bg-slate-950/80 py-12 backdrop-blur">
+          <div className="container-narrow flex flex-col gap-3 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {new Date().getFullYear()} Turftime Venues. Alle Rechte vorbehalten.</p>
             <p>
               Bereit für den MVP-Ausbau? <a className="font-medium text-primary" href="mailto:info@turftime.app">info@turftime.app</a>
