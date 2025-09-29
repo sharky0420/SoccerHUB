@@ -101,7 +101,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
 
   return (
     <section className="container-narrow" id="hallen">
-      <div className="grid gap-8 lg:grid-cols-[320px,1fr]">
+      <div className="grid gap-10 lg:grid-cols-[340px,1fr]">
         <FilterPanel
           sportsOptions={sports}
           amenityOptions={amenities}
@@ -113,25 +113,25 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
           onReset={handleReset}
         />
 
-        <div className="space-y-6">
-          <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-soft sm:flex-row sm:items-center">
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900">
+        <div className="space-y-8">
+          <div className="flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-white/10 px-6 py-5 text-slate-100 shadow-[0_35px_100px_-45px_rgba(8,47,73,0.8)] backdrop-blur sm:flex-row sm:items-center">
+            <div className="space-y-1">
+              <h2 className="text-xl font-semibold text-white">
                 {sortedVenues.length} Hallen gefunden
               </h2>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-200">
                 Vergleiche Preise, Ausstattung und buche mit einem Klick direkt beim Anbieter.
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <label htmlFor="sort" className="text-sm font-medium text-slate-600">
+              <label htmlFor="sort" className="text-sm font-medium text-slate-200">
                 Sortierung
               </label>
               <select
                 id="sort"
                 value={sort}
                 onChange={(event) => setSort(event.target.value as SortOption)}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-medium text-white focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
               >
                 {(Object.keys(sortLabels) as SortOption[]).map((option) => (
                   <option key={option} value={option}>
@@ -149,7 +149,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center text-slate-500">
+            <div className="rounded-3xl border border-dashed border-white/20 bg-white/5 p-10 text-center text-slate-200 backdrop-blur">
               Keine Halle gefunden. Passe die Filter an oder setze sie zurück.
             </div>
           )}
@@ -159,7 +159,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               <button
                 type="button"
                 onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
-                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
+                className="rounded-full bg-gradient-to-r from-primary via-primary/80 to-secondary px-8 py-3 text-sm font-semibold text-white shadow-[0_25px_60px_-30px_rgba(14,124,123,0.8)] transition hover:brightness-110"
               >
                 Mehr anzeigen
               </button>

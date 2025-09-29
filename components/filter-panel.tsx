@@ -64,24 +64,24 @@ export function FilterPanel({
   };
 
   return (
-    <aside className="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+    <aside className="space-y-6 rounded-3xl border border-white/15 bg-white/10 p-8 text-slate-100 shadow-[0_35px_100px_-45px_rgba(8,47,73,0.9)] backdrop-blur">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">Filter</p>
-          <h2 className="text-lg font-semibold text-slate-900">Finde deine Halle</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-primary/70">Filter</p>
+          <h2 className="text-xl font-semibold text-white">Finde deine Halle</h2>
         </div>
         <button
           type="button"
-          className="text-sm font-medium text-primary hover:text-primary/80"
+          className="text-sm font-medium text-primary transition hover:text-primary/80"
           onClick={onReset}
         >
           Zurücksetzen
         </button>
       </header>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div>
-          <label className="text-sm font-medium text-slate-600">Sportart</label>
+          <label className="text-sm font-medium text-slate-200">Sportart</label>
           <div className="mt-3 flex flex-wrap gap-2">
             {sportOptions.map((sport) => {
               const selected = state.sports.includes(sport);
@@ -90,10 +90,10 @@ export function FilterPanel({
                   key={sport}
                   type="button"
                   onClick={() => toggleSport(sport)}
-                  className={`rounded-full border px-4 py-1 text-sm font-medium transition ${
+                  className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
                     selected
-                      ? "border-primary bg-primary text-white shadow"
-                      : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                      ? "border-transparent bg-white text-slate-900 shadow-[0_20px_40px_-20px_rgba(255,255,255,0.65)]"
+                      : "border-white/15 bg-white/5 text-slate-200 hover:border-primary/50 hover:bg-primary/20 hover:text-white"
                   }`}
                 >
                   {sport}
@@ -104,7 +104,7 @@ export function FilterPanel({
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-600" htmlFor="city-filter">
+          <label className="text-sm font-medium text-slate-200" htmlFor="city-filter">
             Ort
           </label>
           <input
@@ -113,15 +113,15 @@ export function FilterPanel({
             placeholder="z. B. Mannheim"
             value={state.city}
             onChange={(event) => onChange({ ...state, city: event.target.value })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+            className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
           />
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium text-slate-600">Preis pro Stunde</p>
+          <p className="text-sm font-medium text-slate-200">Preis pro Stunde</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-slate-500" htmlFor="price-min">
+              <label className="block text-xs uppercase tracking-wide text-white/60" htmlFor="price-min">
                 Min
               </label>
               <input
@@ -136,11 +136,11 @@ export function FilterPanel({
                     priceMin: event.target.value ? Number(event.target.value) : undefined,
                   })
                 }
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-500" htmlFor="price-max">
+              <label className="block text-xs uppercase tracking-wide text-white/60" htmlFor="price-max">
                 Max
               </label>
               <input
@@ -155,21 +155,21 @@ export function FilterPanel({
                     priceMax: event.target.value ? Number(event.target.value) : undefined,
                   })
                 }
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
             </div>
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-600" htmlFor="day-filter">
+          <label className="text-sm font-medium text-slate-200" htmlFor="day-filter">
             Öffnungszeiten
           </label>
           <select
             id="day-filter"
             value={state.day ?? ""}
             onChange={(event) => onChange({ ...state, day: event.target.value as Weekday | "" })}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+            className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
             <option value="">Alle Tage</option>
             {(Object.keys(weekdayLabels) as Weekday[]).map((day) => (
@@ -181,19 +181,19 @@ export function FilterPanel({
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium text-slate-600">Ausstattung</p>
+          <p className="text-sm font-medium text-slate-200">Ausstattung</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {amenityGroups.map((group, groupIndex) => (
               <div key={groupIndex} className="space-y-2">
                 {group.map((amenity) => {
                   const checked = state.amenities.includes(amenity);
                   return (
-                    <label key={amenity} className="flex items-center gap-2 text-sm text-slate-600">
+                    <label key={amenity} className="flex items-center gap-2 text-sm text-slate-200">
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleAmenity(amenity)}
-                        className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary/50"
+                        className="h-4 w-4 rounded border-white/30 bg-white/5 text-primary focus:ring-primary/50"
                       />
                       {amenity}
                     </label>
