@@ -1,21 +1,30 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./data/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"] ,
+  darkMode: ["class"],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./data/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "#0E7C7B",
-          foreground: "#ffffff",
+        accent: {
+          DEFAULT: "var(--accent-primary)",
+          soft: "var(--accent-secondary)",
         },
-        secondary: {
-          DEFAULT: "#F2C14E",
-          foreground: "#1f2937",
+        surface: {
+          DEFAULT: "var(--surface-card)",
+          elevated: "var(--background-elevated)",
+        },
+        border: {
+          subtle: "var(--border-subtle)",
+        },
+        text: {
+          DEFAULT: "var(--text-primary)",
+          muted: "var(--text-secondary)",
         },
       },
       boxShadow: {
-        soft: "0 20px 45px -30px rgba(15, 23, 42, 0.45)",
+        glow: "var(--glow-accent)",
+        glass: "var(--shadow-soft)",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

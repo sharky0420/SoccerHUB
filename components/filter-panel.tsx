@@ -64,15 +64,15 @@ export function FilterPanel({
   };
 
   return (
-    <aside className="space-y-6 rounded-3xl border border-white/15 bg-white/10 p-8 text-slate-100 shadow-[0_35px_100px_-45px_rgba(8,47,73,0.9)] backdrop-blur">
+    <aside className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/80 p-8 text-[color:var(--text-primary)]">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-primary/70">Filter</p>
-          <h2 className="text-xl font-semibold text-white">Finde deine Halle</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--text-secondary)]">Filter</p>
+          <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">Finde deine Halle</h2>
         </div>
         <button
           type="button"
-          className="text-sm font-medium text-primary transition hover:text-primary/80"
+          className="theme-transition text-sm font-medium text-[color:var(--accent-primary)] hover:text-[color:var(--accent-secondary)]"
           onClick={onReset}
         >
           Zurücksetzen
@@ -81,7 +81,7 @@ export function FilterPanel({
 
       <div className="space-y-5">
         <div>
-          <label className="text-sm font-medium text-slate-200">Sportart</label>
+          <label className="text-sm font-medium text-[color:var(--text-primary)]">Sportart</label>
           <div className="mt-3 flex flex-wrap gap-2">
             {sportOptions.map((sport) => {
               const selected = state.sports.includes(sport);
@@ -90,10 +90,8 @@ export function FilterPanel({
                   key={sport}
                   type="button"
                   onClick={() => toggleSport(sport)}
-                  className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-wide transition ${
-                    selected
-                      ? "border-transparent bg-white text-slate-900 shadow-[0_20px_40px_-20px_rgba(255,255,255,0.65)]"
-                      : "border-white/15 bg-white/5 text-slate-200 hover:border-primary/50 hover:bg-primary/20 hover:text-white"
+                  className={`chip theme-transition px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
+                    selected ? "chip-active" : ""
                   }`}
                 >
                   {sport}
@@ -104,7 +102,7 @@ export function FilterPanel({
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-200" htmlFor="city-filter">
+          <label className="text-sm font-medium text-[color:var(--text-primary)]" htmlFor="city-filter">
             Ort
           </label>
           <input
@@ -113,15 +111,15 @@ export function FilterPanel({
             placeholder="z. B. Mannheim"
             value={state.city}
             onChange={(event) => onChange({ ...state, city: event.target.value })}
-            className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="theme-transition w-full rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-3 py-2 text-sm text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
           />
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium text-slate-200">Preis pro Stunde</p>
+          <p className="text-sm font-medium text-[color:var(--text-primary)]">Preis pro Stunde</p>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs uppercase tracking-wide text-white/60" htmlFor="price-min">
+              <label className="block text-xs uppercase tracking-wide text-[color:var(--text-secondary)]" htmlFor="price-min">
                 Min
               </label>
               <input
@@ -136,11 +134,11 @@ export function FilterPanel({
                     priceMin: event.target.value ? Number(event.target.value) : undefined,
                   })
                 }
-                className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="theme-transition mt-1 w-full rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-3 py-2 text-sm text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
               />
             </div>
             <div>
-              <label className="block text-xs uppercase tracking-wide text-white/60" htmlFor="price-max">
+              <label className="block text-xs uppercase tracking-wide text-[color:var(--text-secondary)]" htmlFor="price-max">
                 Max
               </label>
               <input
@@ -155,21 +153,21 @@ export function FilterPanel({
                     priceMax: event.target.value ? Number(event.target.value) : undefined,
                   })
                 }
-                className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-slate-400 focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="theme-transition mt-1 w-full rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-3 py-2 text-sm text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
               />
             </div>
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-200" htmlFor="day-filter">
+          <label className="text-sm font-medium text-[color:var(--text-primary)]" htmlFor="day-filter">
             Öffnungszeiten
           </label>
           <select
             id="day-filter"
             value={state.day ?? ""}
             onChange={(event) => onChange({ ...state, day: event.target.value as Weekday | "" })}
-            className="w-full rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white focus:border-primary/70 focus:outline-none focus:ring-2 focus:ring-primary/40"
+            className="theme-transition w-full rounded-xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-3 py-2 text-sm text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
           >
             <option value="">Alle Tage</option>
             {(Object.keys(weekdayLabels) as Weekday[]).map((day) => (
@@ -181,19 +179,19 @@ export function FilterPanel({
         </div>
 
         <div className="space-y-2">
-          <p className="text-sm font-medium text-slate-200">Ausstattung</p>
+          <p className="text-sm font-medium text-[color:var(--text-primary)]">Ausstattung</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {amenityGroups.map((group, groupIndex) => (
               <div key={groupIndex} className="space-y-2">
                 {group.map((amenity) => {
                   const checked = state.amenities.includes(amenity);
                   return (
-                    <label key={amenity} className="flex items-center gap-2 text-sm text-slate-200">
+                    <label key={amenity} className="theme-transition flex items-center gap-2 text-sm text-[color:var(--text-secondary)]">
                       <input
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleAmenity(amenity)}
-                        className="h-4 w-4 rounded border-white/30 bg-white/5 text-primary focus:ring-primary/50"
+                        className="h-4 w-4 rounded border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/60 text-[color:var(--accent-primary)] focus:ring-[color:var(--accent-secondary)]/50"
                       />
                       {amenity}
                     </label>
