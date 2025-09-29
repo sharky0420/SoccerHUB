@@ -116,9 +116,9 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         <div className="space-y-8">
           <div className="glass-panel theme-transition flex flex-col justify-between gap-4 rounded-3xl border border-[color:var(--border-subtle)]/80 px-6 py-5 text-[color:var(--text-primary)] sm:flex-row sm:items-center">
             <div className="space-y-1">
-              <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Hallen gefunden</h2>
+              <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Arenen im SoccerHUB</h2>
               <p className="text-sm text-[color:var(--text-secondary)]">
-                Vergleiche Preise, Ausstattung und buche mit einem Klick direkt beim Anbieter.
+                Stell deinen Matchplan zusammen: Preise checken, Ausstattung prüfen und direkt beim Betreiber buchen.
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                 onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
                 className="theme-transition rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
               >
-                Mehr anzeigen
+                Mehr Arenen laden
               </button>
             </div>
           )}

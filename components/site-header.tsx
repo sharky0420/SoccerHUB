@@ -3,12 +3,10 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useTheme } from "@/components/theme-provider";
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +24,7 @@ export function SiteHeader() {
         className={clsx(
           "glass-panel theme-transition flex w-full max-w-6xl items-center justify-between rounded-[1.75rem] border border-[color:var(--border-subtle)]/80 px-5 py-3 text-sm sm:px-8 sm:py-4",
           {
-            "shadow-[0_35px_90px_-50px_rgba(0,0,0,0.55)] backdrop-blur-xl": isScrolled,
+            "shadow-[0_35px_90px_-50px_rgba(6,50,24,0.65)] backdrop-blur-xl": isScrolled,
             "shadow-none": !isScrolled,
           },
         )}
@@ -34,51 +32,44 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="flex items-center gap-2 text-base font-semibold tracking-tight text-[color:var(--text-primary)]"
+            className="group flex items-center gap-3 text-base font-semibold tracking-tight text-[color:var(--text-primary)]"
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/15 text-[color:var(--accent-primary)]">
-              ⚽
+            <span className="theme-transition relative flex h-11 w-11 items-center justify-center rounded-2xl border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 text-lg text-[color:var(--accent-primary)] shadow-[0_15px_40px_-20px_rgba(0,0,0,0.45)] group-hover:border-[color:var(--accent-secondary)]/60">
+              <span className="absolute inset-[3px] rounded-[1.3rem] bg-[radial-gradient(circle_at_top,_rgba(0,0,0,0.12),_transparent_65%)]" aria-hidden />
+              <span className="relative font-black">SH</span>
             </span>
-            Turftime Venues
+            <span className="flex flex-col leading-tight">
+              <span>SoccerHUB</span>
+              <span className="text-xs font-medium uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
+                Football Intelligence
+              </span>
+            </span>
           </Link>
         </div>
         <nav className="hidden items-center gap-6 font-medium text-[color:var(--text-secondary)] lg:flex">
           <Link href="/#hallen" className="theme-transition hover:text-[color:var(--text-primary)]">
-            Hallen
+            Arenen
           </Link>
-          <Link href="/#sofunktionierts" className="theme-transition hover:text-[color:var(--text-primary)]">
-            So funktioniert&apos;s
+          <Link href="/#matchcenter" className="theme-transition hover:text-[color:var(--text-primary)]">
+            Match Center
           </Link>
           <Link href="/#kontakt" className="theme-transition hover:text-[color:var(--text-primary)]">
             Kontakt
           </Link>
           <a
-            href="mailto:info@turftime.app"
+            href="mailto:team@soccerhub.app"
             className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-5 py-2 text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
           >
-            Demo anfragen
+            Beta-Zugang
           </a>
         </nav>
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="theme-transition relative flex h-11 w-20 items-center rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--background-elevated)]/80 px-2"
-            aria-label="Darstellung umschalten"
-          >
-            <span
-              className={clsx(
-                "theme-transition absolute inset-y-1 left-1 w-1/2 rounded-full bg-[color:var(--accent-primary)] shadow-glow",
-                {
-                  "translate-x-[calc(100%-0.5rem)]": theme === "light",
-                  "translate-x-0": theme === "dark",
-                },
-              )}
-              style={{ transformOrigin: "center" }}
-            />
-            <span className="z-10 flex-1 text-center text-xs font-semibold text-[color:var(--text-secondary)]">Dark</span>
-            <span className="z-10 flex-1 text-center text-xs font-semibold text-[color:var(--text-secondary)]">Light</span>
-          </button>
+          <div className="hidden items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-4 py-2 text-[color:var(--text-secondary)] sm:flex">
+            <span className="text-xs font-semibold uppercase tracking-[0.28em]">Live</span>
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-[color:var(--accent-primary)]">
+              ⚽ 82 Arenen gelistet
+            </span>
+          </div>
           <button
             type="button"
             className="lg:hidden theme-transition inline-flex items-center rounded-full border border-[color:var(--border-subtle)] px-4 py-2 text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]"
@@ -106,16 +97,16 @@ export function SiteHeader() {
               onClick={() => setIsMobileNavOpen(false)}
               className="block theme-transition hover:text-[color:var(--text-primary)]"
             >
-              Hallen
+              Arenen
             </Link>
           </li>
           <li>
             <Link
-              href="/#sofunktionierts"
+              href="/#matchcenter"
               onClick={() => setIsMobileNavOpen(false)}
               className="block theme-transition hover:text-[color:var(--text-primary)]"
             >
-              So funktioniert&apos;s
+              Match Center
             </Link>
           </li>
           <li>
@@ -129,11 +120,11 @@ export function SiteHeader() {
           </li>
           <li>
             <a
-              href="mailto:info@turftime.app"
+              href="mailto:team@soccerhub.app"
               onClick={() => setIsMobileNavOpen(false)}
               className="theme-transition inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent-primary)] px-4 py-2 font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
             >
-              Demo anfragen
+              Beta-Zugang
             </a>
           </li>
         </ul>

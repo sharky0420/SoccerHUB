@@ -10,24 +10,24 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Turftime Venues | Sporthallen für Soccer & Padel finden",
-    template: "%s | Turftime Venues",
+    default: "SoccerHUB | Indoor Soccer & Padel Arenen",
+    template: "%s | SoccerHUB",
   },
   description:
-    "Finde und vergleiche Sporthallen für Soccer und Padel im Rhein-Neckar-Kreis. Öffnungszeiten, Preise und Ausstattung auf einen Blick.",
+    "SoccerHUB ist dein digitales Clubhaus für Premium Soccer- und Padelhallen. Vergleiche Arenen, Filtere nach Preisen und Ausstattung und buche direkt beim Betreiber.",
   keywords: [
-    "Sporthalle",
+    "SoccerHUB",
+    "Fußballhalle",
     "Soccer",
     "Padel",
-    "Mannheim",
-    "Heidelberg",
-    "Buchen",
+    "Indoor Fußball",
+    "Buchung",
   ],
-  metadataBase: new URL("https://turftime-manager.local"),
+  metadataBase: new URL("https://soccerhub.app"),
   openGraph: {
-    title: "Turftime Venues",
+    title: "SoccerHUB",
     description:
-      "Vergleiche Soccer- und Padelhallen in Mannheim, Heidelberg und Umgebung und buche direkt beim Anbieter.",
+      "SoccerHUB bündelt Soccer- und Padelhallen in einer modernen Übersicht – Preise, Ausstattung & Kontakt auf einen Blick.",
     type: "website",
   },
 };
@@ -47,14 +47,21 @@ export default function RootLayout({
             id="kontakt"
             className="relative mt-24 border-t border-[color:var(--border-subtle)] bg-[color:var(--background-elevated)]/80 py-12 backdrop-blur"
           >
-            <div className="container-narrow flex flex-col gap-4 text-sm text-[color:var(--text-secondary)] sm:flex-row sm:items-center sm:justify-between">
-              <p>&copy; {new Date().getFullYear()} Turftime Venues. Alle Rechte vorbehalten.</p>
-              <p>
-                Bereit für den MVP-Ausbau? {" "}
-                <a className="font-medium" href="mailto:info@turftime.app">
-                  info@turftime.app
+            <div className="container-narrow grid gap-6 text-sm text-[color:var(--text-secondary)] sm:grid-cols-[minmax(0,1fr),auto] sm:items-center">
+              <div className="space-y-2">
+                <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit SoccerHUB verbunden</p>
+                <p>
+                  &copy; {new Date().getFullYear()} SoccerHUB. Crafted für ambitionierte Teams und Betreiber:innen.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <a className="chip px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em]" href="mailto:team@soccerhub.app">
+                  team@soccerhub.app
                 </a>
-              </p>
+                <a className="chip px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em]" href="https://www.linkedin.com">
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </footer>
         </ThemeProvider>
