@@ -18,8 +18,8 @@
       "sunday": { "open": "10:00", "close": "22:00" }
     },
     "images": [
-      "https://images.unsplash.com/photo-1529429617124-aee0a93d72cc",
-      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf"
+      "https://images.unsplash.com/photo-1529429617124-aee0a93d72cc?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=1600&q=80"
     ],
     "externalUrl": "https://example.com/soccerdome-mannheim"
   },
@@ -42,8 +42,8 @@
       "sunday": { "open": "09:00", "close": "21:00" }
     },
     "images": [
-      "https://images.unsplash.com/photo-1617957743090-4eb7eb8604b1",
-      "https://images.unsplash.com/photo-1601925260400-9de2ec3d38c5"
+      "https://images.unsplash.com/photo-1617957743090-4eb7eb8604b1?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1601925260400-9de2ec3d38c5?auto=format&fit=crop&w=1600&q=80"
     ],
     "externalUrl": "https://example.com/padel-heidelberg"
   },
@@ -66,8 +66,8 @@
       "sunday": { "open": "08:00", "close": "22:00" }
     },
     "images": [
-      "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
-      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf"
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf?auto=format&fit=crop&w=1600&q=80"
     ],
     "externalUrl": "https://example.com/arena-heidelberg-nord"
   },
@@ -90,8 +90,8 @@
       "sunday": { "open": "10:00", "close": "21:00" }
     },
     "images": [
-      "https://images.unsplash.com/photo-1546512565-39d4dc75e556",
-      "https://images.unsplash.com/photo-1599050879799-90b693d7964b"
+      "https://images.unsplash.com/photo-1546512565-39d4dc75e556?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1599050879799-90b693d7964b?auto=format&fit=crop&w=1600&q=80"
     ],
     "externalUrl": "https://example.com/rhein-neckar-padel"
   },
@@ -114,8 +114,8 @@
       "sunday": { "open": "09:00", "close": "22:00" }
     },
     "images": [
-      "https://images.unsplash.com/photo-1522778119026-d647f0596c20",
-      "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b"
+      "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=1600&q=80"
     ],
     "externalUrl": "https://example.com/soccer-lounge-ludwigshafen"
   }

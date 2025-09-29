@@ -101,7 +101,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
 
   return (
     <section className="container-narrow" id="hallen">
-      <div className="grid gap-10 lg:grid-cols-[340px,1fr]">
+      <div className="grid gap-10 lg:grid-cols-[minmax(300px,360px),1fr] xl:gap-12">
         <FilterPanel
           sportsOptions={sports}
           amenityOptions={amenities}
@@ -114,29 +114,39 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         />
 
         <div className="space-y-8">
-          <div className="glass-panel theme-transition flex flex-col justify-between gap-4 rounded-3xl border border-[color:var(--border-subtle)]/80 px-6 py-5 text-[color:var(--text-primary)] sm:flex-row sm:items-center">
-            <div className="space-y-1">
-              <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Arenen im SoccerHUB</h2>
-              <p className="text-sm text-[color:var(--text-secondary)]">
-                Stell deinen Matchplan zusammen: Preise checken, Ausstattung prüfen und direkt beim Betreiber buchen.
-              </p>
+          <div className="glass-panel theme-transition flex flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/80 px-6 py-6 text-[color:var(--text-primary)] sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]" aria-hidden />
+                Live Übersicht
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Arenen im SoccerHUB</h2>
+                <p className="text-sm text-[color:var(--text-secondary)]">
+                  Passe Filter, sortiere nach Preis oder Name und speichere Favoriten für deinen nächsten Spieltag.
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <label htmlFor="sort" className="text-sm font-medium text-[color:var(--text-secondary)]">
+            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
                 Sortierung
-              </label>
-              <select
-                id="sort"
-                value={sort}
-                onChange={(event) => setSort(event.target.value as SortOption)}
-                className="theme-transition rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-5 py-2 text-sm font-medium text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
-              >
-                {(Object.keys(sortLabels) as SortOption[]).map((option) => (
-                  <option key={option} value={option}>
-                    {sortLabels[option]}
-                  </option>
-                ))}
-              </select>
+              </span>
+              <div className="relative inline-flex items-center">
+                <span className="pointer-events-none absolute left-4 text-xs text-[color:var(--text-secondary)]/70">⇅</span>
+                <select
+                  id="sort"
+                  value={sort}
+                  onChange={(event) => setSort(event.target.value as SortOption)}
+                  className="theme-transition w-full rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/85 px-10 py-2 text-sm font-medium text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
+                  aria-label="Sortierung der Arenen"
+                >
+                  {(Object.keys(sortLabels) as SortOption[]).map((option) => (
+                    <option key={option} value={option}>
+                      {sortLabels[option]}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
@@ -147,8 +157,11 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/60 p-10 text-center text-[color:var(--text-secondary)] backdrop-blur">
-              Keine Halle gefunden. Passe die Filter an oder setze sie zurück.
+            <div className="rounded-3xl border border-dashed border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/65 p-10 text-center text-[color:var(--text-secondary)] backdrop-blur">
+              <p className="text-lg font-semibold text-[color:var(--text-primary)]">Keine Halle gefunden</p>
+              <p className="mt-2 text-sm">
+                Passe die Filter an oder setze sie zurück, um neue Slots zu entdecken.
+              </p>
             </div>
           )}
 
@@ -157,8 +170,9 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               <button
                 type="button"
                 onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
-                className="theme-transition rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
+                className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
               >
+                <span aria-hidden>＋</span>
                 Mehr Arenen laden
               </button>
             </div>

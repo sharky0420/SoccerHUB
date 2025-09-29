@@ -64,15 +64,18 @@ export function FilterPanel({
   };
 
   return (
-    <aside className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/80 p-8 text-[color:var(--text-primary)]">
+    <aside className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/80 p-8 text-[color:var(--text-primary)] lg:sticky lg:top-32">
       <header className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--text-secondary)]">Filter</p>
           <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">Finde deine Halle</h2>
+          <p className="mt-1 text-xs text-[color:var(--text-secondary)]/80">
+            Justiere Sportarten, Preislevel und Ausstattung für deinen perfekten Slot.
+          </p>
         </div>
         <button
           type="button"
-          className="theme-transition text-sm font-medium text-[color:var(--accent-primary)] hover:text-[color:var(--accent-secondary)]"
+          className="theme-transition rounded-full px-3 py-1 text-sm font-medium text-[color:var(--accent-primary)] hover:bg-[color:var(--accent-primary)]/10 hover:text-[color:var(--accent-secondary)]"
           onClick={onReset}
         >
           Zurücksetzen
@@ -90,6 +93,7 @@ export function FilterPanel({
                   key={sport}
                   type="button"
                   onClick={() => toggleSport(sport)}
+                  aria-pressed={selected}
                   className={`chip theme-transition px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
                     selected ? "chip-active" : ""
                   }`}
@@ -157,6 +161,7 @@ export function FilterPanel({
               />
             </div>
           </div>
+          <p className="text-xs text-[color:var(--text-secondary)]/80">Durchschnittliche Preise liegen zwischen 45€ und 65€.</p>
         </div>
 
         <div className="space-y-2">
@@ -186,7 +191,7 @@ export function FilterPanel({
                 {group.map((amenity) => {
                   const checked = state.amenities.includes(amenity);
                   return (
-                    <label key={amenity} className="theme-transition flex items-center gap-2 text-sm text-[color:var(--text-secondary)]">
+                    <label key={amenity} className="theme-transition flex items-center gap-2 rounded-xl border border-transparent px-3 py-2 text-sm text-[color:var(--text-secondary)] hover:border-[color:var(--border-subtle)]/70">
                       <input
                         type="checkbox"
                         checked={checked}
@@ -201,6 +206,10 @@ export function FilterPanel({
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-4 py-3 text-xs text-[color:var(--text-secondary)]">
+        <span className="font-semibold text-[color:var(--accent-primary)]">Tipp:</span> Speichere deine Filter als Bookmark, um künftige Slot-Suchen zu beschleunigen.
       </div>
     </aside>
   );
