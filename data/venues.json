@@ -1,0 +1,122 @@
+[
+  {
+    "id": "soccerdome-mannheim",
+    "name": "SoccerDome Mannheim",
+    "city": "Mannheim",
+    "address": "Seckenheimer Landstraße 170, 68163 Mannheim",
+    "description": "Moderne Indoor-Soccerhalle mit hochwertigem Kunstrasen, LED-Flutlicht und großzügigen Loungebereichen für Teams und Fans.",
+    "pricePerHour": 58,
+    "sports": ["Soccer"],
+    "amenities": ["Duschen", "Umkleiden", "Parkplätze", "Café & Bar"],
+    "openingHours": {
+      "monday": { "open": "09:00", "close": "23:00" },
+      "tuesday": { "open": "09:00", "close": "23:00" },
+      "wednesday": { "open": "09:00", "close": "23:00" },
+      "thursday": { "open": "09:00", "close": "23:00" },
+      "friday": { "open": "09:00", "close": "00:00" },
+      "saturday": { "open": "10:00", "close": "00:00" },
+      "sunday": { "open": "10:00", "close": "22:00" }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1529429617124-aee0a93d72cc",
+      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf"
+    ],
+    "externalUrl": "https://example.com/soccerdome-mannheim"
+  },
+  {
+    "id": "padel-heidelberg",
+    "name": "Padel Club Heidelberg",
+    "city": "Heidelberg",
+    "address": "Czernyring 20, 69115 Heidelberg",
+    "description": "Outdoor- und Indoor-Padelplätze mit professioneller Ausstattung, Coachings und großzügiger Sonnenterrasse.",
+    "pricePerHour": 46,
+    "sports": ["Padel"],
+    "amenities": ["Leihschläger", "Shop", "Umkleiden", "Gastronomie"],
+    "openingHours": {
+      "monday": { "open": "08:00", "close": "22:00" },
+      "tuesday": { "open": "08:00", "close": "22:00" },
+      "wednesday": { "open": "08:00", "close": "22:00" },
+      "thursday": { "open": "08:00", "close": "22:00" },
+      "friday": { "open": "08:00", "close": "23:00" },
+      "saturday": { "open": "09:00", "close": "23:00" },
+      "sunday": { "open": "09:00", "close": "21:00" }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1617957743090-4eb7eb8604b1",
+      "https://images.unsplash.com/photo-1601925260400-9de2ec3d38c5"
+    ],
+    "externalUrl": "https://example.com/padel-heidelberg"
+  },
+  {
+    "id": "arena-heidelberg-nord",
+    "name": "Arena Heidelberg Nord",
+    "city": "Heidelberg",
+    "address": "Im Neuenheimer Feld 710, 69120 Heidelberg",
+    "description": "Vielseitige Mehrzweckhalle mit Soccer-, Futsal- und Fitnessangeboten sowie modernem Buchungssystem.",
+    "pricePerHour": 64,
+    "sports": ["Soccer", "Futsal"],
+    "amenities": ["Fitnessbereich", "Sauna", "Parkplätze", "WLAN"],
+    "openingHours": {
+      "monday": { "open": "07:00", "close": "23:00" },
+      "tuesday": { "open": "07:00", "close": "23:00" },
+      "wednesday": { "open": "07:00", "close": "23:00" },
+      "thursday": { "open": "07:00", "close": "23:00" },
+      "friday": { "open": "07:00", "close": "00:00" },
+      "saturday": { "open": "08:00", "close": "00:00" },
+      "sunday": { "open": "08:00", "close": "22:00" }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf"
+    ],
+    "externalUrl": "https://example.com/arena-heidelberg-nord"
+  },
+  {
+    "id": "padel-mannheim",
+    "name": "Rhein Neckar Padel Mannheim",
+    "city": "Mannheim",
+    "address": "Niederräder Ufer 3, 68163 Mannheim",
+    "description": "Padel-Community mit drei Premium-Courts, professioneller Beleuchtung und Community-Events am Wochenende.",
+    "pricePerHour": 52,
+    "sports": ["Padel"],
+    "amenities": ["Parkplätze", "Community-Events", "Duschen", "Leihschläger"],
+    "openingHours": {
+      "monday": { "open": "09:00", "close": "22:00" },
+      "tuesday": { "open": "09:00", "close": "22:00" },
+      "wednesday": { "open": "09:00", "close": "22:00" },
+      "thursday": { "open": "09:00", "close": "22:00" },
+      "friday": { "open": "09:00", "close": "23:00" },
+      "saturday": { "open": "09:00", "close": "23:00" },
+      "sunday": { "open": "10:00", "close": "21:00" }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1546512565-39d4dc75e556",
+      "https://images.unsplash.com/photo-1599050879799-90b693d7964b"
+    ],
+    "externalUrl": "https://example.com/rhein-neckar-padel"
+  },
+  {
+    "id": "soccer-lounge-ludwigshafen",
+    "name": "Soccer Lounge Ludwigshafen",
+    "city": "Ludwigshafen",
+    "address": "Industriestraße 44, 67063 Ludwigshafen",
+    "description": "Zentrale Soccer-Location mit Indoor- und Outdoor-Courts, Match-Analyse per Video sowie Kindergeburtstags-Programm.",
+    "pricePerHour": 49,
+    "sports": ["Soccer"],
+    "amenities": ["Videoanalyse", "Kinderprogramm", "Parkplätze", "Snacks"],
+    "openingHours": {
+      "monday": { "open": "10:00", "close": "23:00" },
+      "tuesday": { "open": "10:00", "close": "23:00" },
+      "wednesday": { "open": "10:00", "close": "23:00" },
+      "thursday": { "open": "10:00", "close": "23:00" },
+      "friday": { "open": "10:00", "close": "00:00" },
+      "saturday": { "open": "09:00", "close": "00:00" },
+      "sunday": { "open": "09:00", "close": "22:00" }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1522778119026-d647f0596c20",
+      "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b"
+    ],
+    "externalUrl": "https://example.com/soccer-lounge-ludwigshafen"
+  }
+]
