@@ -10,31 +10,29 @@ export default function HomePage() {
   return (
     <div className="space-y-24 lg:space-y-28">
       <section className="container-narrow">
-        <div className="relative overflow-hidden rounded-[3rem] border border-[color:var(--border-subtle)] bg-[color:var(--background-elevated)]/90 px-8 py-16 shadow-[0_45px_140px_-60px_rgba(6,40,18,0.65)] backdrop-blur-xl sm:px-12 sm:py-20">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(4,110,52,0.32),_transparent_60%)]" aria-hidden />
-          <div className="pointer-events-none absolute inset-0 bg-[conic-gradient(from_140deg_at_30%_40%,rgba(8,175,82,0.18),transparent_45%)]" aria-hidden />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,transparent_65%,rgba(6,26,14,0.55)_120%)]" aria-hidden />
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-[1px] -translate-x-1/2 bg-[color:var(--field-line)]/30" aria-hidden />
-          <div className="pointer-events-none absolute bottom-20 left-0 h-[1px] w-full bg-[color:var(--field-line)]/20" aria-hidden />
-          <div className="relative grid gap-16 lg:grid-cols-[minmax(0,1fr),360px]">
+        <div className="relative overflow-hidden rounded-[3rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--background-elevated)]/95 px-8 py-16 shadow-[0_35px_120px_-60px_rgba(6,48,26,0.7)] backdrop-blur-xl sm:px-14 sm:py-24">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(8,140,74,0.28),transparent_60%)]" aria-hidden />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(3,53,27,0.55),transparent_65%)]" aria-hidden />
+          <div className="pointer-events-none absolute bottom-0 left-1/2 h-[240px] w-[480px] -translate-x-1/2 rounded-full bg-[color:var(--accent-primary)]/20 blur-3xl" aria-hidden />
+          <div className="relative grid gap-16 lg:grid-cols-[minmax(0,1fr),380px]">
             <div className="space-y-12">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-5 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">
-                  Neu · SoccerHUB Beta
+              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-5 py-2 text-[color:var(--text-secondary)]">
+                  🚀 Beta live in Rhein-Neckar
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
-                  Smarte Spielpläne
+                <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/15 px-4 py-2 text-[color:var(--accent-primary)]">
+                  UX-first Booking
                 </span>
               </div>
-              <div className="space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-5xl sm:leading-tight">
+              <div className="space-y-7">
+                <h1 className="text-4xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
                   SoccerHUB – Dein digitales Clubhaus für Indoor-Soccer &amp; Padel
                 </h1>
                 <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]">
-                  Erlebe eine Plattform, die aussieht wie das Spiel selbst: präzise, dynamisch und voll auf Performance getrimmt. Vergleiche Arenen, erkenne freie Slots und buche direkt beim Betreiber.
+                  Buche Slots schneller als je zuvor: transparente Preise, Echtzeit-Verfügbarkeit und ein Interface, das sich wie ein Taktikbrett anfühlt. Für Teams, Betreiber:innen und Communities, die keine Zeit verlieren wollen.
                 </p>
               </div>
-              <div className="flex flex-col gap-4 sm:flex-row">
+              <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
                 <a
                   href="#hallen"
                   className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
@@ -44,61 +42,76 @@ export default function HomePage() {
                 </a>
                 <a
                   href="mailto:team@soccerhub.app"
-                  className="theme-transition inline-flex items-center justify-center gap-2 rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40"
                 >
                   Beta-Deck sichern
                 </a>
               </div>
-              <div className="grid gap-4 text-sm text-[color:var(--text-secondary)] sm:grid-cols-3">
-                {["360° Arena Profile", "Realtime Slot Radar", "Direktkontakt Betreiber"].map((label) => (
+              <div className="grid gap-4 sm:grid-cols-3">
+                {[{ label: "360° Arena Profile", description: "inkl. Fotos, Slots &amp; Preisen" }, { label: "Live Slot Radar", description: "aktualisiert im 5-Minuten-Takt" }, { label: "Direkte Buchung", description: "ohne Anruf, ohne Wartezeit" }].map((feature) => (
                   <div
-                    key={label}
-                    className="theme-transition flex items-center gap-3 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/75 px-4 py-3"
+                    key={feature.label}
+                    className="theme-transition rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/85 p-4 text-left text-sm text-[color:var(--text-secondary)]"
                   >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--background-primary)]/60 text-sm font-semibold text-[color:var(--accent-primary)]">
-                      ●
-                    </span>
-                    <span className="text-sm font-medium text-[color:var(--text-primary)]">{label}</span>
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+                      {feature.label}
+                    </p>
+                    <p className="mt-2 text-sm text-[color:var(--text-primary)]">{feature.description}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="relative hidden overflow-hidden rounded-[2.5rem] border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/80 p-10 text-[color:var(--text-primary)] shadow-[0_55px_180px_-90px_rgba(0,0,0,0.8)] backdrop-blur lg:block">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,128,64,0.25),_transparent_65%)]" aria-hidden />
-              <div className="pointer-events-none absolute inset-x-10 top-20 h-[1px] bg-[color:var(--field-line)]/35" aria-hidden />
+            <div className="relative hidden overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/90 p-10 text-[color:var(--text-primary)] shadow-[0_55px_160px_-80px_rgba(0,0,0,0.85)] backdrop-blur lg:block">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,120,64,0.35),transparent_70%)]" aria-hidden />
+              <div className="pointer-events-none absolute inset-x-10 top-16 h-[1px] bg-[color:var(--field-line)]/30" aria-hidden />
               <div className="relative space-y-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Match Center</p>
+                <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
+                  <span>Match Center</span>
+                  <span>Realtime Sync</span>
+                </div>
                 <h2 className="text-3xl font-semibold leading-tight">Taktisches Dashboard</h2>
-                <div className="rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
-                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-[color:var(--text-secondary)]">
-                    <span>Next Match</span>
+                <div className="rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/80 p-6 shadow-inner">
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">
+                    <span>Nächstes Highlight</span>
                     <span>Freitag · 19:30</span>
                   </div>
-                  <div className="mt-4 flex items-center justify-between rounded-2xl bg-[color:var(--pitch-dark)]/80 px-5 py-4 text-[color:var(--background-primary)]">
-                    <div className="space-y-1">
-                      <p className="text-sm uppercase tracking-[0.32em] text-white/60">Arena</p>
-                      <p className="text-2xl font-semibold text-white">Green Dome Mannheim</p>
+                  <div className="mt-5 space-y-4 rounded-2xl bg-[color:var(--pitch-dark)]/85 px-5 py-4 text-[color:var(--background-primary)]">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.32em] text-white/60">Arena</p>
+                        <p className="text-2xl font-semibold text-white">Green Dome Mannheim</p>
+                      </div>
+                      <span className="text-4xl font-black text-[color:var(--accent-secondary)]">19:30</span>
                     </div>
-                    <span className="text-4xl font-black text-[color:var(--accent-secondary)]">19:30</span>
+                    <div className="grid gap-3 text-xs uppercase tracking-[0.3em] text-white/70 sm:grid-cols-3">
+                      {["Padel Courts · 4", "Soccer XL · Slots frei", "Teams · 78"].map((item) => (
+                        <div
+                          key={item}
+                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-[11px] font-semibold"
+                        >
+                          {item}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <ul className="mt-5 grid gap-3 text-sm text-[color:var(--text-secondary)]">
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/80 px-4 py-3">
-                      <span>Padel Courts</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">4 verfügbar</span>
+                  <ul className="mt-6 space-y-3 text-sm text-[color:var(--text-secondary)]">
+                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
+                      <span>Integrationen</span>
+                      <span className="font-semibold text-[color:var(--accent-primary)]">12 Systeme</span>
                     </li>
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/80 px-4 py-3">
-                      <span>Soccer XL</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">Slots 21-23h</span>
+                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
+                      <span>Verfügbarkeiten</span>
+                      <span className="font-semibold text-[color:var(--accent-primary)]">Live Refresh</span>
                     </li>
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/80 px-4 py-3">
-                      <span>Members</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">78 Teams</span>
+                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
+                      <span>Team Ranking</span>
+                      <span className="font-semibold text-[color:var(--accent-primary)]">Beta Zugriff</span>
                     </li>
                   </ul>
                 </div>
-                <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Realtime Booking Radar</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Einbindung in Vereinssoftware</p>
                 <p className="text-sm text-[color:var(--text-secondary)]">
-                  Synchronisiert mit Betreiber-Systemen und bereit für Deep Links in deine Vereinssoftware.
+                  Synchronisiert mit Betreiber-Systemen, bietet Smart Alerts und exportiert deine Buchungen direkt in ClubPlanner &amp; Co.
                 </p>
               </div>
             </div>
@@ -107,30 +120,44 @@ export default function HomePage() {
       </section>
 
       <section className="container-narrow" id="matchcenter">
-        <div className="grid gap-8 rounded-[2.5rem] border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/70 px-8 py-10 shadow-[0_45px_120px_-80px_rgba(10,60,28,0.7)] backdrop-blur sm:px-12 sm:py-14">
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-center">
-            <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Match Center Insights</h2>
-            <p className="text-base text-[color:var(--text-secondary)]">
-              Wir verbinden Field-Optik mit datengetriebenen Insights. Filter, Preislevel, Öffnungszeiten und direkte Buchungslinks – alles im klaren Soccer-Branding.
-            </p>
+        <div className="relative overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/85 px-8 py-12 shadow-[0_40px_120px_-80px_rgba(10,60,28,0.7)] backdrop-blur sm:px-14">
+          <div className="pointer-events-none absolute inset-x-0 -top-1/3 h-full bg-[radial-gradient(circle_at_top,_rgba(8,140,74,0.22),transparent_70%)]" aria-hidden />
+          <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1fr),320px]">
+            <div className="space-y-8">
+              <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,320px)] sm:items-center">
+                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Match Center Insights</h2>
+                <p className="text-base text-[color:var(--text-secondary)]">
+                  Wir kombinieren Field-Optik mit datengetriebenem Booking. Filter, Preislevel, Öffnungszeiten und direkte Buchungslinks – sauber strukturiert für schnelle Entscheidungen.
+                </p>
+              </div>
+              <dl className="grid gap-6 md:grid-cols-3">
+                {[{ title: "Teams on Board", value: "180+", detail: "Beta-Teams testen Live-Buchungen &amp; Slot-Radar." }, { title: "Operator Sync", value: "12 Integrationen", detail: "Von lokalen Betreiber:innen bis Pro Clubs." }, { title: "Instant Visibility", value: "< 45 Sek.", detail: "Von Anfrage bis Buchung ohne Medienbrüche." }].map((stat) => (
+                  <div key={stat.title} className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/80 p-6 shadow-inner">
+                    <dt className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">{stat.title}</dt>
+                    <dd className="mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">{stat.value}</dd>
+                    <p className="mt-2 text-sm text-[color:var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: stat.detail }} />
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div className="space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">So klappt die Buchung</p>
+              <ol className="space-y-5 text-sm text-[color:var(--text-secondary)]">
+                {["Wähle Sportart, Preisfenster &amp; Ausstattung.", "Prüfe freie Slots im Echtzeit-Radar und sichere dir deinen Termin.", "Informiere dein Team via Deep Link und nutze optionale Add-ons."]
+                  .map((step, index) => (
+                  <li key={step} className="flex gap-4">
+                    <span className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/15 text-xs font-semibold text-[color:var(--accent-primary)]">
+                      {index + 1}
+                    </span>
+                    <span dangerouslySetInnerHTML={{ __html: step }} />
+                  </li>
+                ))}
+              </ol>
+              <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+                <span className="font-semibold text-[color:var(--accent-primary)]">Neu:</span> Sammelbuchungen &amp; Multicourt-Planung im Beta-Test.
+              </div>
+            </div>
           </div>
-          <dl className="grid gap-5 md:grid-cols-3">
-            <div className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
-              <dt className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Teams on Board</dt>
-              <dd className="mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">180+</dd>
-              <p className="mt-2 text-sm text-[color:var(--text-secondary)]">Beta-Teams testen gerade Live-Buchungen und Slot-Radar.</p>
-            </div>
-            <div className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
-              <dt className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Operator Sync</dt>
-              <dd className="mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">12 Integrationen</dd>
-              <p className="mt-2 text-sm text-[color:var(--text-secondary)]">Von Local Heroes bis Pro Clubs – wir binden Systeme direkt an.</p>
-            </div>
-            <div className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
-              <dt className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Instant Visibility</dt>
-              <dd className="mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">45s Search</dd>
-              <p className="mt-2 text-sm text-[color:var(--text-secondary)]">Von Anfrage bis Buchung in unter einer Minute. Kein Tabellen-Chaos.</p>
-            </div>
-          </dl>
         </div>
       </section>
 
