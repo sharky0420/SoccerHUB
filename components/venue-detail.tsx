@@ -113,8 +113,8 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             <p>
               Für Live-Verfügbarkeiten oder Reservierungen wird die Halle direkt auf ihrer Website gepflegt. Eine API-Anbindung ist im nächsten Release-Plan vorgesehen.
             </p>
-            <Link href="mailto:partner@turftime.app" className="font-medium text-primary">
-              Betreiber:in? Jetzt Kontakt aufnehmen
+            <Link href="mailto:partners@soccerhub.app" className="font-medium text-primary">
+              Betreiber:in? SoccerHUB Partner werden
             </Link>
           </div>
         </aside>

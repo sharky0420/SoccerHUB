@@ -1,21 +1,11 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 type Theme = "light" | "dark";
 
 interface ThemeContextValue {
   theme: Theme;
-  toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -24,20 +14,28 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-const STORAGE_KEY = "turftime-theme";
-
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    if (storedTheme === "light" || storedTheme === "dark") {
-      setTheme(storedTheme);
-      return;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const applyTheme = (matches: boolean) => {
+      setTheme(matches ? "dark" : "light");
+    };
+
+    applyTheme(mediaQuery.matches);
+
+    const listener = (event: MediaQueryListEvent) => {
+      applyTheme(event.matches);
+    };
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", listener);
+      return () => mediaQuery.removeEventListener("change", listener);
     }
 
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(prefersDark ? "dark" : "light");
+    mediaQuery.addListener(listener);
+    return () => mediaQuery.removeListener(listener);
   }, []);
 
   useEffect(() => {
@@ -45,17 +43,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     root.dataset.theme = theme;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-    localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
-  }, []);
-
-  const value = useMemo<ThemeContextValue>(
-    () => ({ theme, toggleTheme, setTheme }),
-    [theme, toggleTheme, setTheme],
-  );
+  const value = useMemo<ThemeContextValue>(() => ({ theme }), [theme]);
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
