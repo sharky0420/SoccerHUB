@@ -170,7 +170,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               <button
                 type="button"
                 onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
-                className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
+                className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
               >
                 <span aria-hidden>＋</span>
                 Mehr Arenen laden

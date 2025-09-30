@@ -35,14 +35,14 @@ export default function HomePage() {
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
                 <a
                   href="#hallen"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
                 >
                   <span className="text-lg">⚽</span>
                   Arenen entdecken
                 </a>
                 <a
                   href="mailto:team@soccerhub.app"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
                 >
                   Beta-Deck sichern
                 </a>
