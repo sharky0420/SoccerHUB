@@ -68,9 +68,9 @@ export function FilterPanel({
       <header className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[color:var(--text-secondary)]">Filter</p>
-          <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">Finde deine Halle</h2>
+          <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">Finde deinen Spot</h2>
           <p className="mt-1 text-xs text-[color:var(--text-secondary)]/80">
-            Justiere Sportarten, Preislevel und Ausstattung für deinen perfekten Slot.
+            Justiere Sportarten, Preislevel und Ausstattung für deinen perfekten Slot – ob Matchday, Padel-Session oder Functional Training.
           </p>
         </div>
         <button

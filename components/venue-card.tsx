@@ -7,9 +7,11 @@ interface VenueCardProps {
 }
 
 const sportLabels: Record<string, string> = {
-  Soccer: "Soccer",
+  "Fußball Indoor": "Fußball Indoor",
   Padel: "Padel",
-  Futsal: "Futsal",
+  "Functional Fitness": "Functional Fitness",
+  Fitnessstudio: "Fitnessstudio",
+  Recovery: "Recovery",
 };
 
 export function VenueCard({ venue }: VenueCardProps) {
