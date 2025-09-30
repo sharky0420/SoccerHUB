@@ -216,7 +216,7 @@ export function FilterPanel({
     <aside className="glass-panel theme-transition space-y-7 rounded-3xl border border-[color:var(--border-subtle)]/80 p-8 text-[color:var(--text-primary)] lg:sticky lg:top-32">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">Filter</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-tertiary)]">Filter</p>
           <h2 className="mt-2 text-2xl font-semibold leading-tight">Finde deinen Spot</h2>
           <p className="mt-2 text-sm text-[color:var(--text-secondary)]/85">
             Kuratiere Sportarten, Standort und Ausstattung. SoccerHUB zeigt dir live verfügbare Slots und Tarife.
@@ -232,16 +232,16 @@ export function FilterPanel({
       </header>
 
       <div className="space-y-6">
-        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/60 p-4 shadow-[0_24px_90px_-60px_rgba(8,36,24,0.65)]">
+        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/65 p-4 shadow-[0_24px_90px_-60px_rgba(8,36,24,0.65)]">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Standort</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Standort</p>
               <h3 className="mt-1 text-base font-semibold text-[color:var(--text-primary)]">Wo willst du spielen?</h3>
             </div>
             <button
               type="button"
               onClick={handleLocateMe}
-              className="theme-transition inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/25 bg-[color:var(--accent-primary)]/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--accent-primary)] hover:bg-[color:var(--accent-primary)]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/60"
+              className="theme-transition inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary-strong)]/40 bg-[color:var(--accent-primary-strong)]/12 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--accent-primary-strong)] hover:bg-[color:var(--accent-primary-strong)]/18 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/70"
             >
               <TargetIcon className="h-3.5 w-3.5" />
               Near Me
@@ -259,7 +259,7 @@ export function FilterPanel({
               onChange={(event) => onChange({ ...state, city: event.target.value, nearby: false })}
               className="theme-transition w-full rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/80 py-3 pl-11 pr-4 text-sm font-medium text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
             />
-            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[color:var(--accent-primary)]/80">
+            <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[color:var(--accent-primary-strong)]/85">
               <MapPinIcon className="h-4 w-4" />
             </span>
           </label>
@@ -272,10 +272,10 @@ export function FilterPanel({
           )}
         </section>
 
-        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/60 p-4">
+        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/70 p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Sportarten</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Sportarten</p>
               <h3 className="mt-1 text-base font-semibold">Disziplin wählen</h3>
             </div>
             <span className="text-xs text-[color:var(--text-secondary)]/75">Mehrfachauswahl möglich</span>
@@ -291,11 +291,18 @@ export function FilterPanel({
                   aria-pressed={selected}
                   className={`theme-transition inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)] ${
                     selected
-                      ? "border-[color:var(--accent-primary)] bg-[color:var(--accent-primary)]/15 text-[color:var(--accent-primary)] shadow-[0_12px_35px_-24px_rgba(10,90,60,0.65)]"
-                      : "border-[color:var(--border-subtle)]/60 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary)]/40 hover:text-[color:var(--accent-primary)]"
+                      ? "border-transparent bg-[color:var(--accent-primary-strong)] text-[color:var(--accent-primary-contrast)] shadow-[0_16px_36px_-22px_rgba(0,108,56,0.55)]"
+                      : "border-[color:var(--surface-glass-border)]/60 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary-strong)]/45 hover:text-[color:var(--accent-primary-strong)]"
                   }`}
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]" aria-hidden />
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      selected
+                        ? "bg-[color:var(--accent-primary-contrast)]"
+                        : "bg-[color:var(--accent-primary-strong)]/40"
+                    }`}
+                    aria-hidden
+                  />
                   {sport}
                 </button>
               );
@@ -303,9 +310,9 @@ export function FilterPanel({
           </div>
         </section>
 
-        <section className="grid gap-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/60 p-4 sm:grid-cols-2">
+        <section className="grid gap-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/65 p-4 sm:grid-cols-2">
           <div className="space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Preisrange</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Preisrange</p>
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--text-secondary)]/70">
@@ -354,7 +361,7 @@ export function FilterPanel({
             </p>
           </div>
           <div className="space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Öffnungszeiten</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Öffnungszeiten</p>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -395,7 +402,7 @@ export function FilterPanel({
         <section className="space-y-5 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/60 p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Ausstattung</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Ausstattung</p>
               <h3 className="mt-1 text-base font-semibold text-[color:var(--text-primary)]">Features mit Icon-Guide</h3>
             </div>
             <span className="text-xs text-[color:var(--text-secondary)]/75">Tippe zum Aktivieren</span>
@@ -428,11 +435,11 @@ export function FilterPanel({
                           </span>
                           <span className="font-medium">{amenity}</span>
                         </span>
-                        <span
-                          className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${
-                            selected ? "text-[color:var(--accent-primary)]" : "text-[color:var(--text-secondary)]/60"
-                          }`}
-                        >
+                          <span
+                            className={`text-xs font-semibold uppercase tracking-[0.18em] ${
+                              selected ? "text-[color:var(--accent-primary)]" : "text-[color:var(--text-secondary)]/60"
+                            }`}
+                          >
                           {selected ? "Aktiv" : "+"}
                         </span>
                       </button>

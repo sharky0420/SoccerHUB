@@ -21,23 +21,23 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
   const cityEntries = useMemo(() => aggregateCities(venues), [venues]);
 
   return (
-    <div className="glass-panel theme-transition flex h-full flex-col gap-5 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.85)]">
+    <div className="glass-panel theme-transition flex h-full flex-col gap-5 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/75 p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.85)]">
       <header className="flex flex-col gap-3">
-        <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary)]">
-          <TargetIcon className="h-4 w-4" />
+        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">
+          <TargetIcon className="h-4 w-4 text-[color:var(--accent-primary-strong)]" />
           Standort-Explorer
         </div>
         <div className="space-y-2">
-          <h3 className="text-2xl font-semibold leading-tight">Map View – verfügbare Arenen</h3>
+          <h3 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)]">Map View – verfügbare Arenen</h3>
           <p className="text-sm text-[color:var(--text-secondary)]/85">
             Zoome visuell in deine Region: Marker zeigen die Anzahl gelisteter Venues und die Preisspanne. Klicke auf einen Pin, um die Liste zu filtern.
           </p>
         </div>
-        <div className="flex flex-wrap gap-3 text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]">
-          <span className="inline-flex items-center gap-1 rounded-full bg-[color:var(--accent-primary)]/15 px-3 py-1 text-[color:var(--accent-primary)]">
+        <div className="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/85">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[color:var(--accent-primary-strong)] px-3 py-1.5 text-[color:var(--accent-primary-contrast)] shadow-[0_16px_32px_-18px_rgba(0,108,56,0.55)]">
             <BadgeCheckIcon className="h-3.5 w-3.5" /> Live Slots
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-[color:var(--accent-secondary)]/15 px-3 py-1 text-[color:var(--accent-secondary)]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[color:var(--accent-secondary-strong)] px-3 py-1.5 text-[color:var(--pitch-dark)] shadow-[0_16px_32px_-18px_rgba(31,184,100,0.5)]">
             <SparkleIcon className="h-3 w-3" /> Auf Anfrage
           </span>
         </div>
@@ -68,23 +68,29 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
               style={{ top: `${entry.top}%`, left: `${entry.left}%` }}
               className={`theme-transition absolute -translate-x-1/2 -translate-y-full rounded-2xl border px-4 py-3 text-left shadow-[0_22px_60px_-40px_rgba(5,64,38,0.9)] backdrop-blur ${
                 isActive
-                  ? "border-[color:var(--accent-primary)]/80 bg-[color:var(--accent-primary)]/15"
-                  : "border-white/15 bg-white/10 hover:border-[color:var(--accent-primary)]/50 hover:bg-[color:var(--accent-primary)]/12"
+                  ? "border-[color:var(--accent-primary-strong)] bg-[color:var(--accent-primary-strong)]/85 text-[color:var(--accent-primary-contrast)]"
+                  : "border-white/18 bg-white/14 text-white/90 hover:border-[color:var(--accent-primary)]/50 hover:bg-[color:var(--accent-primary)]/18"
               }`}
               onClick={() => onCitySelect?.(entry.city)}
             >
-              <div className="flex items-center gap-2 text-[color:var(--background-primary)]">
-                <span className={`inline-flex items-center justify-center rounded-full p-1 ${hasPrice ? "bg-[color:var(--accent-primary)]" : "bg-[color:var(--accent-secondary)]"}`}>
+              <div className="flex items-center gap-2">
+                <span
+                  className={`inline-flex items-center justify-center rounded-full p-1.5 text-[color:var(--accent-primary-contrast)] ${
+                    hasPrice
+                      ? "bg-[color:var(--accent-primary-strong)]"
+                      : "bg-[color:var(--accent-secondary-strong)] text-[color:var(--pitch-dark)]"
+                  }`}
+                >
                   <MapPinIcon className="h-4 w-4" />
                 </span>
                 <div className="leading-tight">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-90">{entry.city}</p>
-                  <p className="text-[11px] text-white/70">{entry.count} Venues</p>
+                  <p className="text-xs opacity-75">{entry.count} Venues</p>
                 </div>
               </div>
-              <div className="mt-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80">
+              <div className="mt-3 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.18em] opacity-80">
                 <span>{hasPrice ? "Ø Preis" : "Auf Anfrage"}</span>
-                <span className={hasPrice ? "text-[color:var(--accent-primary)]" : "text-[color:var(--accent-secondary)]"}>
+                <span className="text-white">
                   {hasPrice ? `${Math.round(entry.priceSample!)} €` : "Kontakt"}
                 </span>
               </div>

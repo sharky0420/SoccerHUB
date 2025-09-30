@@ -75,123 +75,132 @@ export function VenueCard({ venue }: VenueCardProps) {
           Verifiziert
         </div>
         {venue.city ? (
-          <div className="absolute left-6 bottom-6 inline-flex items-center gap-2 rounded-full bg-black/60 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_-32px_rgba(0,0,0,0.8)]">
+          <div className="absolute left-6 bottom-6 inline-flex items-center gap-2 rounded-full bg-black/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_45px_-32px_rgba(0,0,0,0.8)]">
             <MapPinIcon className="h-3.5 w-3.5" />
             {venue.city}
           </div>
         ) : null}
       </div>
-      <div className="flex flex-1 flex-col gap-8 p-8 text-[color:var(--text-primary)] sm:p-9">
-        <header className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--accent-primary)]">
-              <TargetIcon className="h-3.5 w-3.5" /> {venue.sports.map((sport) => sportLabels[sport] ?? sport).join(" · ")}
-            </span>
-            <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]">
-              <EuroIcon className="h-3.5 w-3.5 text-[color:var(--accent-primary)]" />
-              {formattedPrice ? (
-                <span className="text-base font-semibold text-[color:var(--accent-primary)]">
-                  {formattedPrice}
-                  <span className="ml-1 text-[11px] font-medium text-[color:var(--text-secondary)]/80">/ Stunde</span>
+      <div className="glass-veil flex flex-1 flex-col rounded-[2.35rem]">
+        <div className="flex flex-1 flex-col gap-8 p-8 text-[color:var(--text-primary)] sm:p-9">
+          <header className="space-y-4 sm:space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/16 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--accent-primary-strong)] shadow-[0_6px_24px_-16px_rgba(0,108,56,0.6)]">
+                <TargetIcon className="h-3.5 w-3.5 text-[color:var(--accent-primary-strong)]" />
+                {venue.sports.map((sport) => sportLabels[sport] ?? sport).join(" · ")}
+              </span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/85 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)] shadow-[0_12px_30px_-18px_rgba(6,40,24,0.45)]">
+                <EuroIcon className="h-3.5 w-3.5 text-[color:var(--accent-primary-strong)]" />
+                {formattedPrice ? (
+                  <span className="text-base font-semibold text-[color:var(--accent-primary-strong)]">
+                    {formattedPrice}
+                    <span className="ml-1 text-xs font-medium text-[color:var(--text-tertiary)]">/ Stunde</span>
+                  </span>
+                ) : (
+                  <span className="text-sm font-semibold text-[color:var(--accent-secondary-strong)]">Preis auf Anfrage</span>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="text-2xl font-bold leading-tight text-[color:var(--text-primary)] sm:text-[1.7rem]">
+                {venue.name}
+              </h3>
+              <p className="text-base leading-relaxed text-[color:var(--text-secondary)]/90">{venue.description}</p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 text-sm text-[color:var(--text-secondary)]">
+              {openingSummary ? (
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/50 bg-[color:var(--surface-card)]/90 px-3.5 py-1.5 text-[color:var(--text-secondary)]">
+                  <ClockIcon className="h-4 w-4 text-[color:var(--accent-primary-strong)]" />
+                  {openingSummary}
                 </span>
               ) : (
-                <span className="text-sm font-semibold text-[color:var(--accent-secondary)]">Preis auf Anfrage</span>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-2xl font-semibold leading-tight sm:text-[1.65rem]">{venue.name}</h3>
-            <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">{venue.description}</p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 text-sm text-[color:var(--text-secondary)]">
-            {openingSummary ? (
-              <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card-muted)]/70 px-3 py-1.5">
-                <ClockIcon className="h-4 w-4 text-[color:var(--accent-primary)]" />
-                {openingSummary}
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card-muted)]/70 px-3 py-1.5 text-[color:var(--text-secondary)]">
-                <ClockIcon className="h-4 w-4 text-[color:var(--text-secondary)]/70" />
-                Öffnungszeiten auf Anfrage
-              </span>
-            )}
-            <span
-              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] ${availability.badgeClass}`}
-            >
-              {availability.icon}
-              {availability.label}
-            </span>
-          </div>
-        </header>
-
-        <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
-          <div className="rounded-2xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card-muted)]/70 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/80">
-              Preis &amp; Buchung
-            </p>
-            <div className="mt-3 space-y-2 text-sm text-[color:var(--text-secondary)]">
-              <p>
-                {formattedPrice ? (
-                  <span className="text-lg font-semibold text-[color:var(--accent-primary)]">{formattedPrice}</span>
-                ) : (
-                  <span className="text-base font-semibold text-[color:var(--accent-secondary)]">Auf Anfrage per Kontakt</span>
-                )}
-              </p>
-              {venue.notes ? <p className="text-xs leading-relaxed opacity-80">{venue.notes}</p> : null}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-[color:var(--accent-primary)]/30 bg-gradient-to-br from-[color:var(--accent-primary)]/12 via-[color:var(--surface-card)]/70 to-[color:var(--surface-card-muted)]/70 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/80">
-              Live Status
-            </p>
-            <div className="mt-3 space-y-3 text-sm text-[color:var(--text-secondary)]">
-              <p className="flex items-center gap-2">
-                <BadgeCheckIcon className="h-4 w-4 text-[color:var(--accent-primary)]" />
-                {availability.description}
-              </p>
-              <p className="flex items-center gap-2">
-                <TargetIcon className="h-4 w-4 text-[color:var(--accent-primary)]" />
-                {venue.address ?? "Adresse nach Buchung"}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h4 className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/85">Ausstattung</h4>
-          <ul className="mt-4 grid grid-cols-1 gap-3 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
-            {amenitiesWithIcons.map((amenity) => (
-              <li
-                key={`${venue.id}-${amenity.label}`}
-                className="theme-transition flex items-center gap-3 rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card-muted)]/70 px-3.5 py-2.5"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--surface-card)]/90 text-[color:var(--accent-primary)]">
-                  {amenity.icon}
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/50 bg-[color:var(--surface-card)]/90 px-3.5 py-1.5 text-[color:var(--text-tertiary)]">
+                  <ClockIcon className="h-4 w-4 text-[color:var(--text-tertiary)]" />
+                  Öffnungszeiten auf Anfrage
                 </span>
-                <span className="font-medium leading-tight">{amenity.label}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
+              )}
+              <span
+                className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] ${availability.badgeClass}`}
+              >
+                {availability.icon}
+                {availability.label}
+              </span>
+            </div>
+          </header>
 
-        <footer className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Link
-            href={`/venues/${venue.id}`}
-            className="theme-transition inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/70 bg-[color:var(--surface-card)]/85 px-5 py-2.5 text-sm font-semibold text-[color:var(--text-primary)] shadow-[0_20px_60px_-40px_rgba(6,36,22,0.6)] hover:border-[color:var(--accent-primary)]/40 hover:text-[color:var(--accent-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
-          >
-            Details ansehen
-          </Link>
-          <a
-            href={venue.externalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="theme-transition inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--accent-primary)] to-[color:var(--accent-secondary)] px-5 py-2.5 text-sm font-semibold text-[color:var(--background-primary)] shadow-[0_24px_65px_-30px_rgba(12,70,45,0.85)] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
-          >
-            Jetzt buchen
-          </a>
-        </footer>
+          <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
+            <div className="rounded-2xl border border-[color:var(--surface-glass-border)]/55 bg-[color:var(--surface-card)]/92 p-5 shadow-[0_18px_52px_-32px_rgba(4,36,20,0.4)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-tertiary)]">
+                Preis &amp; Buchung
+              </p>
+              <div className="mt-3 space-y-2 text-sm text-[color:var(--text-secondary)]">
+                <p>
+                  {formattedPrice ? (
+                    <span className="text-lg font-semibold text-[color:var(--accent-primary-strong)]">{formattedPrice}</span>
+                  ) : (
+                    <span className="text-base font-semibold text-[color:var(--accent-secondary-strong)]">Auf Anfrage per Kontakt</span>
+                  )}
+                </p>
+                {venue.notes ? (
+                  <p className="text-sm leading-relaxed text-[color:var(--text-tertiary)]/85">{venue.notes}</p>
+                ) : null}
+              </div>
+            </div>
+            <div className="rounded-2xl border border-[color:var(--accent-primary)]/40 bg-gradient-to-br from-[color:var(--accent-primary)]/14 via-[color:var(--surface-card)]/85 to-[color:var(--surface-card-muted)]/80 p-5 shadow-[0_20px_60px_-38px_rgba(0,134,74,0.45)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-tertiary)]">
+                Live Status
+              </p>
+              <div className="mt-3 space-y-3 text-sm text-[color:var(--text-secondary)]">
+                <p className="flex items-center gap-2 text-[color:var(--text-secondary)]/95">
+                  <BadgeCheckIcon className="h-4 w-4 text-[color:var(--accent-primary-strong)]" />
+                  {availability.description}
+                </p>
+                <p className="flex items-center gap-2 text-[color:var(--text-secondary)]/95">
+                  <TargetIcon className="h-4 w-4 text-[color:var(--accent-primary-strong)]" />
+                  {venue.address ?? "Adresse nach Buchung"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-tertiary)]">
+              Ausstattung
+            </h4>
+            <ul className="mt-4 grid grid-cols-1 gap-3 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
+              {amenitiesWithIcons.map((amenity) => (
+                <li
+                  key={`${venue.id}-${amenity.label}`}
+                  className="theme-transition flex items-center gap-3 rounded-2xl border border-[color:var(--surface-glass-border)]/55 bg-[color:var(--surface-card)]/90 px-3.5 py-2.5 shadow-[0_16px_40px_-30px_rgba(4,32,20,0.45)]"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[color:var(--surface-card-strong)]/92 text-[color:var(--accent-primary-strong)]">
+                    {amenity.icon}
+                  </span>
+                  <span className="font-medium leading-tight text-[color:var(--text-secondary)]/95">{amenity.label}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <footer className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href={`/venues/${venue.id}`}
+              className="theme-transition inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/65 bg-[color:var(--surface-card)]/92 px-5 py-2.5 text-sm font-semibold text-[color:var(--text-primary)] shadow-[0_22px_64px_-38px_rgba(6,36,22,0.6)] hover:border-[color:var(--accent-primary)]/45 hover:bg-[color:var(--surface-card-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/80"
+            >
+              Details ansehen
+            </Link>
+            <a
+              href={venue.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="theme-transition inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-[linear-gradient(120deg,rgba(0,108,56,1),rgba(31,184,100,0.92))] px-5 py-2.5 text-sm font-semibold text-[color:var(--accent-primary-contrast)] shadow-[0_26px_70px_-32px_rgba(0,108,56,0.75)] hover:shadow-[0_28px_82px_-28px_rgba(0,108,56,0.75)] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/70"
+            >
+              Jetzt buchen
+            </a>
+          </footer>
+        </div>
       </div>
     </article>
   );
@@ -206,7 +215,7 @@ function getAvailabilityStatus(venue: Venue) {
       label: "Live frei",
       description: "Slots können sofort im Buchungsportal reserviert werden.",
       badgeClass:
-        "border border-[color:var(--accent-primary)]/60 bg-[color:var(--accent-primary)]/12 text-[color:var(--accent-primary)]",
+        "border border-transparent bg-[color:var(--accent-primary-strong)] text-[color:var(--accent-primary-contrast)] shadow-[0_14px_36px_-18px_rgba(0,108,56,0.6)]",
       icon: <BadgeCheckIcon className="h-3.5 w-3.5" />,
     } as const;
   }
@@ -216,7 +225,7 @@ function getAvailabilityStatus(venue: Venue) {
       label: "Auf Anfrage",
       description: "Team kontaktiert dich nach Termin- bzw. Preis-Anfrage.",
       badgeClass:
-        "border border-[color:var(--accent-secondary)]/60 bg-[color:var(--accent-secondary)]/15 text-[color:var(--accent-secondary)]",
+        "border border-transparent bg-[color:var(--accent-secondary-strong)]/95 text-[color:var(--pitch-dark)] shadow-[0_14px_32px_-18px_rgba(31,184,100,0.55)]",
       icon: <SparkleIcon className="h-3.5 w-3.5" />,
     } as const;
   }
@@ -225,7 +234,7 @@ function getAvailabilityStatus(venue: Venue) {
     label: "Verfügbarkeit prüfen",
     description: "Verfügbarkeit wird individuell bestätigt – Anfrage senden.",
     badgeClass:
-      "border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 text-[color:var(--text-secondary)]",
+      "border border-[color:var(--surface-glass-border)]/55 bg-[color:var(--surface-card)]/90 text-[color:var(--text-secondary)] shadow-[0_10px_26px_-18px_rgba(6,32,20,0.4)]",
     icon: <SparkleIcon className="h-3.5 w-3.5" />,
   } as const;
 }

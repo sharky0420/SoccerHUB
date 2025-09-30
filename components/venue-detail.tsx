@@ -49,7 +49,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             priority
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" aria-hidden />
-          <div className="pointer-events-none absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-white backdrop-blur" aria-hidden>
+          <div className="pointer-events-none absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/35 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white shadow-[0_18px_42px_-24px_rgba(0,0,0,0.8)] backdrop-blur" aria-hidden>
             Arena Highlight
           </div>
           <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center gap-3 rounded-2xl bg-black/30 px-5 py-3 text-sm text-white backdrop-blur">
@@ -83,7 +83,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
         <div className="pointer-events-none absolute inset-y-0 left-0 w-1/2 rounded-l-[2.75rem] bg-[linear-gradient(120deg,rgba(92,255,157,0.18),transparent)]" aria-hidden />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 rounded-r-[2.75rem] bg-[color:var(--surface-card-muted)]/60" aria-hidden />
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/80 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-[color:var(--accent-primary)]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary-strong)]/40 bg-[color:var(--surface-card)]/85 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--accent-primary-strong)] shadow-[0_14px_36px_-22px_rgba(0,108,56,0.5)]">
             Venue Profil
           </div>
           <h1 className="text-3xl font-semibold leading-tight text-[color:var(--text-primary)]">{venue.name}</h1>
@@ -99,9 +99,9 @@ export function VenueDetail({ venue }: VenueDetailProps) {
               Preis pro Stunde
             </span>
             {formattedPrice ? (
-              <p className="mt-2 text-3xl font-semibold text-[color:var(--accent-primary)]">
+              <p className="mt-2 text-3xl font-semibold text-[color:var(--accent-primary-strong)]">
                 {formattedPrice}
-                <span className="ml-2 text-xs font-medium uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+                <span className="ml-2 text-xs font-medium uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">
                   pro Std.
                 </span>
               </p>
@@ -110,7 +110,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
                 <p className="text-2xl font-semibold text-[color:var(--text-secondary)]/70">
                   Preis auf Anfrage
                 </p>
-                <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-[color:var(--text-secondary)]/80">
+                <p className="text-xs font-medium uppercase tracking-[0.26em] text-[color:var(--text-tertiary)]">
                   Direkt beim Betreiber anfragen
                 </p>
               </div>
@@ -120,7 +120,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             {venue.sports.map((sport) => (
               <span
                 key={sport}
-                className="chip theme-transition px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]"
+                className="chip theme-transition px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.24em]"
               >
                 {sport}
               </span>
@@ -130,7 +130,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             href={venue.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-6 py-2 text-sm font-semibold text-[color:var(--background-primary)] shadow-[0_0_35px_-8px_rgba(92,255,157,0.7)] hover:translate-y-[-1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
+            className="theme-transition inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,rgba(0,108,56,1),rgba(31,184,100,0.92))] px-6 py-2.5 text-sm font-semibold text-[color:var(--accent-primary-contrast)] shadow-[0_28px_72px_-28px_rgba(0,108,56,0.75)] hover:translate-y-[-1px] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/80"
           >
             Direkt beim Betreiber buchen
           </a>

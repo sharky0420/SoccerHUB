@@ -159,8 +159,8 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
           <div className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/80 px-6 py-6 text-[color:var(--text-primary)] lg:px-8 lg:py-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
-                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]" aria-hidden />
+                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary-strong)]">
+                  <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary-strong)]" aria-hidden />
                   Live Übersicht
                 </div>
                 <div className="space-y-2">
@@ -171,7 +171,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                     Filtere nach Sportarten und Ausstattung. Sortiere nach Preis oder Name und springe direkt zur Kartenansicht.
                   </p>
                   {activeCity && (
-                    <p className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
+                    <p className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary-strong)] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary-contrast)] shadow-[0_14px_32px_-18px_rgba(0,108,56,0.5)]">
                       <MapPinIcon className="h-3.5 w-3.5" /> Fokus: {activeCity}
                     </p>
                   )}
