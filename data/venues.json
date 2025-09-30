@@ -1,258 +1,353 @@
 [
   {
-    "id": "green-dome-mannheim",
-    "name": "Green Dome Mannheim",
+    "id": "rhein-neckar-fussballcenter",
+    "name": "Rhein-Neckar Fußballcenter",
     "city": "Mannheim",
-    "address": "Industriestraße 17, 68169 Mannheim",
-    "description": "Flagship-Hub mit zwei Indoor-Fußballfeldern, vier Padel-Courts und einem Boutique-Fitnessloft inklusive Recovery-Zone.",
-    "pricePerHour": 89,
-    "sports": ["Fußball Indoor", "Padel", "Functional Fitness"],
+    "address": "Theodor-Heuss-Anlage 17, 68165 Mannheim",
+    "description": "Indoor- und Outdoor-Socceranlage mit fünf Kunstrasen-Courts sowie Gastrobereich und Umkleiden.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
     "amenities": [
-      "LED-Courts",
       "Duschen",
-      "Sauna & Ice Bath",
-      "Athletik-Loft",
-      "Livetracking",
-      "Parkplätze"
+      "Umkleiden",
+      "Parkplätze",
+      "Gastronomie",
+      "Shop",
+      "Barrierefrei",
+      "Klimaanlage",
+      "Kartenzahlung"
     ],
+    "openingHours": null,
+    "images": [],
+    "externalUrl": "https://www.rhein-neckar-fussballcenter.de/Preise-und-Angebote/",
+    "notes": "Preise und verfügbare Slots werden telefonisch bzw. per E-Mail bestätigt."
+  },
+  {
+    "id": "calhanoglu-fussballzentrum-kaefertal",
+    "name": "Çalhanoğlu Fußballzentrum Mannheim-Käfertal",
+    "city": "Mannheim",
+    "address": "Am Ullrichsberg 10, 68309 Mannheim",
+    "description": "Indoor-Soccerhalle mit drei Kunstrasenplätzen (u. a. 30×15 m und 30×18 m).",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "14:00", "close": "23:00" },
+      "tuesday": { "open": "14:00", "close": "23:00" },
+      "wednesday": { "open": "14:00", "close": "23:00" },
+      "thursday": { "open": "14:00", "close": "23:00" },
+      "friday": { "open": "14:00", "close": "23:00" },
+      "saturday": { "open": "10:00", "close": "23:00" },
+      "sunday": { "open": "10:00", "close": "23:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.fussballzentrum-kaefertal.de/",
+    "notes": null
+  },
+  {
+    "id": "lufun-soccer-indoorspielplatz",
+    "name": "LuFUN Soccer & Indoorspielplatz",
+    "city": "Ludwigshafen am Rhein",
+    "address": "Saarburger Straße 21, 67071 Ludwigshafen am Rhein",
+    "description": "Indoor-Soccerhalle mit Indoorspielplatz und Sportsbar; familienfreundliche Events.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "15:00", "close": "24:00" },
+      "tuesday": { "open": "15:00", "close": "24:00" },
+      "wednesday": { "open": "15:00", "close": "24:00" },
+      "thursday": { "open": "15:00", "close": "24:00" },
+      "friday": { "open": "15:00", "close": "24:00" },
+      "saturday": { "open": "10:00", "close": "24:00" },
+      "sunday": { "open": "10:00", "close": "24:00" }
+    },
+    "images": [],
+    "externalUrl": "https://lufun.de/soccer/",
+    "notes": "Indoor-Spielbereich täglich bis 19:00 Uhr geöffnet."
+  },
+  {
+    "id": "indoor-soccerpark-eventhouse-weber",
+    "name": "Indoor Soccerpark (Eventhouse Weber)",
+    "city": "Brühl (Baden)",
+    "address": "Luftschiffring 6, 68782 Brühl",
+    "description": "Soccerpark mit drei FIFA-zertifizierten Kunstrasenfeldern sowie Gastronomie und Eventfläche.",
+    "pricePerHour": 60,
+    "sports": ["Soccer"],
+    "amenities": ["Verpflegung", "WLAN"],
+    "openingHours": {
+      "monday": { "open": "09:00", "close": "24:00" },
+      "tuesday": { "open": "09:00", "close": "24:00" },
+      "wednesday": { "open": "09:00", "close": "24:00" },
+      "thursday": { "open": "09:00", "close": "24:00" },
+      "friday": { "open": "09:00", "close": "24:00" },
+      "saturday": { "open": "09:00", "close": "24:00" },
+      "sunday": { "open": "09:00", "close": "24:00" }
+    },
+    "images": [],
+    "externalUrl": "https://soccer.eventhouse-weber.de/preise/",
+    "notes": "10er-Karte für 540 € verfügbar; Stornoregeln siehe Website."
+  },
+  {
+    "id": "kick-mit-indoor-soccer-bischofsheim",
+    "name": "Kick Mit Indoor Soccer Bischofsheim",
+    "city": "Bischofsheim",
+    "address": "Am Schindberg 23, 65474 Bischofsheim",
+    "description": "Indoor-Soccer mit drei Courts (30×15 m), geeignet für Hobbygruppen und Vereine.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "12:00", "close": "18:00" },
+      "tuesday": { "open": "12:00", "close": "18:00" },
+      "wednesday": { "open": "12:00", "close": "18:00" },
+      "thursday": { "open": "12:00", "close": "18:00" },
+      "friday": { "open": "12:00", "close": "18:00" },
+      "saturday": null,
+      "sunday": null
+    },
+    "images": [],
+    "externalUrl": "https://kick-mit.info/",
+    "notes": "Ab 18:00 Uhr sowie am Wochenende Termine nach Vereinbarung."
+  },
+  {
+    "id": "indoor-soccer-langen",
+    "name": "Indoor Soccer Langen",
+    "city": "Langen",
+    "address": null,
+    "description": "Soccerhalle mit vier Feldern (je 15×30 m) auf hochwertigem Kunstrasen.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": null,
+    "images": [],
+    "externalUrl": "https://www.soccerhalle-langen.de/",
+    "notes": "Preisübersicht mit 55–65 € pro Stunde verfügbar; Öffnungszeiten werden nach Anfrage bestätigt."
+  },
+  {
+    "id": "indoor-soccerhalle-manaschaff",
+    "name": "Indoor Soccerhalle Mainaschaff",
+    "city": "Mainaschaff",
+    "address": "Behringstraße 7a, 63814 Mainaschaff",
+    "description": "Indoor-Soccerhalle mit Kunstrasenfeldern und Online-Buchungssystem.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "10:00", "close": "24:00" },
+      "tuesday": { "open": "10:00", "close": "24:00" },
+      "wednesday": { "open": "10:00", "close": "24:00" },
+      "thursday": { "open": "10:00", "close": "24:00" },
+      "friday": { "open": "10:00", "close": "24:00" },
+      "saturday": { "open": "10:00", "close": "24:00" },
+      "sunday": { "open": "10:00", "close": "24:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.soccerhalle-mainaschaff.de/",
+    "notes": null
+  },
+  {
+    "id": "soccarena-heidelberg",
+    "name": "SoccArena Heidelberg",
+    "city": "Heidelberg",
+    "address": null,
+    "description": "Multisport-Anlage mit Indoor-Soccerfeldern und weiteren Sportangeboten; Buchung via Eversports.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "09:00", "close": "23:30" },
+      "tuesday": { "open": "09:00", "close": "23:30" },
+      "wednesday": { "open": "09:00", "close": "23:30" },
+      "thursday": { "open": "09:00", "close": "23:30" },
+      "friday": { "open": "09:00", "close": "23:30" },
+      "saturday": { "open": "10:00", "close": "22:30" },
+      "sunday": { "open": "10:00", "close": "22:30" }
+    },
+    "images": [],
+    "externalUrl": "https://soccarena-hd.de/sportarten/indoor-soccer/",
+    "notes": null
+  },
+  {
+    "id": "pfalzsoccer-dudenhofen",
+    "name": "Pfalzsoccer – Soccerhalle Dudenhofen",
+    "city": "Dudenhofen",
+    "address": "Schillerstraße 72, 67373 Dudenhofen",
+    "description": "Soccerhalle mit Vereinsangeboten, Turnieren und Kindergeburtstagen.",
+    "pricePerHour": 65,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": null,
+      "tuesday": { "open": "16:00", "close": "20:00" },
+      "wednesday": { "open": "16:00", "close": "20:00" },
+      "thursday": { "open": "16:00", "close": "20:00" },
+      "friday": { "open": "16:00", "close": "20:00" },
+      "saturday": { "open": "13:00", "close": "20:00" },
+      "sunday": { "open": "13:00", "close": "20:00" }
+    },
+    "images": [],
+    "externalUrl": "https://pfalzsoccer-dudenhofen.de/",
+    "notes": null
+  },
+  {
+    "id": "europaarena-karlsruhe-neureut",
+    "name": "EuropaArena Karlsruhe / Neureut",
+    "city": "Karlsruhe",
+    "address": "Daimlerstraße 13, 76185 Karlsruhe",
+    "description": "Sportzentrum mit zwei Indoor-Fußballplätzen und weiterem Kursangebot; Buchung via eBuSy.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
     "openingHours": {
       "monday": { "open": "09:00", "close": "23:00" },
       "tuesday": { "open": "09:00", "close": "23:00" },
       "wednesday": { "open": "09:00", "close": "23:00" },
       "thursday": { "open": "09:00", "close": "23:00" },
-      "friday": { "open": "09:00", "close": "01:00" },
-      "saturday": { "open": "08:00", "close": "01:00" },
-      "sunday": { "open": "08:00", "close": "22:00" }
+      "friday": { "open": "09:00", "close": "23:00" },
+      "saturday": { "open": "09:00", "close": "23:00" },
+      "sunday": { "open": "09:00", "close": "23:00" }
     },
-    "images": [
-      "https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d",
-      "https://images.unsplash.com/photo-1534159460-0f47c0b9d4d0",
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438"
-    ],
-    "externalUrl": "https://sportshub.app/green-dome",
-    "notes": "Beta-Partner mit Live-Slot-API."
+    "images": [],
+    "externalUrl": "https://europa-arena.ebusy.de/",
+    "notes": null
   },
   {
-    "id": "padel-district-heidelberg",
-    "name": "Padel District Heidelberg",
-    "city": "Heidelberg",
-    "address": "Czernyring 20, 69115 Heidelberg",
-    "description": "Highend-Padelclub mit sechs Indoor-Courts, Match-Analyse und Sky-Lounge.",
-    "pricePerHour": 64,
+    "id": "soccer-palace-rastatt",
+    "name": "Soccer Palace (Kuppenheim/Rastatt)",
+    "city": "Kuppenheim",
+    "address": "Großaustraße 7, 76456 Kuppenheim",
+    "description": "Indoor-Soccer mit drei Kunstrasenfeldern (30×15 m), Sportsbar und Eventangeboten.",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": null,
+    "images": [],
+    "externalUrl": "https://soccer-palace.eu/",
+    "notes": "Öffnungszeiten nach Vereinbarung; mobile Courts für Events buchbar."
+  },
+  {
+    "id": "soccer-arena-sindelfingen",
+    "name": "Soccer Arena Sindelfingen",
+    "city": "Sindelfingen",
+    "address": "Schwertstraße 5, 71065 Sindelfingen",
+    "description": "Indoor-Arena mit Soccerfeldern, Sportsbar und Kinderland (Soccolino).",
+    "pricePerHour": null,
+    "sports": ["Soccer"],
+    "amenities": [],
+    "openingHours": {
+      "monday": { "open": "14:30", "close": "19:00" },
+      "tuesday": { "open": "14:30", "close": "19:00" },
+      "wednesday": { "open": "14:30", "close": "19:00" },
+      "thursday": { "open": "14:30", "close": "19:00" },
+      "friday": { "open": "14:30", "close": "19:00" },
+      "saturday": { "open": "11:00", "close": "19:00" },
+      "sunday": { "open": "11:00", "close": "19:00" }
+    },
+    "images": [],
+    "externalUrl": "https://dieeventarena.de/",
+    "notes": null
+  },
+  {
+    "id": "padelcity-mannheim",
+    "name": "PadelCity Mannheim",
+    "city": "Mannheim",
+    "address": "Lilienthalstraße 271, 68307 Mannheim",
+    "description": "Padel-Club mit vier Outdoor- und zwei Indoor-Courts inklusive LED-Beleuchtung und Online-Buchung.",
+    "pricePerHour": 22,
     "sports": ["Padel"],
-    "amenities": [
-      "Glas-Courts",
-      "Match-Tracking",
-      "Sky-Lounge",
-      "Duschen",
-      "Pro Shop",
-      "Parkplätze"
-    ],
+    "amenities": ["LED-Flutlicht", "Umkleiden", "Leihschläger", "Parkplätze"],
     "openingHours": {
       "monday": { "open": "08:00", "close": "23:00" },
       "tuesday": { "open": "08:00", "close": "23:00" },
       "wednesday": { "open": "08:00", "close": "23:00" },
       "thursday": { "open": "08:00", "close": "23:00" },
-      "friday": { "open": "08:00", "close": "00:00" },
-      "saturday": { "open": "08:00", "close": "00:00" },
+      "friday": { "open": "08:00", "close": "23:00" },
+      "saturday": { "open": "08:00", "close": "23:00" },
+      "sunday": { "open": "08:00", "close": "23:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.padelcity.de/standorte/mannheim",
+    "notes": "Preisangabe entspricht Early-Bird-Tarif pro Spieler (60 Minuten). Standardtarife siehe Buchungsportal."
+  },
+  {
+    "id": "boulderhaus-mannheim",
+    "name": "Boulderhaus Mannheim",
+    "city": "Mannheim",
+    "address": "Heinz-Haber-Straße 4, 68163 Mannheim",
+    "description": "Boulderhalle mit über 2.000 m² Kletterfläche, Trainingsbereich und Kinderwand.",
+    "pricePerHour": null,
+    "sports": ["Bouldern"],
+    "amenities": ["Leihschuhe", "Campusboard", "Shop", "Café"],
+    "openingHours": {
+      "monday": { "open": "08:00", "close": "23:00" },
+      "tuesday": { "open": "08:00", "close": "23:00" },
+      "wednesday": { "open": "08:00", "close": "23:00" },
+      "thursday": { "open": "08:00", "close": "23:00" },
+      "friday": { "open": "08:00", "close": "23:00" },
+      "saturday": { "open": "09:00", "close": "22:00" },
       "sunday": { "open": "09:00", "close": "22:00" }
     },
-    "images": [
-      "https://images.unsplash.com/photo-1598970605070-57be927b8be8",
-      "https://images.unsplash.com/photo-1618836884767-5e5d5e79f59c"
-    ],
-    "externalUrl": "https://sportshub.app/padel-district"
+    "images": [],
+    "externalUrl": "https://boulderhaus.de/mannheim",
+    "notes": "Tageskarte Erwachsene 15,90 €; 10er-Karten und Abos verfügbar."
   },
   {
-    "id": "pulse-athletic-club",
-    "name": "Pulse Athletic Club Heidelberg",
-    "city": "Heidelberg",
-    "address": "Bergheimer Str. 104, 69115 Heidelberg",
-    "description": "Boutique-Fitnessstudio mit Functional Floor, Personal-Coaching und Recovery Bar.",
-    "pricePerHour": 35,
-    "sports": ["Functional Fitness", "Fitnessstudio"],
-    "amenities": [
-      "Personal Coaching",
-      "Recovery Bar",
-      "Duschen",
-      "Locker Smart",
-      "Sauna",
-      "Parking Valet"
-    ],
-    "openingHours": {
-      "monday": { "open": "06:00", "close": "22:00" },
-      "tuesday": { "open": "06:00", "close": "22:00" },
-      "wednesday": { "open": "06:00", "close": "22:00" },
-      "thursday": { "open": "06:00", "close": "22:00" },
-      "friday": { "open": "06:00", "close": "21:00" },
-      "saturday": { "open": "08:00", "close": "18:00" },
-      "sunday": { "open": "09:00", "close": "16:00" }
-    },
-    "images": [
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
-      "https://images.unsplash.com/photo-1554284126-aa88f22d8b74"
-    ],
-    "externalUrl": "https://sportshub.app/pulse-athletic"
-  },
-  {
-    "id": "stadion-loft-ludwigshafen",
-    "name": "Stadion Loft Ludwigshafen",
-    "city": "Ludwigshafen",
-    "address": "Friesenheimstraße 12, 67063 Ludwigshafen",
-    "description": "Industrial-Loft mit Indoor-Fußballfeld, Sprintbahn und Strength-Area für Teams &amp; Corporate-Events.",
-    "pricePerHour": 72,
-    "sports": ["Fußball Indoor", "Functional Fitness"],
-    "amenities": [
-      "Sprintbahn",
-      "Livestream Setup",
-      "Team-Locker",
-      "Eventküche",
-      "Duschen",
-      "Parkplätze"
-    ],
-    "openingHours": null,
-    "images": ["https://images.unsplash.com/photo-1582719478250-c89cae4dc85b"],
-    "externalUrl": "https://sportshub.app/stadion-loft"
-  },
-  {
-    "id": "rhein-neckar-padel-campus",
-    "name": "Rhein-Neckar Padel Campus",
-    "city": "Weinheim",
-    "address": "Güterbahnhofstraße 9, 69469 Weinheim",
-    "description": "Padel- und Fitnesscampus mit Outdoor-Terrasse, Athletik-Box und Café.",
-    "pricePerHour": 56,
-    "sports": ["Padel", "Functional Fitness"],
-    "amenities": [
-      "Outdoor-Terrasse",
-      "Athletik-Box",
-      "Cafe",
-      "Kinderlounge",
-      "Duschen",
-      "Parkplätze"
-    ],
+    "id": "tennis-squash-center-mannheim",
+    "name": "Tennis & Squash Center Mannheim",
+    "city": "Mannheim",
+    "address": "Neckarauer Straße 154, 68199 Mannheim",
+    "description": "Anlage mit 10 Teppich-Tennisplätzen, 8 Squashcourts und Fitnessraum.",
+    "pricePerHour": 26,
+    "sports": ["Tennis", "Squash"],
+    "amenities": ["Umkleiden", "Sauna", "Shop", "Parkplätze"],
     "openingHours": {
       "monday": { "open": "07:00", "close": "23:00" },
       "tuesday": { "open": "07:00", "close": "23:00" },
       "wednesday": { "open": "07:00", "close": "23:00" },
       "thursday": { "open": "07:00", "close": "23:00" },
-      "friday": { "open": "07:00", "close": "00:00" },
-      "saturday": { "open": "08:00", "close": "00:00" },
+      "friday": { "open": "07:00", "close": "23:00" },
+      "saturday": { "open": "08:00", "close": "22:00" },
       "sunday": { "open": "08:00", "close": "22:00" }
     },
-    "images": [
-      "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-      "https://images.unsplash.com/photo-1516274626895-055a99214f08"
-    ],
-    "externalUrl": "https://sportshub.app/rhein-neckar-padel"
+    "images": [],
+    "externalUrl": "https://www.tennis-und-squash-center.de/",
+    "notes": "Preis basiert auf Standard-Hallenstunde für Tennis in der Wintersaison."
   },
   {
-    "id": "urban-soccer-lab-karlsruhe",
-    "name": "Urban Soccer Lab Karlsruhe",
-    "city": "Karlsruhe",
-    "address": "Rheinstraße 88, 76185 Karlsruhe",
-    "description": "Urbaner Indoor-Soccer-Hotspot mit LED-Bande, Tracking-Kameras und Skills-Area.",
-    "pricePerHour": 75,
-    "sports": ["Fußball Indoor"],
-    "amenities": [
-      "LED-Bande",
-      "Skills-Area",
-      "Duschen",
-      "Sportsbar",
-      "Livetracking",
-      "Parkplätze"
-    ],
-    "openingHours": {
-      "monday": { "open": "10:00", "close": "23:00" },
-      "tuesday": { "open": "10:00", "close": "23:00" },
-      "wednesday": { "open": "10:00", "close": "23:00" },
-      "thursday": { "open": "10:00", "close": "23:00" },
-      "friday": { "open": "10:00", "close": "01:00" },
-      "saturday": { "open": "09:00", "close": "01:00" },
-      "sunday": { "open": "09:00", "close": "22:00" }
-    },
-    "images": ["https://images.unsplash.com/photo-1518609878373-06d740f60d8b"],
-    "externalUrl": "https://sportshub.app/urban-soccer-lab"
-  },
-  {
-    "id": "next-level-performance-club",
-    "name": "Next Level Performance Club",
+    "id": "pfitzenmeier-premium-resort-mannheim",
+    "name": "Pfitzenmeier Premium Resort Mannheim",
     "city": "Mannheim",
-    "address": "Neckarauer Str. 120, 68163 Mannheim",
-    "description": "Performance-Studio mit Personal-Pods, Cycling-Lab und Mobility-Classes.",
-    "pricePerHour": 38,
-    "sports": ["Fitnessstudio", "Functional Fitness"],
-    "amenities": [
-      "Personal Pods",
-      "Cycling Lab",
-      "Mobility Classes",
-      "Recovery Lounge",
-      "Duschen",
-      "Parkplätze"
-    ],
+    "address": "Niederfeldstraße 106, 68199 Mannheim",
+    "description": "Premium-Fitnessclub mit Kursen, Wellnesslandschaft, Pools und Functional Training.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Swimming"],
+    "amenities": ["Sauna", "Pool", "Kurse", "Gastronomie", "Parkplätze"],
+    "openingHours": {
+      "monday": { "open": "06:00", "close": "24:00" },
+      "tuesday": { "open": "06:00", "close": "24:00" },
+      "wednesday": { "open": "06:00", "close": "24:00" },
+      "thursday": { "open": "06:00", "close": "24:00" },
+      "friday": { "open": "06:00", "close": "24:00" },
+      "saturday": { "open": "08:00", "close": "22:00" },
+      "sunday": { "open": "08:00", "close": "22:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.pfitzenmeier.de/club/mannheim/",
+    "notes": "Monatsmitgliedschaften ab 99 €; Tageskarten an der Rezeption erhältlich."
+  },
+  {
+    "id": "tsg-78-mannheim-leichtathletik",
+    "name": "TSG 78 Mannheim – Leichtathletikzentrum",
+    "city": "Mannheim",
+    "address": "Hans-Reschke-Ufer 19-21, 68165 Mannheim",
+    "description": "Städtisches Leichtathletikzentrum mit 400-m-Bahn, Indoorhalle und Wurfplätzen.",
+    "pricePerHour": null,
+    "sports": ["Leichtathletik"],
+    "amenities": ["Umkleiden", "Kraftraum", "Tribüne", "Parkplätze"],
     "openingHours": null,
-    "images": [
-      "https://images.unsplash.com/photo-1576678927484-cc907957088c",
-      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b"
-    ],
-    "externalUrl": "https://sportshub.app/next-level"
-  },
-  {
-    "id": "arena-54-multisport",
-    "name": "Arena 54 Multisport",
-    "city": "Heidelberg",
-    "address": "Kurfürsten-Anlage 54, 69115 Heidelberg",
-    "description": "Multisport-Arena mit Indoor-Fußball, zwei Padel-Courts und HIIT-Studio.",
-    "pricePerHour": 82,
-    "sports": ["Fußball Indoor", "Padel", "Functional Fitness"],
-    "amenities": [
-      "HIIT Studio",
-      "Team-Locker",
-      "Café",
-      "Duschen",
-      "Livetracking",
-      "Parkplätze"
-    ],
-    "openingHours": {
-      "monday": { "open": "09:00", "close": "23:00" },
-      "tuesday": { "open": "09:00", "close": "23:00" },
-      "wednesday": { "open": "09:00", "close": "23:00" },
-      "thursday": { "open": "09:00", "close": "23:00" },
-      "friday": { "open": "09:00", "close": "00:00" },
-      "saturday": { "open": "08:00", "close": "00:00" },
-      "sunday": { "open": "08:00", "close": "22:00" }
-    },
-    "images": [
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
-      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba"
-    ],
-    "externalUrl": "https://sportshub.app/arena-54"
-  },
-  {
-    "id": "skyline-recovery-studio",
-    "name": "Skyline Recovery Studio",
-    "city": "Mannheim",
-    "address": "Turley-Platz 5, 68167 Mannheim",
-    "description": "Recovery- und Mobility-Studio mit Eisbädern, Infrared-Sauna und Athletik-Kursen.",
-    "pricePerHour": 45,
-    "sports": ["Fitnessstudio", "Recovery"],
-    "amenities": [
-      "Eisbad",
-      "Infrared-Sauna",
-      "Athletik-Kurse",
-      "Personal Coaching",
-      "Lounge",
-      "Parkplätze"
-    ],
-    "openingHours": {
-      "monday": { "open": "07:00", "close": "21:00" },
-      "tuesday": { "open": "07:00", "close": "21:00" },
-      "wednesday": { "open": "07:00", "close": "21:00" },
-      "thursday": { "open": "07:00", "close": "21:00" },
-      "friday": { "open": "07:00", "close": "20:00" },
-      "saturday": { "open": "09:00", "close": "18:00" },
-      "sunday": { "open": "10:00", "close": "16:00" }
-    },
-    "images": ["https://images.unsplash.com/photo-1546484959-fc3140896cf3"],
-    "externalUrl": "https://sportshub.app/skyline-recovery"
+    "images": [],
+    "externalUrl": "https://www.tsg78.com/leichtathletik/",
+    "notes": "Trainingszeiten über Vereinsgruppen buchbar; Tageskarten für Gastathlet:innen auf Anfrage."
   }
 ]
