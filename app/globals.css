@@ -6,6 +6,11 @@
   --background-primary: #f3f8f3;
   --background-elevated: rgba(255, 255, 255, 0.78);
   --surface-card: rgba(255, 255, 255, 0.88);
+  --surface-card-strong: rgba(255, 255, 255, 0.94);
+  --surface-card-muted: rgba(244, 250, 246, 0.9);
+  --surface-overlay: rgba(255, 255, 255, 0.76);
+  --surface-contrast: rgba(6, 21, 13, 0.78);
+  --surface-glass-border: rgba(0, 107, 53, 0.26);
   --accent-primary: #00b861;
   --accent-secondary: #5cff9d;
   --text-primary: #06150d;
@@ -25,6 +30,11 @@
   --background-primary: #050b09;
   --background-elevated: rgba(10, 20, 18, 0.78);
   --surface-card: rgba(18, 30, 27, 0.72);
+  --surface-card-strong: rgba(14, 28, 23, 0.82);
+  --surface-card-muted: rgba(9, 20, 16, 0.76);
+  --surface-overlay: rgba(10, 24, 19, 0.74);
+  --surface-contrast: rgba(236, 255, 241, 0.12);
+  --surface-glass-border: rgba(50, 255, 136, 0.26);
   --accent-primary: #32ff88;
   --accent-secondary: #8affc4;
   --text-primary: #ecfff1;
