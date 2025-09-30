@@ -1,4 +1,4 @@
-# SoccerHUB UI Style Guide
+# Sports Hub UI Style Guide
 
 Die folgenden Richtlinien dokumentieren das visuelle Redesign der Venue-Übersicht. Sie dienen als Referenz für Produkt-, Design- und Engineering-Teams.
 

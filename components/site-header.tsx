@@ -39,9 +39,9 @@ export function SiteHeader() {
               <span className="relative font-black">SH</span>
             </span>
             <span className="flex flex-col leading-tight">
-              <span>SoccerHUB</span>
+              <span>Sports Hub</span>
               <span className="text-xs font-medium uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-                Indoor Soccer · Padel · Fitness
+                Indoor Sports · Padel · Fitness
               </span>
             </span>
           </Link>

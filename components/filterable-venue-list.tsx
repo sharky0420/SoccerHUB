@@ -229,6 +229,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
             sportsOptions={sports}
             amenityOptions={amenities}
             state={filters}
+            density="compact"
             onChange={(state) => {
               setFilters(state);
               setVisibleCount(ITEMS_PER_PAGE);
@@ -248,7 +249,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                 </div>
                 <div className="space-y-2">
                   <h2 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-3xl">
-                    {sortedVenues.length} Hallen im SoccerHUB
+                    {sortedVenues.length} Hallen im Sports Hub
                   </h2>
                   <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
                     Filtere nach Sportarten, Preisen und Features. Sortiere nach Preis oder Name und öffne die Kartenansicht für eine visuelle Auswahl.

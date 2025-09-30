@@ -10,13 +10,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "SoccerHUB | Indoor-Sporthallen live vergleichen",
-    template: "%s | SoccerHUB",
+    default: "Sports Hub | Indoor-Sporthallen live vergleichen",
+    template: "%s | Sports Hub",
   },
   description:
-    "SoccerHUB bündelt Indoor-Soccer-Arenen, Padel-Courts und funktionelle Trainingsflächen in einer Live-Plattform. Vergleiche Ausstattung, Preise und Verfügbarkeiten und reserviere direkt beim Betreiber.",
+    "Sports Hub bündelt Indoor-Soccer-Arenen, Padel-Courts und funktionelle Trainingsflächen in einer Live-Plattform. Vergleiche Ausstattung, Preise und Verfügbarkeiten und reserviere direkt beim Betreiber.",
   keywords: [
-    "SoccerHUB",
+    "Sports Hub",
     "Fußballhalle",
     "Padel",
     "Indoor Sport",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://sportshub.app"),
   openGraph: {
-    title: "SoccerHUB",
+    title: "Sports Hub",
     description:
       "Die Live-Plattform für Indoor-Sporthallen: Verfügbarkeiten, Ausstattung und Buchungswege auf einen Blick.",
     type: "website",
@@ -49,9 +49,9 @@ export default function RootLayout({
           >
             <div className="container-narrow grid gap-6 text-sm text-[color:var(--text-secondary)] sm:grid-cols-[minmax(0,1fr),auto] sm:items-center">
               <div className="space-y-2">
-                <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit SoccerHUB verbunden</p>
+                <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit Sports Hub verbunden</p>
                 <p>
-                  &copy; {new Date().getFullYear()} SoccerHUB. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Sharky.
+                  &copy; {new Date().getFullYear()} Sports Hub. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Sharky.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">
