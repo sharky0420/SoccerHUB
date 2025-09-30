@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CITY_COORDINATES } from "@/lib/city-coordinates";
 import type { Venue } from "@/types/venue";
+import { Loader } from "@googlemaps/js-api-loader";
 
 interface GoogleMapCanvasProps {
   venues: Venue[];
@@ -44,46 +45,33 @@ export function GoogleMapCanvas({
 
   const venuePoints = useMemo(() => computeVenuePoints(venues), [venues]);
 
-  const ensureScript = useCallback(async () => {
-    if (typeof window === "undefined" || !apiKey) {
-      return null;
-    }
 
+  const loader = useMemo(() => {
+    if (!apiKey) return null;
+    return new Loader({
+      apiKey,
+      version: "weekly",
+      libraries: ["places"], // nur, falls du Places API nutzt
+    });
+  }, [apiKey]);
+
+  const ensureScript = useCallback(async () => {
+    if (typeof window === "undefined" || !loader) return null;
     if (window.google?.maps) {
       setIsScriptLoaded(true);
       return window.google;
     }
+    try {
+      const google = await loader.load();
+      setIsScriptLoaded(true);
+      return google;
+    } catch {
+      setScriptError("Google Maps konnte nicht geladen werden.");
+      return null;
+    }
+  }, [loader]);
 
-    return new Promise<any>((resolve, reject) => {
-      const existingScript = document.querySelector<HTMLScriptElement>("script[data-google-maps]");
-      if (existingScript) {
-        existingScript.addEventListener("load", () => {
-          setIsScriptLoaded(true);
-          resolve(window.google);
-        });
-        existingScript.addEventListener("error", () => {
-          setScriptError("Google Maps konnte nicht geladen werden.");
-          reject(new Error("Google Maps script failed"));
-        });
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.dataset.googleMaps = "true";
-      script.onload = () => {
-        setIsScriptLoaded(true);
-        resolve(window.google);
-      };
-      script.onerror = () => {
-        setScriptError("Google Maps konnte nicht geladen werden.");
-        reject(new Error("Google Maps script failed"));
-      };
-      document.head.append(script);
-    });
-  }, [apiKey]);
+  
 
   useEffect(() => {
     if (!apiKey) {

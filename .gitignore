@@ -67,3 +67,4 @@ coverage/
 
 # Optional: local data / cache
 .cache/
+.env.local
