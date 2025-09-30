@@ -27,7 +27,7 @@ export default function HomePage() {
               </div>
               <div className="space-y-7">
                 <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
-                  SoccerHUB – Dein Live-Überblick über Indoor-Sportanlagen
+                  Sports Hub – Dein Live-Überblick über Indoor-Sportanlagen
                 </h1>
                 <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]/90">
                   Finde in Sekunden die passende Halle für dein Team: von modernen Indoor-Soccer-Arenen über Padel-Courts bis hin zu funktionellen Trainingsflächen. Alle Plätze sind geprüft, mit Live-Verfügbarkeiten, Ausstattung und Buchungslinks.
@@ -138,7 +138,7 @@ export default function HomePage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">Hallenkategorien</p>
                 <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Strukturiert nach Sportart &amp; Ausstattung</h2>
                 <p className="text-base text-[color:var(--text-secondary)]">
-                  Jede Halle auf SoccerHUB erhält ein kuratiertes Profil mit Fokus auf Spielflächen, Equipment und Services. So findest du schnell den passenden Spot für Training, Turniere oder Corporate Events.
+                  Jede Halle auf Sports Hub erhält ein kuratiertes Profil mit Fokus auf Spielflächen, Equipment und Services. So findest du schnell den passenden Spot für Training, Turniere oder Corporate Events.
                 </p>
               </div>
               <div className="rounded-[2.5rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] p-6 shadow-[0_40px_140px_-90px_rgba(8,36,20,0.75)]">

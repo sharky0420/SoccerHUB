@@ -1,4 +1,4 @@
-# SoccerHUB Plattform – Layout & Style Guide
+# Sports Hub Plattform – Layout & Style Guide
 
 ## Kontrast & Typografie
 - Headlines: `--text-primary` (#F4FFF7) auf dunklem Glas-Hintergrund (`--surface-card`), Mindest-Kontrastverhältnis 4.8:1.

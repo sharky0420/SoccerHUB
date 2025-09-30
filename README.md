@@ -1,6 +1,6 @@
-# SoccerHUB – Live-Plattform für Indoor-Sporthallen
+# Sports Hub – Live-Plattform für Indoor-Sporthallen
 
-Dieses Projekt ist ein Next.js-14-Aufbau für SoccerHUB – eine deutschlandweite Übersicht über Fußballhallen, Padel-Center und funktionelle Trainingsflächen. Teams vergleichen Flächen, filtern nach Ausstattung und buchen über verifizierte Betreiber:innen.
+Dieses Projekt ist ein Next.js-14-Aufbau für Sports Hub – eine deutschlandweite Übersicht über Fußballhallen, Padel-Center und funktionelle Trainingsflächen. Teams vergleichen Flächen, filtern nach Ausstattung und buchen über verifizierte Betreiber:innen.
 
 ## Quickstart
 
