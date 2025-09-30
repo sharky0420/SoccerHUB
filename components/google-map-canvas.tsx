@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CITY_COORDINATES } from "@/lib/city-coordinates";
 import type { Venue } from "@/types/venue";
-import { setOptions as setMapsOptions } from "@googlemaps/js-api-loader"; // functional API
+import { Loader } from "@googlemaps/js-api-loader";
 
 interface GoogleMapCanvasProps {
   venues: Venue[];
@@ -50,6 +50,7 @@ export function GoogleMapCanvas({
 
   // Single in-flight load promise (avoids double loads on re-render)
   const loadPromiseRef = useRef<Promise<void> | null>(null);
+  const loaderRef = useRef<Loader | null>(null);
 
   const ensureScript = useCallback(async () => {
     // 1) SSR & fehlender Key
@@ -64,24 +65,27 @@ export function GoogleMapCanvas({
     // 3) Nur einmal laden
     if (!loadPromiseRef.current) {
       try {
-        setMapsOptions({
-          apiKey,
-          version: "weekly",
-          // "libraries" nur ergänzen, wenn du sie wirklich brauchst
-        });
-  
-        // Wichtig: KEIN optional chaining -> tatsächliches Laden erzwingen
+        if (!loaderRef.current) {
+          loaderRef.current = new Loader({
+            apiKey,
+            version: "weekly",
+          });
+        }
+
         loadPromiseRef.current = (async () => {
-          const g = (globalThis as any).google;
-          await g.maps.importLibrary("maps");
-          await g.maps.importLibrary("marker");
+          const loader = loaderRef.current;
+          if (!loader) {
+            throw new Error("Google Maps Loader konnte nicht initialisiert werden.");
+          }
+          await loader.importLibrary("maps");
+          await loader.importLibrary("marker");
         })();
       } catch {
         setScriptError("Google Maps konnte nicht geladen werden.");
         return null;
       }
     }
-  
+
     try {
       await loadPromiseRef.current;
       setIsScriptLoaded(true);
