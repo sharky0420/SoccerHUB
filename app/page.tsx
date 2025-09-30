@@ -3,7 +3,6 @@ import { FilterableVenueList } from "@/components/filterable-venue-list";
 import { allVenues, getUniqueAmenities, getUniqueSports } from "@/lib/venues";
 
 export default function HomePage() {
-  // TODO: Ersetzen durch einen API-Aufruf, sobald die Betreiber:innen Daten direkt liefern.
   const sports = getUniqueSports();
   const amenities = getUniqueAmenities();
 
@@ -20,40 +19,40 @@ export default function HomePage() {
             <div className="space-y-12">
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em]">
                 <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] px-5 py-2 text-[color:var(--text-secondary)] shadow-inner backdrop-blur">
-                  🚀 Beta live in Rhein-Neckar
+                  ✅ Verifizierte Betreiber:innen
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/15 px-4 py-2 text-[color:var(--accent-primary)]">
-                  Liquid Booking Experience
+                  120+ Hallen deutschlandweit
                 </span>
               </div>
               <div className="space-y-7">
                 <h1 className="text-4xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
-                  Sportshub – Liquid Playbook für Fußball, Padel &amp; Boutique-Fitness
+                  SoccerHUB – Dein Live-Überblick über Indoor-Sportanlagen
                 </h1>
                 <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]">
-                  Stell dir ein Taktikboard in Apple-Ästhetik vor: sanfte Reflexionen, Glassmorphism und Fokus auf Performance. Wir kuratieren Premium-Courts, Studio-Lofts und Recovery-Zonen – inklusive Preisfenstern, Ausstattung und Live-Verfügbarkeiten.
+                  Finde in Sekunden die passende Halle für dein Team: von modernen Indoor-Soccer-Arenen über Padel-Courts bis hin zu funktionellen Trainingsflächen. Alle Plätze sind geprüft, mit Live-Verfügbarkeiten, Ausstattung und Buchungslinks.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
                 <a
-                  href="#hallen"
+                  href="#netzwerk"
                   className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-[0_0_40px_-10px_rgba(0,184,97,0.55)] hover:translate-y-[-2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
                 >
                   <span className="text-lg">⚽</span>
-                  Arenen entdecken
+                  Hallen entdecken
                 </a>
                 <a
                   href="mailto:team@sportshub.app"
                   className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40 hover:bg-[color:var(--surface-card-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
                 >
-                  Beta-Deck sichern
+                  Demo anfragen
                 </a>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
-                  { label: "360° Venue Profiles", description: "Fotos, Slots &amp; Deals glasklar." },
-                  { label: "Hybrid Sports", description: "Fußball, Padel &amp; Functional Training" },
-                  { label: "Direct Booking", description: "ohne Anruf, ohne Wartezeit" },
+                  { label: "Direkt buchbar", description: "Alle Betreiber:innen mit verbindlichen Slots." },
+                  { label: "Multisport-Übersicht", description: "Fußball, Padel, Fitness &amp; mehr." },
+                  { label: "Live aktualisiert", description: "Preisfenster &amp; Auslastung in Echtzeit." },
                 ].map((feature) => (
                   <div
                     key={feature.label}
@@ -74,10 +73,10 @@ export default function HomePage() {
               <div className="pointer-events-none absolute -top-10 left-1/2 h-24 w-48 -translate-x-1/2 rounded-full bg-white/15 blur-3xl" aria-hidden />
               <div className="relative space-y-7">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-                  <span>Match Center</span>
-                  <span>Realtime Sync</span>
+                  <span>Venue Dashboard</span>
+                  <span>Echtzeitdaten</span>
                 </div>
-                <h2 className="text-3xl font-semibold leading-tight">Liquid Tactics Board</h2>
+                <h2 className="text-3xl font-semibold leading-tight">Alle Infos auf einem Board</h2>
                 <div className="relative overflow-hidden rounded-[2.25rem] border border-white/20 bg-[color:var(--pitch-dark)]/85 p-6 shadow-inner">
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(92,255,157,0.2),transparent_75%)]" aria-hidden />
                   <div className="flex items-center justify-between text-xs uppercase tracking-[0.32em] text-white/60">
@@ -129,6 +128,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="container-narrow" id="netzwerk">
+        <div className="relative overflow-hidden rounded-[2.75rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)]/80 px-8 py-14 shadow-[0_55px_160px_-100px_rgba(4,32,18,0.9)] backdrop-blur-[18px] sm:px-14">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(92,255,157,0.18),transparent_70%)]" aria-hidden />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(8,44,24,0.65),transparent_58%)]" aria-hidden />
+          <div className="relative space-y-10">
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),360px] lg:items-start">
+              <div className="space-y-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">Hallenkategorien</p>
+                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Strukturiert nach Sportart &amp; Ausstattung</h2>
+                <p className="text-base text-[color:var(--text-secondary)]">
+                  Jede Halle auf SoccerHUB erhält ein kuratiertes Profil mit Fokus auf Spielflächen, Equipment und Services. So findest du schnell den passenden Spot für Training, Turniere oder Corporate Events.
+                </p>
+              </div>
+              <div className="rounded-[2.5rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] p-6 shadow-[0_40px_140px_-90px_rgba(8,36,20,0.75)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">Sofort ersichtlich</p>
+                <ul className="mt-4 space-y-3 text-sm text-[color:var(--text-secondary)]">
+                  {["Live-Kapazität &amp; Peakzeiten", "Equipment &amp; Extras wie Videoanalyse", "Parkplätze, Gastronomie &amp; Teamräume"].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-1 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/20 text-xs font-semibold text-[color:var(--accent-primary)]">
+                        •
+                      </span>
+                      <span dangerouslySetInnerHTML={{ __html: item }} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3">
+              {[
+                {
+                  title: "Indoor Soccer",
+                  description: "5er- &amp; 7er-Courts mit modernen Kunstrasen-Systemen, LED-Beleuchtung und Tracking-Setups.",
+                  accent: "⚽",
+                },
+                {
+                  title: "Padel &amp; Rackets",
+                  description: "Premium-Glas-Courts, Outdoor-Dächer und Buchung von Trainer:innen direkt aus dem Profil.",
+                  accent: "🎾",
+                },
+                {
+                  title: "Functional &amp; Hybrid",
+                  description: "Performance-Hallen, Boutique-Studios und modulare Flächen für Athletik und Events.",
+                  accent: "🏋️",
+                },
+              ].map((category) => (
+                <div
+                  key={category.title}
+                  className="theme-transition relative overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] p-6 text-[color:var(--text-primary)] shadow-[0_25px_90px_-60px_rgba(6,30,18,0.7)]"
+                >
+                  <div className="pointer-events-none absolute -top-12 right-0 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.2),transparent_70%)] blur-2xl" aria-hidden />
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+                    <span>{category.title}</span>
+                    <span className="text-lg">{category.accent}</span>
+                  </div>
+                  <p className="mt-4 text-sm text-[color:var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: category.description }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="container-narrow" id="matchcenter">
         <div className="relative overflow-hidden rounded-[2.9rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-8 py-12 shadow-[0_55px_160px_-90px_rgba(6,38,20,0.8)] backdrop-blur-[26px] sm:px-14">
           <div className="pointer-events-none absolute inset-x-0 -top-1/2 h-full bg-[radial-gradient(circle_at_top,_rgba(92,255,157,0.28),transparent_75%)]" aria-hidden />
@@ -136,16 +197,16 @@ export default function HomePage() {
           <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1fr),320px]">
             <div className="space-y-10">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,320px)] sm:items-center">
-                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Match &amp; Training Insights</h2>
+                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">So funktioniert die Hallen-Suche</h2>
                 <p className="text-base text-[color:var(--text-secondary)]">
-                  Liquid Lines, klare Typo und Spielfeld-Flair: Unser Dashboard zeigt Filter, Preisfenster und Buchungswege wie ein aufpoliertes Coaching-Tablet – inklusive Echtzeit-Intelligenz für Court, Gym &amp; Recovery.
+                  Kombiniere Filter wie Sportart, Fläche und Ausstattung und erhalte sofort passende Ergebnisse. Alle Venue-Profile zeigen Preise, Auslastung, Zusatzservices und direkte Buchungswege – transparent und ohne Umwege.
                 </p>
               </div>
               <dl className="grid gap-6 md:grid-cols-3">
                 {[
-                  { title: "Teams on Board", value: "180+", detail: "Beta-Teams &amp; Studios testen Live-Buchungen." },
-                  { title: "Operator Sync", value: "12 Integrationen", detail: "Von lokalen Betreiber:innen bis Pro Clubs." },
-                  { title: "Instant Visibility", value: "< 45 Sek.", detail: "Von Anfrage bis Buchung ohne Medienbrüche." },
+                  { title: "Gelistete Standorte", value: "120+", detail: "Indoor-Soccer, Padel, Fitness &amp; Multifunktion." },
+                  { title: "Städte im Netzwerk", value: "35", detail: "Lokale Betreiber:innen &amp; Premiumpartner." },
+                  { title: "Buchungszeit", value: "< 45 Sek.", detail: "Von Suche zu verbindlicher Reservierung." },
                 ].map((stat) => (
                   <div key={stat.title} className="relative overflow-hidden rounded-2xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur">
                     <div className="pointer-events-none absolute -left-10 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.18),transparent_70%)] blur-xl" aria-hidden />
@@ -157,12 +218,12 @@ export default function HomePage() {
               </dl>
             </div>
             <div className="space-y-6 rounded-3xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">So klappt die Buchung</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">In drei Schritten zur Halle</p>
               <ol className="space-y-5 text-sm text-[color:var(--text-secondary)]">
                 {[
-                  "Wähle Sportart – Fußballhalle, Padel-Court oder Fitnessstudio.",
-                  "Prüfe freie Slots im Echtzeit-Radar und sichere dir deinen Termin.",
-                  "Informiere Team &amp; Coaches via Deep Link und füge Add-ons hinzu.",
+                  "Sportart wählen – Indoor-Soccer, Padel, Fitness oder Spezialflächen.",
+                  "Verfügbarkeit prüfen und direkt beim Betreiber:in buchen.",
+                  "Team informieren, Extras hinzufügen und bereit zum Spiel sein.",
                 ].map((step, index) => (
                   <li key={step} className="flex gap-4">
                     <span className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/20 text-xs font-semibold text-[color:var(--accent-primary)]">
@@ -173,7 +234,7 @@ export default function HomePage() {
                 ))}
               </ol>
               <div className="rounded-2xl border border-dashed border-[color:var(--surface-glass-border)]/70 bg-[color:var(--surface-card-strong)] px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)] backdrop-blur">
-                <span className="font-semibold text-[color:var(--accent-primary)]">Neu:</span> Sammelbuchungen &amp; Multicourt-Planung im Beta-Test.
+                <span className="font-semibold text-[color:var(--accent-primary)]">Beliebt:</span> Sammelbuchungen &amp; Multicourt-Planung für Turniere.
               </div>
             </div>
           </div>

@@ -39,16 +39,16 @@ export function SiteHeader() {
               <span className="relative font-black">SH</span>
             </span>
             <span className="flex flex-col leading-tight">
-              <span>Sportshub</span>
+              <span>SoccerHUB</span>
               <span className="text-xs font-medium uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-                Football · Padel · Fitness
+                Indoor Soccer · Padel · Fitness
               </span>
             </span>
           </Link>
         </div>
         <nav className="hidden items-center gap-6 font-medium text-[color:var(--text-secondary)] lg:flex">
           <Link href="/#hallen" className="theme-transition hover:text-[color:var(--text-primary)]">
-            Arenen
+            Hallen
           </Link>
           <Link href="/#matchcenter" className="theme-transition hover:text-[color:var(--text-primary)]">
             Match Center
@@ -60,14 +60,14 @@ export function SiteHeader() {
             href="mailto:team@sportshub.app"
             className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-5 py-2 text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
           >
-            Beta-Zugang
+            Demo anfragen
           </a>
         </nav>
         <div className="flex items-center gap-3">
           <div className="hidden items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-4 py-2 text-[color:var(--text-secondary)] sm:flex">
             <span className="text-xs font-semibold uppercase tracking-[0.28em]">Live</span>
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-[color:var(--accent-primary)]">
-              🏟️ 82 Spots gelistet
+              🏟️ 120 Hallen gelistet
             </span>
           </div>
           <button
@@ -97,7 +97,7 @@ export function SiteHeader() {
               onClick={() => setIsMobileNavOpen(false)}
               className="block theme-transition hover:text-[color:var(--text-primary)]"
             >
-              Arenen
+              Hallen
             </Link>
           </li>
           <li>
@@ -124,7 +124,7 @@ export function SiteHeader() {
               onClick={() => setIsMobileNavOpen(false)}
               className="theme-transition inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent-primary)] px-4 py-2 font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
             >
-              Beta-Zugang
+              Demo anfragen
             </a>
           </li>
         </ul>

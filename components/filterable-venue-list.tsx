@@ -151,9 +151,9 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                 Live Übersicht
               </div>
               <div>
-                <h2 className="text-2xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Spots im Sportshub</h2>
+                <h2 className="text-2xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Hallen im SoccerHUB</h2>
                 <p className="text-sm text-[color:var(--text-secondary)]">
-                  Passe Filter, sortiere nach Preis oder Name und speichere Favoriten für das nächste Match, Training oder Recovery-Session.
+                  Passe Filter, sortiere nach Preis oder Name und speichere Favoriten für das nächste Match, Training oder deine nächste Team-Session.
                 </p>
               </div>
             </div>
@@ -203,7 +203,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                 className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
               >
                 <span aria-hidden>＋</span>
-                Mehr Arenen laden
+                Mehr Hallen laden
               </button>
             </div>
           )}
