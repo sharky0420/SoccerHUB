@@ -35,14 +35,16 @@ export function VenueCard({ venue }: VenueCardProps) {
           Smart Booking
         </div>
       </div>
-      <div className="flex flex-1 flex-col gap-5 p-6 text-[color:var(--text-primary)]">
+      <div className="flex flex-1 flex-col gap-6 p-6 text-[color:var(--text-primary)]">
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/80 px-3 py-1 text-xs font-medium text-[color:var(--text-secondary)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-secondary)]" aria-hidden />
             SoccerHUB Highlight
           </div>
           <h3 className="text-xl font-semibold leading-snug">{venue.name}</h3>
           <p className="line-clamp-3 text-sm text-[color:var(--text-secondary)]">{venue.description}</p>
         </div>
+
         <div className="flex flex-wrap gap-2">
           {venue.sports.map((sport) => (
             <span
@@ -53,29 +55,40 @@ export function VenueCard({ venue }: VenueCardProps) {
             </span>
           ))}
         </div>
-        <div className="grid gap-2 text-xs text-[color:var(--text-secondary)] sm:grid-cols-2">
-          {venue.amenities.slice(0, 4).map((amenity) => (
-            <span key={amenity} className="inline-flex items-center gap-2 rounded-xl border border-[color:var(--border-subtle)]/40 bg-[color:var(--surface-card)]/60 px-3 py-2 uppercase tracking-[0.24em]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-secondary)]" aria-hidden />
-              {amenity}
-            </span>
-          ))}
-        </div>
-        <div className="mt-auto grid gap-3">
-          <div className="grid grid-cols-[auto,1fr,auto] items-center gap-2 rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/75 px-4 py-3 text-sm font-medium text-[color:var(--text-secondary)] shadow-inner">
-            <span className="uppercase tracking-[0.3em]">Preis</span>
-            <div className="h-px w-full bg-[color:var(--border-subtle)]/40" aria-hidden />
-            <div className="flex items-baseline gap-2 text-right">
+
+        <dl className="mt-2 grid gap-3 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
+          <div className="rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-4 shadow-inner">
+            <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">Preis pro Stunde</dt>
+            <dd className="mt-2 flex items-baseline gap-2 text-[color:var(--text-primary)]">
               <span className="text-2xl font-semibold text-[color:var(--accent-primary)]">{venue.pricePerHour.toFixed(0)} €</span>
-              <span className="text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">pro Std.</span>
-            </div>
+              <span className="text-xs uppercase tracking-[0.24em]">inkl. MwSt.</span>
+            </dd>
           </div>
-          <div className="flex items-center justify-between rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/75 px-4 py-2 text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-            <span>Freie Slots</span>
-            <span className="text-[color:var(--accent-primary)]">Live aktualisiert</span>
+          <div className="rounded-2xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card)]/65 p-4">
+            <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">Verfügbarkeit</dt>
+            <dd className="mt-2 flex items-center justify-between text-sm">
+              <span>Freie Slots</span>
+              <span className="font-semibold text-[color:var(--accent-primary)]">Live aktualisiert</span>
+            </dd>
           </div>
+        </dl>
+
+        <div>
+          <h4 className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]/80">Ausstattung</h4>
+          <ul className="mt-3 grid grid-cols-1 gap-2 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
+            {venue.amenities.slice(0, 4).map((amenity) => (
+              <li
+                key={amenity}
+                className="theme-transition inline-flex items-center gap-2 rounded-xl border border-[color:var(--border-subtle)]/50 bg-[color:var(--surface-card)]/60 px-3 py-2"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-secondary)]" aria-hidden />
+                <span className="leading-tight">{amenity}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex gap-2">
+
+        <div className="mt-auto flex gap-2">
           <Link
             href={`/venues/${venue.id}`}
             className="theme-transition flex-1 rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/75 px-4 py-2 text-center text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
