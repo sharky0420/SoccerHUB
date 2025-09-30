@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CITY_COORDINATES } from "@/lib/city-coordinates";
 import type { Venue } from "@/types/venue";
-import { Loader } from "@googlemaps/js-api-loader";
+import { setOptions as setMapsOptions } from "@googlemaps/js-api-loader"; // functional API
 
 interface GoogleMapCanvasProps {
   venues: Venue[];
@@ -41,45 +41,62 @@ export function GoogleMapCanvas({
 
   markerSelectRef.current = onMarkerSelect;
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim();
-
+  const apiKey = useMemo(
+    () => (process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "").trim(),
+    []
+  );
+  
   const venuePoints = useMemo(() => computeVenuePoints(venues), [venues]);
 
-
-  const loader = useMemo(() => {
-    if (!apiKey) return null;
-    return new Loader({
-      apiKey,
-      version: "weekly",
-      libraries: ["places"], // nur, falls du Places API nutzt
-    });
-  }, [apiKey]);
+  // Single in-flight load promise (avoids double loads on re-render)
+  const loadPromiseRef = useRef<Promise<void> | null>(null);
 
   const ensureScript = useCallback(async () => {
-    if (typeof window === "undefined" || !loader) return null;
-    if (window.google?.maps) {
+    // 1) SSR & fehlender Key
+    if (typeof window === "undefined" || !apiKey) return null;
+  
+    // 2) Fast-path: Maps schon da?
+    if ((globalThis as any)?.google?.maps) {
       setIsScriptLoaded(true);
-      return window.google;
+      return (globalThis as any).google;
     }
+  
+    // 3) Nur einmal laden
+    if (!loadPromiseRef.current) {
+      try {
+        setMapsOptions({
+          apiKey,
+          version: "weekly",
+          // "libraries" nur ergänzen, wenn du sie wirklich brauchst
+        });
+  
+        // Wichtig: KEIN optional chaining -> tatsächliches Laden erzwingen
+        loadPromiseRef.current = (async () => {
+          const g = (globalThis as any).google;
+          await g.maps.importLibrary("maps");
+          await g.maps.importLibrary("marker");
+        })();
+      } catch {
+        setScriptError("Google Maps konnte nicht geladen werden.");
+        return null;
+      }
+    }
+  
     try {
-      const google = await loader.load();
+      await loadPromiseRef.current;
       setIsScriptLoaded(true);
-      return google;
+      return (globalThis as any).google;
     } catch {
       setScriptError("Google Maps konnte nicht geladen werden.");
       return null;
     }
-  }, [loader]);
-
+  }, [apiKey]);
   
 
   useEffect(() => {
-    if (!apiKey) {
-      return;
-    }
+    if (!apiKey) return;
 
     let cancelled = false;
-
     ensureScript().catch((error) => {
       if (!cancelled) {
         setScriptError(error instanceof Error ? error.message : String(error));
@@ -92,15 +109,16 @@ export function GoogleMapCanvas({
   }, [ensureScript, apiKey]);
 
   useEffect(() => {
-    if (!apiKey || !containerRef.current || !window.google?.maps) {
-      return;
-    }
+    if (!apiKey || !containerRef.current || !(globalThis as any)?.google?.maps) return;
 
-    markersRef.current.forEach((marker) => marker.setMap(null));
+    // Clear existing markers
+    markersRef.current.forEach((m) => m.setMap(null));
     markersRef.current = [];
 
+    // Init map once
     if (!mapRef.current) {
-      mapRef.current = new window.google.maps.Map(containerRef.current, {
+      const { Map } = window.google.maps; // available after importLibrary('maps')
+      mapRef.current = new Map(containerRef.current, {
         center: MAP_DEFAULT_CENTER,
         zoom: 6,
         disableDefaultUI: true,
@@ -111,14 +129,17 @@ export function GoogleMapCanvas({
     const map = mapRef.current;
 
     if (!infoWindowRef.current) {
-      infoWindowRef.current = new window.google.maps.InfoWindow({ maxWidth: 280 });
+      const { InfoWindow } = window.google.maps;
+      infoWindowRef.current = new InfoWindow({ maxWidth: 280 });
     }
 
     const bounds = new window.google.maps.LatLngBounds();
 
     venuePoints.forEach((point) => {
       const isLive = typeof point.venue.pricePerHour === "number";
-      const marker = new window.google.maps.Marker({
+      const { Marker } = window.google.maps; // available after importLibrary('marker')
+
+      const marker = new Marker({
         map,
         position: point.position,
         title: point.venue.name,
@@ -153,14 +174,14 @@ export function GoogleMapCanvas({
     if (!mapRef.current || !window.google?.maps || venuePoints.length === 0 || !selectedVenueId) {
       return;
     }
-
-    const selected = venuePoints.find((point) => point.venue.id === selectedVenueId);
+    const selected = venuePoints.find((p) => p.venue.id === selectedVenueId);
     if (selected) {
       mapRef.current.panTo(selected.position);
       mapRef.current.setZoom(Math.max(mapRef.current.getZoom(), 12));
     }
   }, [selectedVenueId, venuePoints]);
 
+  // Cleanup on unmount
   useEffect(
     () => () => {
       markersRef.current.forEach((marker) => marker.setMap(null));
@@ -209,8 +230,8 @@ interface FallbackMapProps {
 }
 
 function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, errorMessage }: FallbackMapProps) {
-  const latitudes = points.map((point) => point.position.lat);
-  const longitudes = points.map((point) => point.position.lng);
+  const latitudes = points.map((p) => p.position.lat);
+  const longitudes = points.map((p) => p.position.lng);
   const latMax = Math.max(...latitudes, MAP_DEFAULT_CENTER.lat + 1);
   const latMin = Math.min(...latitudes, MAP_DEFAULT_CENTER.lat - 1);
   const lngMax = Math.max(...longitudes, MAP_DEFAULT_CENTER.lng + 1);
@@ -238,7 +259,8 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
         const left = ((point.position.lng - lngMin) / lngRange) * 70 + 15;
         const isSelected = selectedVenueId === point.venue.id;
         const isLive = typeof point.venue.pricePerHour === "number";
-        const isActiveCity = activeCity && point.venue.city && point.venue.city.toLowerCase() === activeCity.toLowerCase();
+        const isActiveCity =
+          activeCity && point.venue.city && point.venue.city.toLowerCase() === activeCity.toLowerCase();
 
         return (
           <button
@@ -285,9 +307,7 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
 function computeVenuePoints(venues: Venue[]): VenuePoint[] {
   return venues
     .map((venue, index) => {
-      if (!venue.city || !CITY_COORDINATES[venue.city]) {
-        return null;
-      }
+      if (!venue.city || !CITY_COORDINATES[venue.city]) return null;
       const base = CITY_COORDINATES[venue.city];
       const jitter = createDeterministicOffset(venue.id ?? String(index));
       return {
@@ -307,16 +327,13 @@ function createDeterministicOffset(seed: string) {
     hash = (hash << 5) - hash + seed.charCodeAt(index);
     hash |= 0;
   }
-
   const lat = ((hash % 1000) / 1000 - 0.5) * 0.08;
   const lng = ((((hash / 1000) | 0) % 1000) / 1000 - 0.5) * 0.12;
   return { lat, lng };
 }
 
 function createMarkerIcon(isLive: boolean) {
-  if (!window.google?.maps) {
-    return undefined;
-  }
+  if (!window.google?.maps) return undefined;
 
   return {
     path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z",
@@ -357,33 +374,11 @@ function createInfoWindowContent(venue: Venue) {
 }
 
 const mapStyles = [
-  {
-    elementType: "geometry",
-    stylers: [{ color: "#0b1f16" }],
-  },
-  {
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#6bf3a5" }],
-  },
-  {
-    elementType: "labels.text.stroke",
-    stylers: [{ color: "#011009" }],
-  },
-  {
-    featureType: "administrative",
-    elementType: "geometry",
-    stylers: [{ visibility: "off" }],
-  },
-  {
-    featureType: "poi",
-    stylers: [{ visibility: "off" }],
-  },
-  {
-    featureType: "road",
-    stylers: [{ color: "#123525" }],
-  },
-  {
-    featureType: "water",
-    stylers: [{ color: "#05261a" }],
-  },
+  { elementType: "geometry", stylers: [{ color: "#0b1f16" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#6bf3a5" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#011009" }] },
+  { featureType: "administrative", elementType: "geometry", stylers: [{ visibility: "off" }] },
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+  { featureType: "road", stylers: [{ color: "#123525" }] },
+  { featureType: "water", stylers: [{ color: "#05261a" }] },
 ];
