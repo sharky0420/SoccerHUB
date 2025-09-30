@@ -19,7 +19,7 @@ export default function HomePage() {
           <div className="relative grid gap-16 lg:grid-cols-[minmax(0,1fr),380px]">
             <div className="space-y-12">
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em]">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-white/10 px-5 py-2 text-[color:var(--text-secondary)] shadow-inner backdrop-blur">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] px-5 py-2 text-[color:var(--text-secondary)] shadow-inner backdrop-blur">
                   🚀 Beta live in Rhein-Neckar
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/15 px-4 py-2 text-[color:var(--accent-primary)]">
@@ -44,7 +44,7 @@ export default function HomePage() {
                 </a>
                 <a
                   href="mailto:team@soccerhub.app"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/70 bg-white/5 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/50 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40 hover:bg-[color:var(--surface-card-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
                 >
                   Beta-Deck sichern
                 </a>
@@ -53,7 +53,7 @@ export default function HomePage() {
                 {[{ label: "360° Arena Profile", description: "Fotos, Slots &amp; Preise in Ultra-Clear." }, { label: "Live Slot Radar", description: "aktualisiert im 5-Minuten-Takt" }, { label: "Direkte Buchung", description: "ohne Anruf, ohne Wartezeit" }].map((feature) => (
                   <div
                     key={feature.label}
-                    className="theme-transition rounded-2xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-4 text-left text-sm text-[color:var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur"
+                    className="theme-transition rounded-2xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-4 text-left text-sm text-[color:var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur"
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
                       {feature.label}
@@ -63,7 +63,7 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="relative hidden overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/70 bg-white/10 p-10 text-[color:var(--text-primary)] shadow-[0_65px_180px_-90px_rgba(2,22,12,0.95)] backdrop-blur-2xl lg:block">
+            <div className="relative hidden overflow-hidden rounded-[2.75rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] p-10 text-[color:var(--text-primary)] shadow-[0_65px_180px_-90px_rgba(2,22,12,0.95)] backdrop-blur-2xl lg:block">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,120,64,0.4),transparent_70%)]" aria-hidden />
               <div className="pointer-events-none absolute inset-x-10 top-16 h-[1px] bg-[color:var(--field-line)]/40" aria-hidden />
               <div className="pointer-events-none absolute -bottom-24 right-1/2 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.22),transparent_70%)] blur-2xl" aria-hidden />
@@ -105,10 +105,10 @@ export default function HomePage() {
                       { label: "Verfügbarkeiten", value: "Live Refresh" },
                       { label: "Team Ranking", value: "Beta Zugriff" },
                     ].map((info) => (
-                      <div
-                        key={info.label}
-                        className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
-                      >
+                    <div
+                      key={info.label}
+                      className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
+                    >
                         <span>{info.label}</span>
                         <span className="font-semibold text-[color:var(--accent-secondary)]">{info.value}</span>
                       </div>
@@ -126,7 +126,7 @@ export default function HomePage() {
       </section>
 
       <section className="container-narrow" id="matchcenter">
-        <div className="relative overflow-hidden rounded-[2.9rem] border border-[color:var(--border-subtle)]/70 bg-white/10 px-8 py-12 shadow-[0_55px_160px_-90px_rgba(6,38,20,0.8)] backdrop-blur-[26px] sm:px-14">
+        <div className="relative overflow-hidden rounded-[2.9rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-8 py-12 shadow-[0_55px_160px_-90px_rgba(6,38,20,0.8)] backdrop-blur-[26px] sm:px-14">
           <div className="pointer-events-none absolute inset-x-0 -top-1/2 h-full bg-[radial-gradient(circle_at_top,_rgba(92,255,157,0.28),transparent_75%)]" aria-hidden />
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(140deg,rgba(5,38,22,0.72),transparent_68%)]" aria-hidden />
           <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1fr),320px]">
@@ -139,7 +139,7 @@ export default function HomePage() {
               </div>
               <dl className="grid gap-6 md:grid-cols-3">
                 {[{ title: "Teams on Board", value: "180+", detail: "Beta-Teams testen Live-Buchungen &amp; Slot-Radar." }, { title: "Operator Sync", value: "12 Integrationen", detail: "Von lokalen Betreiber:innen bis Pro Clubs." }, { title: "Instant Visibility", value: "< 45 Sek.", detail: "Von Anfrage bis Buchung ohne Medienbrüche." }].map((stat) => (
-                  <div key={stat.title} className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur">
+                  <div key={stat.title} className="relative overflow-hidden rounded-2xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur">
                     <div className="pointer-events-none absolute -left-10 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.18),transparent_70%)] blur-xl" aria-hidden />
                     <dt className="relative text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">{stat.title}</dt>
                     <dd className="relative mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">{stat.value}</dd>
@@ -148,7 +148,7 @@ export default function HomePage() {
                 ))}
               </dl>
             </div>
-            <div className="space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur">
+            <div className="space-y-6 rounded-3xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">So klappt die Buchung</p>
               <ol className="space-y-5 text-sm text-[color:var(--text-secondary)]">
                 {["Wähle Sportart, Preisfenster &amp; Ausstattung.", "Prüfe freie Slots im Echtzeit-Radar und sichere dir deinen Termin.", "Informiere dein Team via Deep Link und nutze optionale Add-ons."]
@@ -161,7 +161,7 @@ export default function HomePage() {
                   </li>
                 ))}
               </ol>
-              <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/60 bg-white/10 px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)] backdrop-blur">
+              <div className="rounded-2xl border border-dashed border-[color:var(--surface-glass-border)]/70 bg-[color:var(--surface-card-strong)] px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)] backdrop-blur">
                 <span className="font-semibold text-[color:var(--accent-primary)]">Neu:</span> Sammelbuchungen &amp; Multicourt-Planung im Beta-Test.
               </div>
             </div>
