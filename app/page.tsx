@@ -18,32 +18,32 @@ export default function HomePage() {
           <div className="relative grid gap-16 lg:grid-cols-[minmax(0,1fr),380px]">
             <div className="space-y-12">
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em]">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] px-5 py-2 text-[color:var(--text-secondary)] shadow-inner backdrop-blur">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/70 bg-[color:var(--surface-card)]/90 px-5 py-2 text-[color:var(--text-secondary)]/95 shadow-[0_12px_32px_-20px_rgba(6,36,22,0.45)] backdrop-blur">
                   ✅ Verifizierte Betreiber:innen
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/15 px-4 py-2 text-[color:var(--accent-primary)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary-strong)] px-4 py-2 text-[color:var(--accent-primary-contrast)] shadow-[0_18px_38px_-18px_rgba(0,108,56,0.6)]">
                   120+ Hallen deutschlandweit
                 </span>
               </div>
               <div className="space-y-7">
-                <h1 className="text-4xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
+                <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
                   SoccerHUB – Dein Live-Überblick über Indoor-Sportanlagen
                 </h1>
-                <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]">
+                <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]/90">
                   Finde in Sekunden die passende Halle für dein Team: von modernen Indoor-Soccer-Arenen über Padel-Courts bis hin zu funktionellen Trainingsflächen. Alle Plätze sind geprüft, mit Live-Verfügbarkeiten, Ausstattung und Buchungslinks.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
                 <a
                   href="#netzwerk"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-[0_0_40px_-10px_rgba(0,184,97,0.55)] hover:translate-y-[-2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[linear-gradient(120deg,rgba(0,108,56,1),rgba(31,184,100,0.92))] px-8 py-3 text-sm font-semibold text-[color:var(--accent-primary-contrast)] shadow-[0_28px_72px_-28px_rgba(0,108,56,0.75)] hover:translate-y-[-2px] hover:brightness-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/80"
                 >
                   <span className="text-lg">⚽</span>
                   Hallen entdecken
                 </a>
                 <a
                   href="mailto:team@sportshub.app"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40 hover:bg-[color:var(--surface-card-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--surface-glass-border)]/70 bg-[color:var(--surface-card)]/92 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] shadow-[0_18px_46px_-28px_rgba(6,36,22,0.45)] hover:border-[color:var(--accent-primary)]/45 hover:bg-[color:var(--surface-card-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary-strong)]/70"
                 >
                   Demo anfragen
                 </a>
@@ -56,12 +56,12 @@ export default function HomePage() {
                 ].map((feature) => (
                   <div
                     key={feature.label}
-                    className="theme-transition rounded-2xl border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)] p-4 text-left text-sm text-[color:var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur"
+                    className="theme-transition rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/92 p-4 text-left text-sm text-[color:var(--text-secondary)] shadow-[0_18px_48px_-32px_rgba(6,36,22,0.45)] backdrop-blur"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary-strong)]">
                       {feature.label}
                     </p>
-                    <p className="mt-2 text-sm text-[color:var(--text-primary)]">{feature.description}</p>
+                    <p className="mt-2 text-sm text-[color:var(--text-secondary)]/95">{feature.description}</p>
                   </div>
                 ))}
               </div>
@@ -91,7 +91,7 @@ export default function HomePage() {
                       </div>
                       <span className="text-4xl font-black text-[color:var(--accent-secondary)] drop-shadow-[0_0_15px_rgba(92,255,157,0.4)]">19:30</span>
                     </div>
-                    <div className="grid gap-3 text-[11px] uppercase tracking-[0.3em] text-white/70 sm:grid-cols-3">
+                    <div className="grid gap-3 text-xs uppercase tracking-[0.3em] text-white/70 sm:grid-cols-3">
                       {["Padel Courts · 4", "Indoor Soccer XL · Slots frei", "Functional Gym · 2 Studios"].map((item) => (
                         <div
                           key={item}
