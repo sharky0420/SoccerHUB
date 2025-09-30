@@ -93,6 +93,22 @@ export function EuroIcon({ className, ...props }: IconProps) {
   );
 }
 
+export function FilterIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth={1.8}
+      stroke="currentColor"
+      className={className}
+      aria-hidden
+      {...props}
+    >
+      <path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function WifiIcon({ className, ...props }: IconProps) {
   return (
     <svg

@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { FilterPanel, type FilterState } from "@/components/filter-panel";
 import { VenueCard } from "@/components/venue-card";
 import { VenueMap } from "@/components/venue-map";
-import { MapPinIcon, TargetIcon } from "@/components/icons";
+import { FilterIcon, MapPinIcon, TargetIcon } from "@/components/icons";
+import { StickyCta } from "@/components/sticky-cta";
 import type { Venue } from "@/types/venue";
 
 interface FilterableVenueListProps {
@@ -34,6 +35,8 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
   const [sort, setSort] = useState<SortOption>("recommended");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [desktopLayout, setDesktopLayout] = useState<"stacked" | "split">("stacked");
 
   const filteredVenues = useMemo(() => {
     const normalizedCity = filters.city.trim().toLowerCase();
@@ -130,45 +133,125 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
     setSort("recommended");
     setVisibleCount(ITEMS_PER_PAGE);
     setMobileView("list");
+    setDesktopLayout("stacked");
+    setIsFilterOpen(false);
   };
 
   const canLoadMore = visibleCount < sortedVenues.length;
   const activeCity = filters.city.trim();
   const mapVenues = filteredVenues.length > 0 ? filteredVenues : venues;
 
-  const handleCitySelect = (city: string) => {
-    setFilters((previous) => ({ ...previous, city, nearby: false }));
-    setVisibleCount(ITEMS_PER_PAGE);
-  };
+  const handleCitySelect = useCallback(
+    (city: string) => {
+      setFilters((previous) => ({ ...previous, city, nearby: false }));
+      setVisibleCount(ITEMS_PER_PAGE);
+    },
+    []
+  );
+
+  const listSection = (
+    <div className="space-y-8">
+      {visibleVenues.length > 0 ? (
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
+          {visibleVenues.map((venue) => (
+            <VenueCard key={venue.id} venue={venue} />
+          ))}
+        </div>
+      ) : (
+        <div className="rounded-3xl border border-dashed border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 p-10 text-center text-[color:var(--text-secondary)] backdrop-blur">
+          <p className="text-lg font-semibold text-[color:var(--text-primary)]">Keine Halle gefunden</p>
+          <p className="mt-2 text-sm">
+            Passe die Filter an oder setze sie zurück, um neue Slots zu entdecken.
+          </p>
+        </div>
+      )}
+
+      {canLoadMore && (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
+            className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
+          >
+            <span aria-hidden>＋</span>
+            Mehr Hallen laden
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
+  const mapSection = (
+    <div className="min-h-[520px]">
+      <VenueMap venues={mapVenues} activeCity={activeCity} onCitySelect={handleCitySelect} />
+    </div>
+  );
 
   return (
-    <section className="container-narrow" id="hallen">
-      <div className="grid gap-10 xl:grid-cols-[minmax(280px,320px),minmax(0,1fr),minmax(300px,360px)] xl:gap-12">
-        <FilterPanel
-          sportsOptions={sports}
-          amenityOptions={amenities}
-          state={filters}
-          onChange={(state) => {
-            setFilters(state);
-            setVisibleCount(ITEMS_PER_PAGE);
-          }}
-          onReset={handleReset}
-        />
+    <section className="container-narrow pb-32" id="hallen">
+      <div className="space-y-10">
+        <div className="lg:hidden">
+          <button
+            type="button"
+            onClick={() => setIsFilterOpen((open) => !open)}
+            className={`theme-transition flex w-full items-center justify-between rounded-full border px-5 py-3 text-sm font-semibold uppercase tracking-[0.24em] ${
+              isFilterOpen
+                ? "border-[color:var(--accent-primary)] bg-[color:var(--accent-primary)]/15 text-[color:var(--accent-primary)]"
+                : "border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/80 text-[color:var(--text-secondary)]"
+            }`}
+            aria-expanded={isFilterOpen}
+            aria-controls="mobile-filter-panel"
+          >
+            <span className="inline-flex items-center gap-2">
+              <FilterIcon className="h-4 w-4" /> Filter
+            </span>
+            <span className="text-xs">{isFilterOpen ? "Schließen" : "Öffnen"}</span>
+          </button>
+          {isFilterOpen ? (
+            <div id="mobile-filter-panel" className="mt-4">
+              <FilterPanel
+                sportsOptions={sports}
+                amenityOptions={amenities}
+                state={filters}
+                density="compact"
+                onChange={(state) => {
+                  setFilters(state);
+                  setVisibleCount(ITEMS_PER_PAGE);
+                }}
+                onReset={handleReset}
+              />
+            </div>
+          ) : null}
+        </div>
 
-        <div className="space-y-8 xl:space-y-10">
-          <div className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/80 px-6 py-6 text-[color:var(--text-primary)] lg:px-8 lg:py-7">
+        <div className="hidden lg:block">
+          <FilterPanel
+            sportsOptions={sports}
+            amenityOptions={amenities}
+            state={filters}
+            onChange={(state) => {
+              setFilters(state);
+              setVisibleCount(ITEMS_PER_PAGE);
+            }}
+            onReset={handleReset}
+            className="lg:sticky lg:top-28"
+          />
+        </div>
+
+        <div className="space-y-8">
+          <div className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/82 px-6 py-6 text-[color:var(--text-primary)] lg:px-8 lg:py-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary-strong)]">
+                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">
                   <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary-strong)]" aria-hidden />
                   Live Übersicht
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">
+                  <h2 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-3xl">
                     {sortedVenues.length} Hallen im SoccerHUB
                   </h2>
                   <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
-                    Filtere nach Sportarten und Ausstattung. Sortiere nach Preis oder Name und springe direkt zur Kartenansicht.
+                    Filtere nach Sportarten, Preisen und Features. Sortiere nach Preis oder Name und öffne die Kartenansicht für eine visuelle Auswahl.
                   </p>
                   {activeCity && (
                     <p className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary-strong)] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary-contrast)] shadow-[0_14px_32px_-18px_rgba(0,108,56,0.5)]">
@@ -216,50 +299,53 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               </div>
             </div>
 
-            {mobileView === "map" && (
-              <div className="lg:hidden">
-                <VenueMap venues={mapVenues} activeCity={activeCity} onCitySelect={handleCitySelect} />
+            <div className="hidden lg:flex items-center justify-between gap-4 text-xs text-[color:var(--text-secondary)]">
+              <p>Wähle dein bevorzugtes Layout – gestapelt oder Split-Screen mit Karte neben der Liste.</p>
+              <div className="inline-flex rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-1">
+                {(
+                  [
+                    { key: "stacked" as const, label: "Gestapelt" },
+                    { key: "split" as const, label: "Split Screen" },
+                  ]
+                ).map((option) => (
+                  <button
+                    key={option.key}
+                    type="button"
+                    onClick={() => setDesktopLayout(option.key)}
+                    className={`theme-transition rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] ${
+                      desktopLayout === option.key
+                        ? "bg-[color:var(--accent-primary-strong)] text-[color:var(--accent-primary-contrast)] shadow-[0_14px_32px_-20px_rgba(0,108,56,0.55)]"
+                        : "text-[color:var(--text-secondary)] hover:text-[color:var(--accent-primary)]"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {mobileView === "map" && <div className="lg:hidden">{mapSection}</div>}
+          </div>
+
+          <div className="lg:hidden">{mobileView === "list" ? listSection : null}</div>
+
+          <div className="hidden lg:block">
+            {desktopLayout === "split" ? (
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,520px)]">
+                <div className="space-y-8">{listSection}</div>
+                <div className="lg:sticky lg:top-36">{mapSection}</div>
+              </div>
+            ) : (
+              <div className="space-y-10">
+                {listSection}
+                {mapSection}
               </div>
             )}
           </div>
-
-          {mobileView === "list" && (
-            <>
-              {visibleVenues.length > 0 ? (
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
-                  {visibleVenues.map((venue) => (
-                    <VenueCard key={venue.id} venue={venue} />
-                  ))}
-                </div>
-              ) : (
-                <div className="rounded-3xl border border-dashed border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/65 p-10 text-center text-[color:var(--text-secondary)] backdrop-blur">
-                  <p className="text-lg font-semibold text-[color:var(--text-primary)]">Keine Halle gefunden</p>
-                  <p className="mt-2 text-sm">
-                    Passe die Filter an oder setze sie zurück, um neue Slots zu entdecken.
-                  </p>
-                </div>
-              )}
-
-              {canLoadMore && (
-                <div className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setVisibleCount((count) => count + ITEMS_PER_PAGE)}
-                    className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
-                  >
-                    <span aria-hidden>＋</span>
-                    Mehr Hallen laden
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="hidden xl:flex">
-          <VenueMap venues={mapVenues} activeCity={activeCity} onCitySelect={handleCitySelect} />
         </div>
       </div>
+
+      <StickyCta />
     </section>
   );
 }

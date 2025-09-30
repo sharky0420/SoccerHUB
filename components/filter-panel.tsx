@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type ReactNode, useMemo, useState } from "react";
+import clsx from "clsx";
 import {
   AccessibilityIcon,
   ACIcon,
@@ -47,6 +48,8 @@ interface FilterPanelProps {
   state: FilterState;
   onChange: (state: FilterState) => void;
   onReset: () => void;
+  className?: string;
+  density?: "default" | "compact";
 }
 
 const weekdayLabels: Record<Weekday, string> = {
@@ -59,12 +62,38 @@ const weekdayLabels: Record<Weekday, string> = {
   sunday: "Sonntag",
 };
 
+interface SectionHeaderProps {
+  icon: ReactNode;
+  eyebrow: string;
+  title: string;
+  description?: string;
+}
+
+function SectionHeader({ icon, eyebrow, title, description }: SectionHeaderProps) {
+  return (
+    <div className="flex items-start gap-3">
+      <span className="mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-2xl bg-[color:var(--accent-primary-strong)]/15 text-[color:var(--accent-primary-strong)] shadow-[0_14px_30px_-20px_rgba(0,108,56,0.45)]">
+        {icon}
+      </span>
+      <div className="space-y-1">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[color:var(--text-tertiary)]">{eyebrow}</p>
+        <h3 className="text-base font-semibold leading-tight text-[color:var(--text-primary)]">{title}</h3>
+        {description ? (
+          <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]/80">{description}</p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 export function FilterPanel({
   sportsOptions,
   amenityOptions,
   state,
   onChange,
   onReset,
+  className,
+  density = "default",
 }: FilterPanelProps) {
   const sportOptions = useMemo(() => sportsOptions, [sportsOptions]);
   const [geoState, setGeoState] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -213,13 +242,24 @@ export function FilterPanel({
   };
 
   return (
-    <aside className="glass-panel theme-transition space-y-7 rounded-3xl border border-[color:var(--border-subtle)]/80 p-8 text-[color:var(--text-primary)] lg:sticky lg:top-32">
+    <aside
+      className={clsx(
+        "glass-panel theme-transition space-y-7 rounded-3xl border border-[color:var(--border-subtle)]/80 text-[color:var(--text-primary)] backdrop-blur",
+        density === "compact" ? "p-6" : "p-8",
+        className
+      )}
+    >
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-tertiary)]">Filter</p>
-          <h2 className="mt-2 text-2xl font-semibold leading-tight">Finde deinen Spot</h2>
-          <p className="mt-2 text-sm text-[color:var(--text-secondary)]/85">
-            Kuratiere Sportarten, Standort und Ausstattung. SoccerHUB zeigt dir live verfügbare Slots und Tarife.
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary-strong)]/90">
+            Filterübersicht
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold leading-tight text-[color:var(--text-primary)]">
+            Finde deinen Spot
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-[color:var(--text-secondary)]">
+            Kuratiere Sportarten, Standort und Ausstattung. SoccerHUB zeigt dir live verfügbare Slots, Preise und Add-ons mit
+            einem Blick.
           </p>
         </div>
         <button
@@ -232,12 +272,14 @@ export function FilterPanel({
       </header>
 
       <div className="space-y-6">
-        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/65 p-4 shadow-[0_24px_90px_-60px_rgba(8,36,24,0.65)]">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Standort</p>
-              <h3 className="mt-1 text-base font-semibold text-[color:var(--text-primary)]">Wo willst du spielen?</h3>
-            </div>
+        <section className="space-y-5 rounded-2xl border border-[color:var(--surface-glass-border)]/85 bg-[color:var(--surface-card-muted)]/70 p-5 shadow-[0_24px_90px_-60px_rgba(8,36,24,0.65)]">
+          <div className="flex items-center justify-between gap-4">
+            <SectionHeader
+              icon={<MapPinIcon className="h-4 w-4" />}
+              eyebrow="Standort"
+              title="Wo willst du spielen?"
+              description="Suche nach Städten oder nutze Near Me für Vorschläge basierend auf deinem Standort."
+            />
             <button
               type="button"
               onClick={handleLocateMe}
@@ -266,19 +308,21 @@ export function FilterPanel({
           {geoMessage ? (
             <p className={`text-xs font-medium ${geoMessageColor}`}>{geoMessage}</p>
           ) : (
-            <p className="text-xs text-[color:var(--text-secondary)]/75">
-              Suche nach Städten oder nutze „Near Me“ für Vorschläge anhand deines Standorts.
-            </p>
+            <p className="text-xs text-[color:var(--text-secondary)]/75">Direkt nach Städten suchen oder mit „Near Me“ starten.</p>
           )}
         </section>
 
-        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/70 p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Sportarten</p>
-              <h3 className="mt-1 text-base font-semibold">Disziplin wählen</h3>
-            </div>
-            <span className="text-xs text-[color:var(--text-secondary)]/75">Mehrfachauswahl möglich</span>
+        <section className="space-y-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/78 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <SectionHeader
+              icon={<RacketIcon className="h-4 w-4" />}
+              eyebrow="Sportarten"
+              title="Disziplin wählen"
+              description="Kombiniere mehrere Sportarten für multifunktionale Anlagen."
+            />
+            <span className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--text-secondary)]/75">
+              Mehrfachauswahl
+            </span>
           </div>
           <div className="flex flex-wrap gap-2">
             {sportOptions.map((sport) => {
@@ -310,9 +354,13 @@ export function FilterPanel({
           </div>
         </section>
 
-        <section className="grid gap-4 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card-muted)]/65 p-4 sm:grid-cols-2">
+        <section className="grid gap-5 rounded-2xl border border-[color:var(--surface-glass-border)]/85 bg-[color:var(--surface-card-muted)]/70 p-5 sm:grid-cols-2">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Preisrange</p>
+            <SectionHeader
+              icon={<EuroIcon className="h-4 w-4" />}
+              eyebrow="Preisrange"
+              title="Budget festlegen"
+            />
             <div className="flex items-center gap-3">
               <div className="relative flex-1">
                 <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--text-secondary)]/70">
@@ -361,7 +409,11 @@ export function FilterPanel({
             </p>
           </div>
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Öffnungszeiten</p>
+            <SectionHeader
+              icon={<ClockIcon className="h-4 w-4" />}
+              eyebrow="Öffnungszeiten"
+              title="Verfügbare Slots"
+            />
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -399,13 +451,17 @@ export function FilterPanel({
           </div>
         </section>
 
-        <section className="space-y-5 rounded-2xl border border-[color:var(--surface-glass-border)]/80 bg-[color:var(--surface-card)]/60 p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">Ausstattung</p>
-              <h3 className="mt-1 text-base font-semibold text-[color:var(--text-primary)]">Features mit Icon-Guide</h3>
-            </div>
-            <span className="text-xs text-[color:var(--text-secondary)]/75">Tippe zum Aktivieren</span>
+        <section className="space-y-5 rounded-2xl border border-[color:var(--surface-glass-border)]/82 bg-[color:var(--surface-card)]/68 p-5">
+          <div className="flex items-center justify-between gap-4">
+            <SectionHeader
+              icon={<SparkleIcon className="h-4 w-4" />}
+              eyebrow="Ausstattung"
+              title="Features mit Icon-Guide"
+              description="Hebe Essentials wie Duschen oder Premium-Ausstattung wie Videoanalyse hervor."
+            />
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--text-secondary)]/70">
+              Tippe zum Aktivieren
+            </span>
           </div>
 
           <div className="space-y-4">
@@ -452,7 +508,7 @@ export function FilterPanel({
         </section>
       </div>
 
-      <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/65 px-4 py-3 text-xs text-[color:var(--text-secondary)]">
+      <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-4 py-3 text-xs text-[color:var(--text-secondary)]">
         <span className="font-semibold text-[color:var(--accent-primary)]">Tipp:</span> Speichere deine Lieblingsfilter als Shortcut in deinem Profil.
       </div>
     </aside>
