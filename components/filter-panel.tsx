@@ -75,7 +75,7 @@ export function FilterPanel({
         </div>
         <button
           type="button"
-          className="theme-transition rounded-full px-3 py-1 text-sm font-medium text-[color:var(--accent-primary)] hover:bg-[color:var(--accent-primary)]/10 hover:text-[color:var(--accent-secondary)]"
+          className="theme-transition rounded-full px-3 py-1 text-sm font-medium text-[color:var(--accent-primary)] hover:bg-[color:var(--accent-primary)]/10 hover:text-[color:var(--accent-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
           onClick={onReset}
         >
           Zurücksetzen
@@ -94,7 +94,7 @@ export function FilterPanel({
                   type="button"
                   onClick={() => toggleSport(sport)}
                   aria-pressed={selected}
-                  className={`chip theme-transition px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${
+                  className={`chip theme-transition px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)] ${
                     selected ? "chip-active" : ""
                   }`}
                 >

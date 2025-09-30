@@ -78,7 +78,7 @@ export function VenueCard({ venue }: VenueCardProps) {
         <div className="flex gap-2">
           <Link
             href={`/venues/${venue.id}`}
-            className="theme-transition flex-1 rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/75 px-4 py-2 text-center text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/50"
+            className="theme-transition flex-1 rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/75 px-4 py-2 text-center text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
           >
             Details
           </Link>
@@ -86,7 +86,7 @@ export function VenueCard({ venue }: VenueCardProps) {
             href={venue.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="theme-transition flex-1 rounded-full bg-[color:var(--accent-primary)] px-4 py-2 text-center text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
+            className="theme-transition flex-1 rounded-full bg-[color:var(--accent-primary)] px-4 py-2 text-center text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
           >
             Jetzt buchen
           </a>
