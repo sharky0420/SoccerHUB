@@ -17,6 +17,20 @@ interface VenueDetailProps {
 }
 
 export function VenueDetail({ venue }: VenueDetailProps) {
+  const heroImage = venue.images[0] ?? "/placeholder.svg";
+  const formattedPrice =
+    typeof venue.pricePerHour === "number"
+      ? new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0,
+        }).format(venue.pricePerHour)
+      : null;
+  const hasOpeningHours = Boolean(
+    venue.openingHours &&
+      Object.values(venue.openingHours).some((value) => Boolean(value)),
+  );
+
   return (
     <article className="container-narrow relative overflow-hidden rounded-[3rem] border border-[color:var(--border-subtle)]/60 bg-white/10 px-4 py-10 text-[color:var(--text-primary)] shadow-[0_45px_140px_-80px_rgba(4,24,14,0.85)] backdrop-blur-[24px] sm:px-8">
       <div className="pointer-events-none absolute inset-0 rounded-[3rem] border border-white/10" aria-hidden />
@@ -27,7 +41,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr),minmax(0,1fr)]">
         <div className="relative h-[320px] overflow-hidden rounded-[2.8rem] border border-white/20 bg-white/10 shadow-[0_40px_120px_-90px_rgba(0,0,0,0.9)] backdrop-blur">
           <Image
-            src={venue.images[0]}
+            src={heroImage}
             alt={venue.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 800px"
@@ -40,11 +54,11 @@ export function VenueDetail({ venue }: VenueDetailProps) {
           </div>
           <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center gap-3 rounded-2xl bg-black/30 px-5 py-3 text-sm text-white backdrop-blur">
             <span className="inline-flex h-2 w-2 rounded-full bg-[color:var(--accent-secondary)]" aria-hidden />
-            <span className="font-semibold">{venue.city}</span>
+            <span className="font-semibold">{venue.city ?? "Standort wird ergänzt"}</span>
             <span className="text-white/60" aria-hidden>
               •
             </span>
-            <span className="text-white/80">{venue.address}</span>
+            <span className="text-white/80">{venue.address ?? "Adresse folgt"}</span>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-2">
@@ -75,7 +89,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
           <h1 className="text-3xl font-semibold leading-tight text-[color:var(--text-primary)]">{venue.name}</h1>
           <p className="flex items-center gap-2 text-sm text-[color:var(--text-secondary)]">
             <span aria-hidden>📍</span>
-            {venue.address}
+            {venue.address ?? "Adresse wird ergänzt"}
           </p>
         </div>
         <div className="relative flex flex-col items-start gap-4 text-sm text-[color:var(--text-secondary)] sm:items-end">
@@ -84,12 +98,23 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--text-secondary)]/80">
               Preis pro Stunde
             </span>
-            <p className="mt-2 text-3xl font-semibold text-[color:var(--accent-primary)]">
-              {venue.pricePerHour.toFixed(0)} €
-              <span className="ml-2 text-xs font-medium uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
-                pro Std.
-              </span>
-            </p>
+            {formattedPrice ? (
+              <p className="mt-2 text-3xl font-semibold text-[color:var(--accent-primary)]">
+                {formattedPrice}
+                <span className="ml-2 text-xs font-medium uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+                  pro Std.
+                </span>
+              </p>
+            ) : (
+              <div className="mt-2 space-y-1">
+                <p className="text-2xl font-semibold text-[color:var(--text-secondary)]/70">
+                  Preis auf Anfrage
+                </p>
+                <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-[color:var(--text-secondary)]/80">
+                  Direkt beim Betreiber anfragen
+                </p>
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap justify-end gap-2">
             {venue.sports.map((sport) => (
@@ -136,28 +161,36 @@ export function VenueDetail({ venue }: VenueDetailProps) {
         <aside className="space-y-6 rounded-[2.75rem] border border-white/15 bg-white/10 p-8 shadow-[0_35px_120px_-80px_rgba(0,0,0,0.85)] backdrop-blur">
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">Öffnungszeiten</h2>
-            <dl className="space-y-2" aria-label="Öffnungszeiten nach Wochentagen">
-              {(Object.keys(weekdayLabels) as Weekday[]).map((day) => {
-                const hours = venue.openingHours[day];
-                return (
-                  <div
-                    key={day}
-                    className="flex items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur"
-                  >
-                    <dt className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-                      {weekdayLabels[day]}
-                    </dt>
-                    <dd className="text-sm font-medium text-[color:var(--text-primary)]">
-                      {hours ? (
-                        <span>{hours.open} – {hours.close}</span>
-                      ) : (
-                        <span className="text-[color:var(--text-secondary)]/70">geschlossen</span>
-                      )}
-                    </dd>
-                  </div>
-                );
-              })}
-            </dl>
+            {hasOpeningHours ? (
+              <dl className="space-y-2" aria-label="Öffnungszeiten nach Wochentagen">
+                {(Object.keys(weekdayLabels) as Weekday[]).map((day) => {
+                  const hours = venue.openingHours?.[day];
+                  return (
+                    <div
+                      key={day}
+                      className="flex items-center justify-between rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur"
+                    >
+                      <dt className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
+                        {weekdayLabels[day]}
+                      </dt>
+                      <dd className="text-sm font-medium text-[color:var(--text-primary)]">
+                        {hours ? (
+                          <span>
+                            {hours.open} – {hours.close}
+                          </span>
+                        ) : (
+                          <span className="text-[color:var(--text-secondary)]/70">geschlossen</span>
+                        )}
+                      </dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            ) : (
+              <p className="text-sm text-[color:var(--text-secondary)]/80">
+                Öffnungszeiten werden derzeit direkt vom Betreiber kommuniziert.
+              </p>
+            )}
           </div>
           <div className="space-y-3 rounded-2xl border border-dashed border-white/20 bg-white/10 px-5 py-4 text-sm text-[color:var(--text-secondary)] backdrop-blur">
             <p className="text-sm font-semibold text-[color:var(--text-primary)]">Nächste Schritte</p>

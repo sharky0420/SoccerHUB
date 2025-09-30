@@ -15,13 +15,14 @@ export interface VenueHours {
 export interface Venue {
   id: string;
   name: string;
-  city: string;
-  address: string;
+  city: string | null;
+  address: string | null;
   description: string;
-  pricePerHour: number;
+  pricePerHour: number | null;
   sports: string[];
   amenities: string[];
-  openingHours: Record<Weekday, VenueHours>;
+  openingHours: Partial<Record<Weekday, VenueHours | null>> | null;
   images: string[];
   externalUrl: string;
+  notes?: string | null;
 }
