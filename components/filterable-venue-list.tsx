@@ -38,27 +38,38 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         return false;
       }
 
-      if (normalizedCity && !`${venue.city} ${venue.address}`.toLowerCase().includes(normalizedCity)) {
+      if (
+        normalizedCity &&
+        !`${venue.city ?? ""} ${venue.address ?? ""}`.toLowerCase().includes(normalizedCity)
+      ) {
         return false;
       }
 
-      if (typeof filters.priceMin === "number" && venue.pricePerHour < filters.priceMin) {
+      if (
+        typeof filters.priceMin === "number" &&
+        (typeof venue.pricePerHour !== "number" || venue.pricePerHour < filters.priceMin)
+      ) {
         return false;
       }
 
-      if (typeof filters.priceMax === "number" && venue.pricePerHour > filters.priceMax) {
+      if (
+        typeof filters.priceMax === "number" &&
+        (typeof venue.pricePerHour !== "number" || venue.pricePerHour > filters.priceMax)
+      ) {
         return false;
       }
 
-      if (filters.day && venue.openingHours[filters.day] === undefined) {
+      const openingHoursForDay = filters.day ? venue.openingHours?.[filters.day] : undefined;
+
+      if (filters.day && openingHoursForDay === undefined) {
         return false;
       }
 
       if (
         filters.day &&
-        venue.openingHours[filters.day] &&
-        venue.openingHours[filters.day]!.open === "" &&
-        venue.openingHours[filters.day]!.close === ""
+        openingHoursForDay &&
+        openingHoursForDay.open === "" &&
+        openingHoursForDay.close === ""
       ) {
         return false;
       }
@@ -77,14 +88,33 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
   const sortedVenues = useMemo(() => {
     return [...filteredVenues].sort((a, b) => {
       switch (sort) {
-        case "price-asc":
-          return a.pricePerHour - b.pricePerHour;
-        case "price-desc":
+        case "price-asc": {
+          const priceA = typeof a.pricePerHour === "number" ? a.pricePerHour : Number.POSITIVE_INFINITY;
+          const priceB = typeof b.pricePerHour === "number" ? b.pricePerHour : Number.POSITIVE_INFINITY;
+          return priceA - priceB;
+        }
+        case "price-desc": {
+          const hasPriceA = typeof a.pricePerHour === "number";
+          const hasPriceB = typeof b.pricePerHour === "number";
+
+          if (!hasPriceA && !hasPriceB) {
+            return 0;
+          }
+
+          if (!hasPriceA) {
+            return 1;
+          }
+
+          if (!hasPriceB) {
+            return -1;
+          }
+
           return b.pricePerHour - a.pricePerHour;
+        }
         case "name":
           return a.name.localeCompare(b.name);
         default:
-          return a.city.localeCompare(b.city);
+          return (a.city ?? "").localeCompare(b.city ?? "");
       }
     });
   }, [filteredVenues, sort]);
