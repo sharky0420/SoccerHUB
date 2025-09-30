@@ -57,13 +57,30 @@ export function VenueCard({ venue }: VenueCardProps) {
         </div>
 
         <dl className="mt-2 grid gap-3 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
-          <div className="rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-4 shadow-inner">
-            <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">Preis pro Stunde</dt>
-            <dd className="mt-2 flex items-baseline gap-2 text-[color:var(--text-primary)]">
-              <span className="text-2xl font-semibold text-[color:var(--accent-primary)]">{venue.pricePerHour.toFixed(0)} €</span>
-              <span className="text-xs uppercase tracking-[0.24em]">inkl. MwSt.</span>
-            </dd>
-          </div>
+        <div className="rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-4 shadow-inner">
+  <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">
+    Preis pro Stunde
+  </dt>
+  <dd className="mt-2 flex items-baseline gap-2 text-[color:var(--text-primary)]">
+    {venue.pricePerHour != null ? (
+      <>
+        <span className="text-2xl font-semibold text-[color:var(--accent-primary)]">
+          {new Intl.NumberFormat("de-DE", {
+            style: "currency",
+            currency: "EUR",
+            maximumFractionDigits: 0,
+          }).format(venue.pricePerHour)}
+        </span>
+        <span className="text-xs uppercase tracking-[0.24em]">inkl. MwSt.</span>
+      </>
+    ) : (
+      <span className="text-2xl font-semibold text-[color:var(--text-secondary)]/60">
+        Preis auf Anfrage
+      </span>
+    )}
+  </dd>
+</div>
+
           <div className="rounded-2xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card)]/65 p-4">
             <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">Verfügbarkeit</dt>
             <dd className="mt-2 flex items-center justify-between text-sm">
