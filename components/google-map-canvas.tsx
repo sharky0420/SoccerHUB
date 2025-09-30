@@ -92,7 +92,7 @@ export function GoogleMapCanvas({
   }, [ensureScript, apiKey]);
 
   useEffect(() => {
-    if (!apiKey || !containerRef.current || !window.google?.maps) {
+    if (!apiKey || !containerRef.current || !window.google?.maps || !isScriptLoaded) {
       return;
     }
 
@@ -147,7 +147,7 @@ export function GoogleMapCanvas({
       map.panTo({ lat: coordinate.lat, lng: coordinate.lng });
       map.setZoom(Math.max(map.getZoom(), 11));
     }
-  }, [apiKey, venuePoints, activeCity]);
+  }, [apiKey, venuePoints, activeCity, isScriptLoaded]);
 
   useEffect(() => {
     if (!mapRef.current || !window.google?.maps || venuePoints.length === 0 || !selectedVenueId) {
