@@ -181,7 +181,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
           </div>
 
           {visibleVenues.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
               {visibleVenues.map((venue) => (
                 <VenueCard key={venue.id} venue={venue} />
               ))}
