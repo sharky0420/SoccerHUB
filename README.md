@@ -1,6 +1,6 @@
-# Turftime Venues – Sporthallen MVP
+# Sportshub – Multi-Sport Venue MVP
 
-Dieses Projekt ist ein Next.js 14 MVP für eine Sporthallen-Plattform. Nutzer:innen können Soccer- und Padelhallen im Raum Mannheim / Heidelberg vergleichen und gelangen per Klick zur externen Buchung der Betreiber:innen.
+Dieses Projekt ist ein Next.js-14-MVP für Sportshub – ein kuratiertes Verzeichnis für Fußballhallen, Padel-Center und Boutique-Fitnessstudios in der Metropolregion Rhein-Neckar. Nutzer:innen vergleichen Flächen, filtern nach Ausstattung und springen direkt zur externen Buchung der Betreiber:innen.
 
 ## Quickstart
 
@@ -13,12 +13,12 @@ npm run dev
 
 ## Features
 
-- 📍 Listenansicht mit Filtern für Sportart, Ort, Preis, Öffnungszeiten und Ausstattung
+- 📍 Listenansicht mit Filtern für Sportart (Fußball, Padel, Fitness), Ort, Preis, Öffnungszeiten und Ausstattung
 - 🗂️ Sortierung nach Preis oder Name inkl. lazy geladenem „Mehr anzeigen“-Button
 - 🖼️ Detailseite mit Galerie, Öffnungszeiten-Tabelle und CTA zur externen Buchung
 - ⚡ App Router, Server Components und Client-Filter (Next.js 14 + TypeScript)
 - 🎨 Tailwind CSS mit mobile-first Layout und modernen Karten
-- 📁 Mock-Daten aus `data/venues.json` (5 Beispielhallen)
+- 📁 Mock-Daten aus `data/venues.json` (kuratiertes Multi-Sport-Line-up)
 
 ## Struktur
 

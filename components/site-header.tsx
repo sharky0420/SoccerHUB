@@ -39,9 +39,9 @@ export function SiteHeader() {
               <span className="relative font-black">SH</span>
             </span>
             <span className="flex flex-col leading-tight">
-              <span>SoccerHUB</span>
+              <span>Sportshub</span>
               <span className="text-xs font-medium uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
-                Football Intelligence
+                Football · Padel · Fitness
               </span>
             </span>
           </Link>
@@ -57,7 +57,7 @@ export function SiteHeader() {
             Kontakt
           </Link>
           <a
-            href="mailto:team@soccerhub.app"
+            href="mailto:team@sportshub.app"
             className="theme-transition inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-5 py-2 text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
           >
             Beta-Zugang
@@ -67,7 +67,7 @@ export function SiteHeader() {
           <div className="hidden items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-4 py-2 text-[color:var(--text-secondary)] sm:flex">
             <span className="text-xs font-semibold uppercase tracking-[0.28em]">Live</span>
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-[color:var(--accent-primary)]">
-              ⚽ 82 Arenen gelistet
+              🏟️ 82 Spots gelistet
             </span>
           </div>
           <button
@@ -120,7 +120,7 @@ export function SiteHeader() {
           </li>
           <li>
             <a
-              href="mailto:team@soccerhub.app"
+              href="mailto:team@sportshub.app"
               onClick={() => setIsMobileNavOpen(false)}
               className="theme-transition inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent-primary)] px-4 py-2 font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110"
             >

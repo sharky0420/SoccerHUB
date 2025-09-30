@@ -198,10 +198,10 @@ export function VenueDetail({ venue }: VenueDetailProps) {
               Für Live-Verfügbarkeiten oder Reservierungen wird die Halle direkt auf ihrer Website gepflegt. Eine API-Anbindung ist im nächsten Release-Plan vorgesehen.
             </p>
             <Link
-              href="mailto:partners@soccerhub.app"
+              href="mailto:partners@sportshub.app"
               className="theme-transition inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--accent-primary)] hover:text-[color:var(--accent-secondary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
             >
-              Betreiber:in? SoccerHUB Partner werden
+              Betreiber:in? Sportshub Partner werden
             </Link>
           </div>
         </aside>
