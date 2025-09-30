@@ -13,7 +13,15 @@ const sportLabels: Record<string, string> = {
 };
 
 export function VenueCard({ venue }: VenueCardProps) {
-  const heroImage = venue.images[0];
+  const heroImage = venue.images[0] ?? "/placeholder.svg";
+  const formattedPrice =
+    typeof venue.pricePerHour === "number"
+      ? new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0,
+        }).format(venue.pricePerHour)
+      : null;
 
   return (
     <article className="glass-panel theme-transition group relative flex flex-col overflow-hidden rounded-[1.9rem] border border-[color:var(--border-subtle)]/80 shadow-[0_50px_140px_-80px_rgba(6,44,24,0.65)] transition hover:-translate-y-2 hover:shadow-[0_65px_200px_-80px_rgba(6,80,36,0.7)]">
@@ -57,29 +65,25 @@ export function VenueCard({ venue }: VenueCardProps) {
         </div>
 
         <dl className="mt-2 grid gap-3 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
-        <div className="rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-4 shadow-inner">
-  <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">
-    Preis pro Stunde
-  </dt>
-  <dd className="mt-2 flex items-baseline gap-2 text-[color:var(--text-primary)]">
-    {venue.pricePerHour != null ? (
-      <>
-        <span className="text-2xl font-semibold text-[color:var(--accent-primary)]">
-          {new Intl.NumberFormat("de-DE", {
-            style: "currency",
-            currency: "EUR",
-            maximumFractionDigits: 0,
-          }).format(venue.pricePerHour)}
-        </span>
-        <span className="text-xs uppercase tracking-[0.24em]">inkl. MwSt.</span>
-      </>
-    ) : (
-      <span className="text-2xl font-semibold text-[color:var(--text-secondary)]/60">
-        Preis auf Anfrage
-      </span>
-    )}
-  </dd>
-</div>
+          <div className="rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-4 shadow-inner">
+            <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">
+              Preis pro Stunde
+            </dt>
+            <dd className="mt-2 flex items-baseline gap-2 text-[color:var(--text-primary)]">
+              {formattedPrice ? (
+                <>
+                  <span className="text-2xl font-semibold text-[color:var(--accent-primary)]">
+                    {formattedPrice}
+                  </span>
+                  <span className="text-xs uppercase tracking-[0.24em]">inkl. MwSt.</span>
+                </>
+              ) : (
+                <span className="text-2xl font-semibold text-[color:var(--text-secondary)]/60">
+                  Preis auf Anfrage
+                </span>
+              )}
+            </dd>
+          </div>
 
           <div className="rounded-2xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card)]/65 p-4">
             <dt className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--text-secondary)]/80">Verfügbarkeit</dt>

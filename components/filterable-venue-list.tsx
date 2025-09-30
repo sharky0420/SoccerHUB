@@ -94,22 +94,22 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
           return priceA - priceB;
         }
         case "price-desc": {
-          const hasPriceA = typeof a.pricePerHour === "number";
-          const hasPriceB = typeof b.pricePerHour === "number";
+          const priceA = typeof a.pricePerHour === "number" ? a.pricePerHour : null;
+          const priceB = typeof b.pricePerHour === "number" ? b.pricePerHour : null;
 
-          if (!hasPriceA && !hasPriceB) {
+          if (priceA === null && priceB === null) {
             return 0;
           }
 
-          if (!hasPriceA) {
+          if (priceA === null) {
             return 1;
           }
 
-          if (!hasPriceB) {
+          if (priceB === null) {
             return -1;
           }
 
-          return b.pricePerHour - a.pricePerHour;
+          return priceB - priceA;
         }
         case "name":
           return a.name.localeCompare(b.name);
