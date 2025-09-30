@@ -144,21 +144,21 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         />
 
         <div className="space-y-8">
-          <div className="glass-panel theme-transition flex flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/80 px-6 py-6 text-[color:var(--text-primary)] sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+          <div className="glass-panel theme-transition flex flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/80 px-6 py-6 text-[color:var(--text-primary)] lg:flex-row lg:items-center lg:justify-between">
+            <div className="space-y-3">
+              <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]" aria-hidden />
                 Live Übersicht
               </div>
               <div>
-                <h2 className="text-2xl font-semibold text-[color:var(--text-primary)]">{sortedVenues.length} Hallen im SoccerHUB</h2>
-                <p className="text-sm text-[color:var(--text-secondary)]">
+                <h2 className="text-xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-2xl">{sortedVenues.length} Hallen im SoccerHUB</h2>
+                <p className="mt-2 text-sm leading-relaxed text-[color:var(--text-secondary)]">
                   Passe Filter, sortiere nach Preis oder Name und speichere Favoriten für das nächste Match, Training oder deine nächste Team-Session.
                 </p>
               </div>
             </div>
-            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
-              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+            <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 lg:w-auto">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--text-secondary)]">
                 Sortierung
               </span>
               <div className="relative inline-flex items-center">
@@ -167,7 +167,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                   id="sort"
                   value={sort}
                   onChange={(event) => setSort(event.target.value as SortOption)}
-                  className="theme-transition w-full rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/85 px-10 py-2 text-sm font-medium text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
+                  className="theme-transition w-full min-w-[12rem] rounded-full border border-[color:var(--border-subtle)] bg-[color:var(--surface-card)]/85 px-10 py-2 text-sm font-medium text-[color:var(--text-primary)] focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40"
                   aria-label="Sortierung der Arenen"
                 >
                   {(Object.keys(sortLabels) as SortOption[]).map((option) => (

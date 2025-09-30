@@ -27,7 +27,7 @@ export function VenueCard({ venue }: VenueCardProps) {
 
   return (
     <article className="theme-transition group relative flex flex-col overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)]/70 bg-gradient-to-br from-[color:var(--background-elevated)]/98 via-[color:var(--surface-card)] to-[color:var(--surface-card-muted)] shadow-[var(--shadow-soft)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-[color:var(--accent-primary)]/60 hover:shadow-[0_32px_120px_-48px_rgba(22,82,52,0.55)]">
-      <div className="relative h-56 w-full overflow-hidden">
+      <div className="relative h-52 w-full overflow-hidden sm:h-56">
         <Image
           src={heroImage}
           alt={venue.name}
@@ -41,17 +41,17 @@ export function VenueCard({ venue }: VenueCardProps) {
           <span className="inline-flex h-2 w-2 items-center justify-center rounded-full bg-[color:var(--accent-secondary)]" aria-hidden />
           Smart Booking
         </div>
-        <div className="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-contrast)]/50 bg-[color:var(--pitch-dark)]/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--background-primary)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.6)] backdrop-blur-sm">
+        <div className="absolute left-5 bottom-5 inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-contrast)]/50 bg-[color:var(--pitch-dark)]/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--background-primary)] shadow-[0_12px_32px_-24px_rgba(0,0,0,0.6)] backdrop-blur-sm">
           {venue.city}
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-7 p-8 text-[color:var(--text-primary)]">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/35 bg-[color:var(--accent-primary)]/18 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/35 bg-[color:var(--accent-primary)]/18 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]" aria-hidden />
             Highlight
           </div>
-          <h3 className="text-2xl font-semibold leading-snug text-[color:var(--text-primary)]">
+          <h3 className="text-xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-2xl">
             {venue.name}
           </h3>
           <p className="line-clamp-4 text-sm leading-relaxed text-[color:var(--text-secondary)]">
@@ -63,7 +63,7 @@ export function VenueCard({ venue }: VenueCardProps) {
           {venue.sports.map((sport) => (
             <span
               key={`${venue.id}-${sport}`}
-              className="theme-transition rounded-full border border-[color:var(--border-subtle)]/40 bg-[color:var(--surface-card)]/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]"
+              className="theme-transition rounded-full border border-[color:var(--border-subtle)]/40 bg-[color:var(--surface-card)]/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--text-secondary)]"
             >
               {sportLabels[sport] ?? sport}
             </span>
@@ -79,10 +79,10 @@ export function VenueCard({ venue }: VenueCardProps) {
             <dd className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[color:var(--text-primary)]">
               {formattedPrice ? (
                 <>
-                  <span className="text-3xl font-semibold text-[color:var(--accent-primary)]">
+                  <span className="text-2xl font-semibold text-[color:var(--accent-primary)] sm:text-3xl">
                     {formattedPrice}
                   </span>
-                  <span className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/80">
+                  <span className="text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-secondary)]/80">
                     inkl. MwSt.
                   </span>
                 </>
@@ -100,7 +100,7 @@ export function VenueCard({ venue }: VenueCardProps) {
             </dt>
             <dd className="mt-3 flex items-center justify-between text-sm">
               <span className="font-medium text-[color:var(--text-primary)]/85">Freie Slots</span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/45 bg-gradient-to-r from-[color:var(--accent-primary)]/20 via-[color:var(--accent-primary)]/12 to-[color:var(--accent-secondary)]/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--accent-primary)]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/45 bg-gradient-to-r from-[color:var(--accent-primary)]/20 via-[color:var(--accent-primary)]/12 to-[color:var(--accent-secondary)]/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
                 Live
               </span>
             </dd>
@@ -108,7 +108,7 @@ export function VenueCard({ venue }: VenueCardProps) {
         </dl>
 
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--text-secondary)]/85">Ausstattung</h4>
+          <h4 className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/85">Ausstattung</h4>
           <ul className="mt-3 grid grid-cols-1 gap-2 text-sm text-[color:var(--text-secondary)] sm:grid-cols-2">
             {venue.amenities.slice(0, 4).map((amenity) => (
               <li
