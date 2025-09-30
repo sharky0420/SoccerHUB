@@ -10,24 +10,24 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Sportshub | Fußball, Padel & Boutique-Fitness",
-    template: "%s | Sportshub",
+    default: "SoccerHUB | Indoor-Sporthallen live vergleichen",
+    template: "%s | SoccerHUB",
   },
   description:
-    "Sportshub ist dein kuratiertes Digital-Clubhaus für Premium-Fußballhallen, Padel-Courts und Boutique-Fitnessstudios in Rhein-Neckar. Vergleiche Preise, Ausstattung und freie Slots und buche direkt beim Betreiber.",
+    "SoccerHUB bündelt Indoor-Soccer-Arenen, Padel-Courts und funktionelle Trainingsflächen in einer Live-Plattform. Vergleiche Ausstattung, Preise und Verfügbarkeiten und reserviere direkt beim Betreiber.",
   keywords: [
-    "Sportshub",
+    "SoccerHUB",
     "Fußballhalle",
     "Padel",
-    "Fitnessstudio",
     "Indoor Sport",
-    "Buchung",
+    "Hallenübersicht",
+    "Direktbuchung",
   ],
   metadataBase: new URL("https://sportshub.app"),
   openGraph: {
-    title: "Sportshub",
+    title: "SoccerHUB",
     description:
-      "Sportshub bündelt Fußballhallen, Padel-Courts und Boutique-Fitnessstudios – Preise, Ausstattung & Kontakt auf einen Blick.",
+      "Die Live-Plattform für Indoor-Sporthallen: Verfügbarkeiten, Ausstattung und Buchungswege auf einen Blick.",
     type: "website",
   },
 };
@@ -49,9 +49,9 @@ export default function RootLayout({
           >
             <div className="container-narrow grid gap-6 text-sm text-[color:var(--text-secondary)] sm:grid-cols-[minmax(0,1fr),auto] sm:items-center">
               <div className="space-y-2">
-                <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit Sportshub verbunden</p>
+                <p className="text-base font-semibold text-[color:var(--text-primary)]">Bleib mit SoccerHUB verbunden</p>
                 <p>
-                  &copy; {new Date().getFullYear()} Sportshub. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Sharky.
+                  &copy; {new Date().getFullYear()} SoccerHUB. Crafted für ambitionierte Teams und Betreiber:innen von Henrik und Sharky.
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3">

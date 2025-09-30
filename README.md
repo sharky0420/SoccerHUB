@@ -1,6 +1,6 @@
-# Sportshub – Multi-Sport Venue MVP
+# SoccerHUB – Live-Plattform für Indoor-Sporthallen
 
-Dieses Projekt ist ein Next.js-14-MVP für Sportshub – ein kuratiertes Verzeichnis für Fußballhallen, Padel-Center und Boutique-Fitnessstudios in der Metropolregion Rhein-Neckar. Nutzer:innen vergleichen Flächen, filtern nach Ausstattung und springen direkt zur externen Buchung der Betreiber:innen.
+Dieses Projekt ist ein Next.js-14-Aufbau für SoccerHUB – eine deutschlandweite Übersicht über Fußballhallen, Padel-Center und funktionelle Trainingsflächen. Teams vergleichen Flächen, filtern nach Ausstattung und buchen über verifizierte Betreiber:innen.
 
 ## Quickstart
 
@@ -34,8 +34,8 @@ lib/venues.ts        – Hilfsfunktionen & spätere API-Hooks
 
 ## Weiterentwicklung
 
-- Die Filter-Logik läuft aktuell clientseitig. Für Echtzeit-Verfügbarkeiten ist eine Backend-API vorgesehen (`TODO`-Marker im Code).
+- Die Filter-Logik läuft aktuell clientseitig. Für Echtzeit-Verfügbarkeiten ist eine Backend-API vorgesehen.
 - Bilder werden remote von Unsplash geladen. Eigene CDN-Domains lassen sich via `next.config.js` ergänzen.
 - Für SEO können weitere Structured-Data-Snippets ergänzt werden.
 
-Viel Erfolg beim Ausbau zum nächsten MVP-Meilenstein!
+Viel Erfolg beim Ausbau zum nächsten Release!
