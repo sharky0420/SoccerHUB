@@ -10,48 +10,50 @@ export default function HomePage() {
   return (
     <div className="space-y-24 lg:space-y-28">
       <section className="container-narrow">
-        <div className="relative overflow-hidden rounded-[3rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--background-elevated)]/95 px-8 py-16 shadow-[0_35px_120px_-60px_rgba(6,48,26,0.7)] backdrop-blur-xl sm:px-14 sm:py-24">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(8,140,74,0.28),transparent_60%)]" aria-hidden />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(3,53,27,0.55),transparent_65%)]" aria-hidden />
-          <div className="pointer-events-none absolute bottom-0 left-1/2 h-[240px] w-[480px] -translate-x-1/2 rounded-full bg-[color:var(--accent-primary)]/20 blur-3xl" aria-hidden />
+        <div className="relative overflow-hidden rounded-[3.25rem] border border-[color:var(--border-subtle)]/70 bg-[color:var(--background-elevated)]/85 px-8 py-16 shadow-[0_40px_140px_-70px_rgba(8,52,28,0.75)] backdrop-blur-[22px] sm:px-14 sm:py-24">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(92,255,157,0.12),transparent_55%)]" aria-hidden />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(4,36,18,0.75),transparent_65%)]" aria-hidden />
+          <div className="pointer-events-none absolute bottom-[-120px] left-1/2 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-[color:var(--accent-primary)]/20 blur-[120px]" aria-hidden />
+          <div className="pointer-events-none absolute -left-20 top-32 h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(19,88,53,0.45),transparent_70%)] blur-2xl" aria-hidden />
+          <div className="pointer-events-none absolute -right-24 -top-16 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.32),transparent_70%)] blur-3xl" aria-hidden />
           <div className="relative grid gap-16 lg:grid-cols-[minmax(0,1fr),380px]">
             <div className="space-y-12">
               <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.32em]">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-5 py-2 text-[color:var(--text-secondary)]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/70 bg-white/10 px-5 py-2 text-[color:var(--text-secondary)] shadow-inner backdrop-blur">
                   🚀 Beta live in Rhein-Neckar
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)]/15 px-4 py-2 text-[color:var(--accent-primary)]">
-                  UX-first Booking
+                  Liquid Booking Experience
                 </span>
               </div>
               <div className="space-y-7">
                 <h1 className="text-4xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
-                  SoccerHUB – Dein digitales Clubhaus für Indoor-Soccer &amp; Padel
+                  SoccerHUB – Liquid Glass Playbook für Indoor-Soccer &amp; Padel
                 </h1>
                 <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]">
-                  Buche Slots schneller als je zuvor: transparente Preise, Echtzeit-Verfügbarkeit und ein Interface, das sich wie ein Taktikbrett anfühlt. Für Teams, Betreiber:innen und Communities, die keine Zeit verlieren wollen.
+                  Stell dir ein Taktikboard in Apple-Ästhetik vor: sanfte Reflexionen, Glassmorphism und Fokus auf dein Team. Wir veredeln jede Buchung mit Fußball-DNA – von Spielzügen bis Slot-Radar.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,1fr)]">
                 <a
                   href="#hallen"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-glow hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full bg-[color:var(--accent-primary)] px-8 py-3 text-sm font-semibold text-[color:var(--background-primary)] shadow-[0_0_40px_-10px_rgba(0,184,97,0.55)] hover:translate-y-[-2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]"
                 >
                   <span className="text-lg">⚽</span>
                   Arenen entdecken
                 </a>
                 <a
                   href="mailto:team@soccerhub.app"
-                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
+                  className="theme-transition inline-flex items-center justify-center gap-3 rounded-full border border-[color:var(--border-subtle)]/70 bg-white/5 px-8 py-3 text-sm font-semibold text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/50 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent-secondary)]/70"
                 >
                   Beta-Deck sichern
                 </a>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
-                {[{ label: "360° Arena Profile", description: "inkl. Fotos, Slots &amp; Preisen" }, { label: "Live Slot Radar", description: "aktualisiert im 5-Minuten-Takt" }, { label: "Direkte Buchung", description: "ohne Anruf, ohne Wartezeit" }].map((feature) => (
+                {[{ label: "360° Arena Profile", description: "Fotos, Slots &amp; Preise in Ultra-Clear." }, { label: "Live Slot Radar", description: "aktualisiert im 5-Minuten-Takt" }, { label: "Direkte Buchung", description: "ohne Anruf, ohne Wartezeit" }].map((feature) => (
                   <div
                     key={feature.label}
-                    className="theme-transition rounded-2xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/85 p-4 text-left text-sm text-[color:var(--text-secondary)]"
+                    className="theme-transition rounded-2xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-4 text-left text-sm text-[color:var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur"
                   >
                     <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
                       {feature.label}
@@ -61,57 +63,61 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="relative hidden overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/90 p-10 text-[color:var(--text-primary)] shadow-[0_55px_160px_-80px_rgba(0,0,0,0.85)] backdrop-blur lg:block">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,120,64,0.35),transparent_70%)]" aria-hidden />
-              <div className="pointer-events-none absolute inset-x-10 top-16 h-[1px] bg-[color:var(--field-line)]/30" aria-hidden />
-              <div className="relative space-y-6">
+            <div className="relative hidden overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/70 bg-white/10 p-10 text-[color:var(--text-primary)] shadow-[0_65px_180px_-90px_rgba(2,22,12,0.95)] backdrop-blur-2xl lg:block">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,120,64,0.4),transparent_70%)]" aria-hidden />
+              <div className="pointer-events-none absolute inset-x-10 top-16 h-[1px] bg-[color:var(--field-line)]/40" aria-hidden />
+              <div className="pointer-events-none absolute -bottom-24 right-1/2 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.22),transparent_70%)] blur-2xl" aria-hidden />
+              <div className="pointer-events-none absolute -top-10 left-1/2 h-24 w-48 -translate-x-1/2 rounded-full bg-white/15 blur-3xl" aria-hidden />
+              <div className="relative space-y-7">
                 <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">
                   <span>Match Center</span>
                   <span>Realtime Sync</span>
                 </div>
-                <h2 className="text-3xl font-semibold leading-tight">Taktisches Dashboard</h2>
-                <div className="rounded-3xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/80 p-6 shadow-inner">
-                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">
+                <h2 className="text-3xl font-semibold leading-tight">Liquid Tactics Board</h2>
+                <div className="relative overflow-hidden rounded-[2.25rem] border border-white/20 bg-[color:var(--pitch-dark)]/85 p-6 shadow-inner">
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(92,255,157,0.2),transparent_75%)]" aria-hidden />
+                  <div className="flex items-center justify-between text-xs uppercase tracking-[0.32em] text-white/60">
                     <span>Nächstes Highlight</span>
                     <span>Freitag · 19:30</span>
                   </div>
-                  <div className="mt-5 space-y-4 rounded-2xl bg-[color:var(--pitch-dark)]/85 px-5 py-4 text-[color:var(--background-primary)]">
+                  <div className="mt-5 space-y-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white/90 backdrop-blur">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.32em] text-white/60">Arena</p>
+                        <p className="text-xs uppercase tracking-[0.32em] text-white/50">Arena</p>
                         <p className="text-2xl font-semibold text-white">Green Dome Mannheim</p>
                       </div>
-                      <span className="text-4xl font-black text-[color:var(--accent-secondary)]">19:30</span>
+                      <span className="text-4xl font-black text-[color:var(--accent-secondary)] drop-shadow-[0_0_15px_rgba(92,255,157,0.4)]">19:30</span>
                     </div>
-                    <div className="grid gap-3 text-xs uppercase tracking-[0.3em] text-white/70 sm:grid-cols-3">
+                    <div className="grid gap-3 text-[11px] uppercase tracking-[0.3em] text-white/70 sm:grid-cols-3">
                       {["Padel Courts · 4", "Soccer XL · Slots frei", "Teams · 78"].map((item) => (
                         <div
                           key={item}
-                          className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-[11px] font-semibold"
+                          className="rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-center font-semibold shadow-[0_0_20px_-12px_rgba(255,255,255,0.8)]"
                         >
                           {item}
                         </div>
                       ))}
                     </div>
                   </div>
-                  <ul className="mt-6 space-y-3 text-sm text-[color:var(--text-secondary)]">
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
-                      <span>Integrationen</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">12 Systeme</span>
-                    </li>
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
-                      <span>Verfügbarkeiten</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">Live Refresh</span>
-                    </li>
-                    <li className="flex items-center justify-between rounded-xl bg-[color:var(--surface-card)]/85 px-4 py-3">
-                      <span>Team Ranking</span>
-                      <span className="font-semibold text-[color:var(--accent-primary)]">Beta Zugriff</span>
-                    </li>
-                  </ul>
+                  <div className="mt-6 grid gap-3 text-sm text-[color:var(--text-secondary)]">
+                    {[
+                      { label: "Integrationen", value: "12 Systeme" },
+                      { label: "Verfügbarkeiten", value: "Live Refresh" },
+                      { label: "Team Ranking", value: "Beta Zugriff" },
+                    ].map((info) => (
+                      <div
+                        key={info.label}
+                        className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
+                      >
+                        <span>{info.label}</span>
+                        <span className="font-semibold text-[color:var(--accent-secondary)]">{info.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">Einbindung in Vereinssoftware</p>
                 <p className="text-sm text-[color:var(--text-secondary)]">
-                  Synchronisiert mit Betreiber-Systemen, bietet Smart Alerts und exportiert deine Buchungen direkt in ClubPlanner &amp; Co.
+                  Synchronisiert mit Betreiber-Systemen, sendet Smart Alerts und exportiert Buchungen direkt in ClubPlanner &amp; Co.
                 </p>
               </div>
             </div>
@@ -120,40 +126,42 @@ export default function HomePage() {
       </section>
 
       <section className="container-narrow" id="matchcenter">
-        <div className="relative overflow-hidden rounded-[2.75rem] border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/85 px-8 py-12 shadow-[0_40px_120px_-80px_rgba(10,60,28,0.7)] backdrop-blur sm:px-14">
-          <div className="pointer-events-none absolute inset-x-0 -top-1/3 h-full bg-[radial-gradient(circle_at_top,_rgba(8,140,74,0.22),transparent_70%)]" aria-hidden />
+        <div className="relative overflow-hidden rounded-[2.9rem] border border-[color:var(--border-subtle)]/70 bg-white/10 px-8 py-12 shadow-[0_55px_160px_-90px_rgba(6,38,20,0.8)] backdrop-blur-[26px] sm:px-14">
+          <div className="pointer-events-none absolute inset-x-0 -top-1/2 h-full bg-[radial-gradient(circle_at_top,_rgba(92,255,157,0.28),transparent_75%)]" aria-hidden />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(140deg,rgba(5,38,22,0.72),transparent_68%)]" aria-hidden />
           <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1fr),320px]">
-            <div className="space-y-8">
+            <div className="space-y-10">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,320px)] sm:items-center">
                 <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Match Center Insights</h2>
                 <p className="text-base text-[color:var(--text-secondary)]">
-                  Wir kombinieren Field-Optik mit datengetriebenem Booking. Filter, Preislevel, Öffnungszeiten und direkte Buchungslinks – sauber strukturiert für schnelle Entscheidungen.
+                  Liquid Lines, klare Typo und Spielfeld-Flair: Unser Dashboard zeigt Filter, Preisfenster und Buchungswege wie ein aufpoliertes Coaching-Tablet – inklusive Echtzeit-Intelligenz.
                 </p>
               </div>
               <dl className="grid gap-6 md:grid-cols-3">
                 {[{ title: "Teams on Board", value: "180+", detail: "Beta-Teams testen Live-Buchungen &amp; Slot-Radar." }, { title: "Operator Sync", value: "12 Integrationen", detail: "Von lokalen Betreiber:innen bis Pro Clubs." }, { title: "Instant Visibility", value: "< 45 Sek.", detail: "Von Anfrage bis Buchung ohne Medienbrüche." }].map((stat) => (
-                  <div key={stat.title} className="rounded-2xl border border-[color:var(--border-subtle)] bg-[color:var(--background-primary)]/80 p-6 shadow-inner">
-                    <dt className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">{stat.title}</dt>
-                    <dd className="mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">{stat.value}</dd>
-                    <p className="mt-2 text-sm text-[color:var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: stat.detail }} />
+                  <div key={stat.title} className="relative overflow-hidden rounded-2xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur">
+                    <div className="pointer-events-none absolute -left-10 top-1/2 h-24 w-24 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,255,157,0.18),transparent_70%)] blur-xl" aria-hidden />
+                    <dt className="relative text-xs uppercase tracking-[0.3em] text-[color:var(--text-secondary)]">{stat.title}</dt>
+                    <dd className="relative mt-3 text-3xl font-semibold text-[color:var(--accent-primary)]">{stat.value}</dd>
+                    <p className="relative mt-2 text-sm text-[color:var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: stat.detail }} />
                   </div>
                 ))}
               </dl>
             </div>
-            <div className="space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/60 bg-[color:var(--background-primary)]/70 p-6 shadow-inner">
+            <div className="space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/60 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur">
               <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--text-secondary)]">So klappt die Buchung</p>
               <ol className="space-y-5 text-sm text-[color:var(--text-secondary)]">
                 {["Wähle Sportart, Preisfenster &amp; Ausstattung.", "Prüfe freie Slots im Echtzeit-Radar und sichere dir deinen Termin.", "Informiere dein Team via Deep Link und nutze optionale Add-ons."]
                   .map((step, index) => (
                   <li key={step} className="flex gap-4">
-                    <span className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/15 text-xs font-semibold text-[color:var(--accent-primary)]">
+                    <span className="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-primary)]/20 text-xs font-semibold text-[color:var(--accent-primary)]">
                       {index + 1}
                     </span>
                     <span dangerouslySetInnerHTML={{ __html: step }} />
                   </li>
                 ))}
               </ol>
-              <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)]">
+              <div className="rounded-2xl border border-dashed border-[color:var(--border-subtle)]/60 bg-white/10 px-4 py-3 text-xs uppercase tracking-[0.28em] text-[color:var(--text-secondary)] backdrop-blur">
                 <span className="font-semibold text-[color:var(--accent-primary)]">Neu:</span> Sammelbuchungen &amp; Multicourt-Planung im Beta-Test.
               </div>
             </div>
