@@ -36,6 +36,13 @@ export function GoogleMapCanvas({
   const markersRef = useRef<any[]>([]);
   const infoWindowRef = useRef<any | null>(null);
   const markerSelectRef = useRef(onMarkerSelect);
+  const mapsModuleRef = useRef<{
+    Map?: any;
+    Marker?: any;
+    InfoWindow?: any;
+    LatLngBounds?: any;
+    Point?: any;
+  } | null>(null);
 
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [scriptError, setScriptError] = useState<string | null>(null);
@@ -60,10 +67,10 @@ export function GoogleMapCanvas({
       return null;
     }
 
-    if ((globalThis as any)?.google?.maps) {
-      console.log("[Maps] google.maps already present");
+    if (mapsModuleRef.current?.Map) {
+      console.log("[Maps] modules already cached");
       setIsScriptLoaded(true);
-      return (globalThis as any).google;
+      return mapsModuleRef.current;
     }
 
     if (!loadPromiseRef.current) {
@@ -73,9 +80,17 @@ export function GoogleMapCanvas({
 
         loadPromiseRef.current = (async () => {
           console.log("[Maps] importLibrary('maps')…");
-          await importLibrary("maps");
+          const mapsLib = await importLibrary("maps");
           console.log("[Maps] importLibrary('marker')…");
-          await importLibrary("marker");
+          const markerLib = await importLibrary("marker");
+          const currentGoogleMaps = (globalThis as any).google?.maps ?? {};
+          mapsModuleRef.current = {
+            Map: mapsLib.Map ?? currentGoogleMaps.Map,
+            Marker: markerLib.Marker ?? mapsLib.Marker ?? currentGoogleMaps.Marker,
+            InfoWindow: mapsLib.InfoWindow ?? currentGoogleMaps.InfoWindow,
+            LatLngBounds: mapsLib.LatLngBounds ?? currentGoogleMaps.LatLngBounds,
+            Point: mapsLib.Point ?? currentGoogleMaps.Point,
+          };
           console.log("[Maps] libraries imported");
         })();
       } catch (e) {
@@ -87,9 +102,19 @@ export function GoogleMapCanvas({
 
     try {
       await loadPromiseRef.current;
+      if (mapsModuleRef.current) {
+        const currentGoogle = (globalThis as any).google ?? {};
+        (globalThis as any).google = {
+          ...currentGoogle,
+          maps: {
+            ...currentGoogle.maps,
+            ...mapsModuleRef.current,
+          },
+        };
+      }
       setIsScriptLoaded(true);
       console.log("[Maps] ensureScript done");
-      return (globalThis as any).google;
+      return mapsModuleRef.current;
     } catch (e) {
       console.error("[Maps] load failed", e);
       setScriptError("Google Maps konnte nicht geladen werden.");
@@ -113,19 +138,28 @@ export function GoogleMapCanvas({
   // Map initialisieren & Marker setzen
   useEffect(() => {
     const hasGoogle = !!(globalThis as any)?.google?.maps;
+    const hasModules = !!mapsModuleRef.current?.Map;
     const hasContainer = !!containerRef.current;
     console.log("[Maps] init effect gate", {
       hasApiKey: !!apiKey,
       isScriptLoaded,
       hasGoogle,
+      hasModules,
       hasContainer,
     });
 
-    if (!apiKey || !isScriptLoaded || !hasGoogle || !hasContainer) {
+    if (!apiKey || !isScriptLoaded || !hasGoogle || !hasContainer || !hasModules) {
       if (!apiKey) console.warn("[Maps] gate: no apiKey");
       if (!isScriptLoaded) console.log("[Maps] gate: script not loaded yet");
       if (!hasGoogle) console.log("[Maps] gate: google.maps missing");
+      if (!hasModules) console.log("[Maps] gate: map modules missing");
       if (!hasContainer) console.log("[Maps] gate: containerRef null");
+      return;
+    }
+
+    const modules = mapsModuleRef.current;
+    if (!modules?.Map || !modules?.InfoWindow || !modules?.Marker || !modules?.LatLngBounds) {
+      console.warn("[Maps] Missing constructors after load", modules);
       return;
     }
 
@@ -135,9 +169,8 @@ export function GoogleMapCanvas({
 
     // Map einmalig erstellen
     if (!mapRef.current) {
-      const { Map } = window.google.maps;
       console.log("[Maps] creating Map instance");
-      mapRef.current = new Map(containerRef.current!, {
+      mapRef.current = new modules.Map(containerRef.current!, {
         center: MAP_DEFAULT_CENTER,
         zoom: 6,
         disableDefaultUI: true,
@@ -148,20 +181,20 @@ export function GoogleMapCanvas({
     const map = mapRef.current;
 
     if (!infoWindowRef.current) {
-      const { InfoWindow } = window.google.maps;
-      infoWindowRef.current = new InfoWindow({ maxWidth: 280 });
+      infoWindowRef.current = new modules.InfoWindow({ maxWidth: 280 });
     }
 
-    const bounds = new window.google.maps.LatLngBounds();
-    const { Marker } = window.google.maps;
+    const bounds = new modules.LatLngBounds();
+    const markerCtor = modules.Marker;
+    const pointCtor = modules.Point ?? window.google?.maps?.Point;
 
     venuePoints.forEach((point) => {
       const isLive = typeof point.venue.pricePerHour === "number";
-      const marker = new Marker({
+      const marker = new markerCtor({
         map,
         position: point.position,
         title: point.venue.name,
-        icon: createMarkerIcon(isLive),
+        icon: createMarkerIcon(isLive, pointCtor),
       });
 
       marker.addListener("click", () => {
@@ -356,8 +389,9 @@ function createDeterministicOffset(seed: string) {
   return { lat, lng };
 }
 
-function createMarkerIcon(isLive: boolean) {
-  if (!window.google?.maps) return undefined;
+function createMarkerIcon(isLive: boolean, PointCtor?: any) {
+  const Point = PointCtor ?? window.google?.maps?.Point;
+  if (!Point) return undefined;
   return {
     path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z",
     fillColor: isLive ? "#1FB864" : "#7C8A82",
@@ -365,7 +399,7 @@ function createMarkerIcon(isLive: boolean) {
     strokeColor: "#042416",
     strokeWeight: 1,
     scale: 1.2,
-    anchor: new window.google.maps.Point(12, 22),
+    anchor: new Point(12, 22),
   };
 }
 
