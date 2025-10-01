@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CITY_COORDINATES } from "@/lib/city-coordinates";
 import type { Venue } from "@/types/venue";
-import { Loader } from "@googlemaps/js-api-loader";
+import { setOptions as setMapsOptions, importLibrary } from "@googlemaps/js-api-loader";
 
 interface GoogleMapCanvasProps {
   venues: Venue[];
@@ -23,7 +23,7 @@ declare global {
   }
 }
 
-const MAP_DEFAULT_CENTER = { lat: 51.163375, lng: 10.447683 }; // Germany midpoint
+const MAP_DEFAULT_CENTER = { lat: 51.163375, lng: 10.447683 };
 
 export function GoogleMapCanvas({
   venues,
@@ -36,51 +36,50 @@ export function GoogleMapCanvas({
   const markersRef = useRef<any[]>([]);
   const infoWindowRef = useRef<any | null>(null);
   const markerSelectRef = useRef(onMarkerSelect);
+
   const [isScriptLoaded, setIsScriptLoaded] = useState(false);
   const [scriptError, setScriptError] = useState<string | null>(null);
 
   markerSelectRef.current = onMarkerSelect;
 
-  const apiKey = useMemo(
-    () => (process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "").trim(),
-    []
-  );
-  
+  const apiKey = useMemo(() => (process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "").trim(), []);
+  console.log("[Maps] env key present:", apiKey ? `yes (len ${apiKey.length})` : "no");
+
   const venuePoints = useMemo(() => computeVenuePoints(venues), [venues]);
 
-  // Single in-flight load promise (avoids double loads on re-render)
   const loadPromiseRef = useRef<Promise<void> | null>(null);
-  const loaderRef = useRef<Loader | null>(null);
 
   const ensureScript = useCallback(async () => {
-    // 1) SSR & fehlender Key
-    if (typeof window === "undefined" || !apiKey) return null;
-  
-    // 2) Fast-path: Maps schon da?
+    console.log("[Maps] ensureScript start");
+    if (typeof window === "undefined") {
+      console.log("[Maps] SSR -> abort");
+      return null;
+    }
+    if (!apiKey) {
+      console.warn("[Maps] No API key -> fallback");
+      return null;
+    }
+
     if ((globalThis as any)?.google?.maps) {
+      console.log("[Maps] google.maps already present");
       setIsScriptLoaded(true);
       return (globalThis as any).google;
     }
-  
-    // 3) Nur einmal laden
+
     if (!loadPromiseRef.current) {
       try {
-        if (!loaderRef.current) {
-          loaderRef.current = new Loader({
-            apiKey,
-            version: "weekly",
-          });
-        }
+        console.log("[Maps] setOptions({ key, v:'weekly' })");
+        setMapsOptions({ key: apiKey, v: "weekly" });
 
         loadPromiseRef.current = (async () => {
-          const loader = loaderRef.current;
-          if (!loader) {
-            throw new Error("Google Maps Loader konnte nicht initialisiert werden.");
-          }
-          await loader.importLibrary("maps");
-          await loader.importLibrary("marker");
+          console.log("[Maps] importLibrary('maps')…");
+          await importLibrary("maps");
+          console.log("[Maps] importLibrary('marker')…");
+          await importLibrary("marker");
+          console.log("[Maps] libraries imported");
         })();
-      } catch {
+      } catch (e) {
+        console.error("[Maps] init error", e);
         setScriptError("Google Maps konnte nicht geladen werden.");
         return null;
       }
@@ -89,40 +88,56 @@ export function GoogleMapCanvas({
     try {
       await loadPromiseRef.current;
       setIsScriptLoaded(true);
+      console.log("[Maps] ensureScript done");
       return (globalThis as any).google;
-    } catch {
+    } catch (e) {
+      console.error("[Maps] load failed", e);
       setScriptError("Google Maps konnte nicht geladen werden.");
       return null;
     }
   }, [apiKey]);
-  
 
+  // Script laden
   useEffect(() => {
     if (!apiKey) return;
-
     let cancelled = false;
     ensureScript().catch((error) => {
       if (!cancelled) {
+        console.error("[Maps] ensureScript error", error);
         setScriptError(error instanceof Error ? error.message : String(error));
       }
     });
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [ensureScript, apiKey]);
 
+  // Map initialisieren & Marker setzen
   useEffect(() => {
-    if (!apiKey || !containerRef.current || !(globalThis as any)?.google?.maps) return;
+    const hasGoogle = !!(globalThis as any)?.google?.maps;
+    const hasContainer = !!containerRef.current;
+    console.log("[Maps] init effect gate", {
+      hasApiKey: !!apiKey,
+      isScriptLoaded,
+      hasGoogle,
+      hasContainer,
+    });
+
+    if (!apiKey || !isScriptLoaded || !hasGoogle || !hasContainer) {
+      if (!apiKey) console.warn("[Maps] gate: no apiKey");
+      if (!isScriptLoaded) console.log("[Maps] gate: script not loaded yet");
+      if (!hasGoogle) console.log("[Maps] gate: google.maps missing");
+      if (!hasContainer) console.log("[Maps] gate: containerRef null");
+      return;
+    }
 
     // Clear existing markers
     markersRef.current.forEach((m) => m.setMap(null));
     markersRef.current = [];
 
-    // Init map once
+    // Map einmalig erstellen
     if (!mapRef.current) {
-      const { Map } = window.google.maps; // available after importLibrary('maps')
-      mapRef.current = new Map(containerRef.current, {
+      const { Map } = window.google.maps;
+      console.log("[Maps] creating Map instance");
+      mapRef.current = new Map(containerRef.current!, {
         center: MAP_DEFAULT_CENTER,
         zoom: 6,
         disableDefaultUI: true,
@@ -138,11 +153,10 @@ export function GoogleMapCanvas({
     }
 
     const bounds = new window.google.maps.LatLngBounds();
+    const { Marker } = window.google.maps;
 
     venuePoints.forEach((point) => {
       const isLive = typeof point.venue.pricePerHour === "number";
-      const { Marker } = window.google.maps; // available after importLibrary('marker')
-
       const marker = new Marker({
         map,
         position: point.position,
@@ -151,6 +165,7 @@ export function GoogleMapCanvas({
       });
 
       marker.addListener("click", () => {
+        console.log("[Maps] marker click:", point.venue.name);
         markerSelectRef.current?.(point.venue);
         infoWindowRef.current?.setContent(createInfoWindowContent(point.venue));
         infoWindowRef.current?.open({ anchor: marker, map, shouldFocus: false });
@@ -160,40 +175,45 @@ export function GoogleMapCanvas({
       bounds.extend(point.position);
     });
 
+    console.log("[Maps] markers added:", markersRef.current.length);
+
     if (!bounds.isEmpty()) {
+      console.log("[Maps] fitBounds");
       map.fitBounds(bounds, 64);
     } else {
+      console.log("[Maps] set default center");
       map.setCenter(MAP_DEFAULT_CENTER);
       map.setZoom(6);
     }
 
     if (activeCity && CITY_COORDINATES[activeCity]) {
-      const coordinate = CITY_COORDINATES[activeCity];
-      map.panTo({ lat: coordinate.lat, lng: coordinate.lng });
+      const c = CITY_COORDINATES[activeCity];
+      console.log("[Maps] panTo activeCity:", activeCity, c);
+      map.panTo({ lat: c.lat, lng: c.lng });
       map.setZoom(Math.max(map.getZoom(), 11));
     }
-  }, [apiKey, venuePoints, activeCity]);
+  }, [apiKey, isScriptLoaded, venuePoints, activeCity]);
 
+  // Fokus auf ausgewähltes Venue
   useEffect(() => {
-    if (!mapRef.current || !window.google?.maps || venuePoints.length === 0 || !selectedVenueId) {
-      return;
-    }
+    if (!mapRef.current || !window.google?.maps || venuePoints.length === 0 || !selectedVenueId) return;
     const selected = venuePoints.find((p) => p.venue.id === selectedVenueId);
     if (selected) {
+      console.log("[Maps] focus selected venue:", selected.venue.name);
       mapRef.current.panTo(selected.position);
       mapRef.current.setZoom(Math.max(mapRef.current.getZoom(), 12));
     }
   }, [selectedVenueId, venuePoints]);
 
-  // Cleanup on unmount
-  useEffect(
-    () => () => {
-      markersRef.current.forEach((marker) => marker.setMap(null));
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      console.log("[Maps] cleanup");
+      markersRef.current.forEach((m) => m.setMap(null));
       markersRef.current = [];
       mapRef.current = null;
-    },
-    []
-  );
+    };
+  }, []);
 
   const shouldRenderFallback = !apiKey || !!scriptError || !isScriptLoaded;
 
@@ -327,8 +347,8 @@ function computeVenuePoints(venues: Venue[]): VenuePoint[] {
 
 function createDeterministicOffset(seed: string) {
   let hash = 0;
-  for (let index = 0; index < seed.length; index += 1) {
-    hash = (hash << 5) - hash + seed.charCodeAt(index);
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
     hash |= 0;
   }
   const lat = ((hash % 1000) / 1000 - 0.5) * 0.08;
@@ -338,7 +358,6 @@ function createDeterministicOffset(seed: string) {
 
 function createMarkerIcon(isLive: boolean) {
   if (!window.google?.maps) return undefined;
-
   return {
     path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z",
     fillColor: isLive ? "#1FB864" : "#7C8A82",
@@ -355,7 +374,6 @@ function createInfoWindowContent(venue: Venue) {
   const priceLabel = isLive ? `${venue.pricePerHour} € pro Stunde` : "Preis auf Anfrage";
   const statusLabel = isLive ? "Live Slots verfügbar" : "Anfrage notwendig";
   const buttonLabel = isLive ? "Jetzt buchen" : "Anfrage senden";
-
   return `
     <div style="font-family: 'Inter', sans-serif; min-width: 220px; max-width: 260px;">
       <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.22em; color: #0c7f45; font-weight: 600;">
