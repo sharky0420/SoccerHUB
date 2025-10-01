@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# SoccerHUB Liquid Glass iOS App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This directory contains a fully wired Expo React Native application that implements the SoccerHUB "Liquid Glass" experience for iPhone.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Native navigation** with bottom glass tab bar, custom icons, and stack transitions for venue details.
+- **Liquid glass visuals** using blurred panels, gradients, and frosted overlays optimised for performance.
+- **Home screen** with map preview, quick filters, and interactive venue cards.
+- **Detail screen** showcasing rich venue information, amenities, and booking CTA.
+- **Supporting tabs** for favorites, filters, and profile placeholders ready for future expansion.
+
+## Getting started
+
+1. Install dependencies (requires Node.js 18+):
 
    ```bash
+   cd ios
    npm install
    ```
 
-2. Start the app
+2. Launch the Expo development server:
 
    ```bash
-   npx expo start
+   npm run start
    ```
 
-In the output, you'll find options to open the app in a
+3. Press `i` to open the iOS simulator or scan the QR code with the Expo Go app on an iPhone.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+ios/
+├── App.tsx
+├── app.json
+├── assets/
+├── src/
+│   ├── components/
+│   ├── data/
+│   ├── navigation/
+│   ├── screens/
+│   ├── theme/
+│   └── types/
+└── package.json
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Next steps
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Connect the data layer to live APIs and enable authentication.
+- Replace the static map tile with Mapbox or Apple MapKit for realtime interactivity.
+- Implement the animated shrinking tab bar when scrolling, using `react-native-reanimated` shared values.
+- Extend filter and favorites tabs with full feature sets and integrate Apple Pay booking flows.
