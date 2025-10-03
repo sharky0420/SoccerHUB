@@ -148,7 +148,7 @@ function CollapsibleSection({
   return (
     <section
       className={clsx(
-        "theme-transition rounded-2xl border border-[color:var(--surface-glass-border)]/65 bg-[linear-gradient(145deg,rgba(255,255,255,0.6),rgba(200,238,220,0.38))] p-5 shadow-[0_32px_120px_-80px_rgba(12,72,48,0.45)] backdrop-blur-xl",
+        "theme-transition rounded-2xl border border-[color:var(--surface-glass-border)]/65 bg-[var(--gradient-filter-card)] p-5 shadow-[0_32px_120px_-80px_rgba(12,72,48,0.45)] backdrop-blur-xl",
         className
       )}
     >
@@ -402,7 +402,7 @@ export function FilterPanel({
   return (
     <aside
       className={clsx(
-        "glass-panel theme-transition rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[linear-gradient(150deg,rgba(255,255,255,0.58),rgba(198,239,219,0.35))] text-[color:var(--text-primary)] shadow-[0_60px_190px_-110px_rgba(12,72,48,0.55)] backdrop-blur-2xl",
+        "glass-panel theme-transition rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[var(--gradient-filter-shell)] text-[color:var(--text-primary)] shadow-[0_60px_190px_-110px_rgba(12,72,48,0.55)] backdrop-blur-2xl",
         isCompact ? "space-y-5 p-5 lg:p-6" : "space-y-7 p-8",
         className
       )}
@@ -480,7 +480,7 @@ export function FilterPanel({
               value={state.city}
               onChange={(event) => onChange({ ...state, city: event.target.value, nearby: false })}
               className={clsx(
-                "theme-transition w-full rounded-full border border-[color:var(--border-subtle)]/80 bg-white/80 pl-11 pr-4 text-sm font-medium text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40",
+                "theme-transition w-full rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/80 pl-11 pr-4 text-sm font-medium text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)]/70 focus:border-[color:var(--accent-primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-secondary)]/40",
                 isCompact ? "py-2.5" : "py-3"
               )}
             />
@@ -524,7 +524,7 @@ export function FilterPanel({
                     isCompact ? "py-1.5" : "py-2",
                     selected
                       ? "border-transparent bg-[color:var(--accent-primary-strong)] text-[color:var(--accent-primary-contrast)] shadow-[0_16px_36px_-22px_rgba(0,108,56,0.55)]"
-                      : "border-[color:var(--surface-glass-border)]/55 bg-white/70 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary-strong)]/45 hover:text-[color:var(--accent-primary-strong)]"
+                      : "border-[color:var(--surface-glass-border)]/55 bg-[color:var(--surface-card)]/70 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary-strong)]/45 hover:text-[color:var(--accent-primary-strong)]"
                   )}
                 >
                   <span
@@ -552,7 +552,7 @@ export function FilterPanel({
           summary={priceSummary}
         >
           <div className={clsx("grid gap-4", isCompact ? "sm:grid-cols-1" : "sm:grid-cols-2")}> 
-            <div className="rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-white/80 p-4 shadow-[0_20px_70px_-60px_rgba(12,72,48,0.45)]">
+            <div className="rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/80 p-4 shadow-[0_20px_70px_-60px_rgba(12,72,48,0.45)]">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--text-tertiary)]">
                 Preisrange
               </p>
@@ -603,7 +603,7 @@ export function FilterPanel({
                 Typische Buchungsfenster liegen zwischen 45&nbsp;€ und 70&nbsp;€ pro Stunde.
               </p>
             </div>
-            <div className="rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-white/80 p-4 shadow-[0_20px_70px_-60px_rgba(12,72,48,0.45)]">
+            <div className="rounded-2xl border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/80 p-4 shadow-[0_20px_70px_-60px_rgba(12,72,48,0.45)]">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--text-tertiary)]">
                 Öffnungszeiten
               </p>
@@ -682,7 +682,7 @@ export function FilterPanel({
                           isCompact ? "py-2" : "py-2.5",
                           selected
                             ? "border-[color:var(--accent-primary)]/55 bg-[color:var(--accent-primary)]/14 text-[color:var(--accent-primary)] shadow-[0_14px_32px_-28px_rgba(10,90,60,0.6)]"
-                            : "border-[color:var(--border-subtle)]/60 bg-white/75 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary)]/35 hover:text-[color:var(--accent-primary)]"
+                            : "border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card)]/75 text-[color:var(--text-secondary)] hover:border-[color:var(--accent-primary)]/35 hover:text-[color:var(--accent-primary)]"
                         )}
                       >
                         <span className="inline-flex items-center gap-3">
@@ -710,7 +710,7 @@ export function FilterPanel({
       </div>
       <div
         className={clsx(
-          "rounded-2xl border border-dashed border-[color:var(--border-subtle)]/60 bg-white/80 text-[color:var(--text-secondary)] backdrop-blur",
+          "rounded-2xl border border-dashed border-[color:var(--border-subtle)]/60 bg-[color:var(--surface-card)]/80 text-[color:var(--text-secondary)] backdrop-blur",
           isCompact ? "px-4 py-2 text-[11px]" : "px-4 py-3 text-xs"
         )}
       >

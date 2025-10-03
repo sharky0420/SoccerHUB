@@ -303,7 +303,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               />
             </div>
           ) : (
-            <div className="lg:sticky lg:top-24 rounded-3xl border border-[color:var(--surface-glass-border)]/60 bg-[linear-gradient(150deg,rgba(12,40,26,0.45),rgba(18,64,40,0.35))] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_60px_160px_-90px_rgba(6,36,22,0.6)] backdrop-blur-2xl">
+            <div className="lg:sticky lg:top-24 rounded-3xl border border-[color:var(--surface-glass-border)]/60 bg-[var(--gradient-filter-sidebar)] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_60px_160px_-90px_rgba(6,36,22,0.6)] backdrop-blur-2xl">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="space-y-2">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary)]/85">
@@ -339,7 +339,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         </div>
 
         <div className="space-y-7">
-          <div className="glass-panel theme-transition space-y-5 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[linear-gradient(155deg,rgba(255,255,255,0.72),rgba(188,238,212,0.42))] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_48px_160px_-90px_rgba(6,36,22,0.68)] lg:px-8 lg:py-7">
+          <div className="glass-panel theme-transition space-y-5 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[var(--gradient-filter-results)] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_48px_160px_-90px_rgba(6,36,22,0.68)] lg:px-8 lg:py-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">

@@ -49,7 +49,7 @@ export function VenueDetail({ venue }: VenueDetailProps) {
             priority
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" aria-hidden />
-          <div className="pointer-events-none absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/35 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-white shadow-[0_18px_42px_-24px_rgba(0,0,0,0.8)] backdrop-blur" aria-hidden>
+        <div className="pointer-events-none absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-[color:var(--floating-badge-border)] bg-[color:var(--floating-badge-background)] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--floating-badge-text)] shadow-[0_18px_42px_-24px_rgba(0,0,0,0.8)] backdrop-blur" aria-hidden>
             Arena Highlight
           </div>
           <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center gap-3 rounded-2xl bg-black/30 px-5 py-3 text-sm text-white backdrop-blur">

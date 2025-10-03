@@ -70,7 +70,7 @@ export function VenueCard({ venue }: VenueCardProps) {
           priority={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" aria-hidden />
-        <div className="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_14px_45px_-30px_rgba(0,0,0,0.75)] backdrop-blur">
+        <div className="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full border border-[color:var(--floating-badge-border)] bg-[color:var(--floating-badge-background)] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--floating-badge-text)] shadow-[0_14px_45px_-30px_rgba(0,0,0,0.75)] backdrop-blur">
           <BadgeCheckIcon className="h-4 w-4" />
           Verifiziert
         </div>
