@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTheme } from "@/components/theme-provider";
 import { CITY_COORDINATES } from "@/lib/city-coordinates";
 import type { Venue } from "@/types/venue";
 import { setOptions as setMapsOptions, importLibrary } from "@googlemaps/js-api-loader";
@@ -31,6 +32,8 @@ export function GoogleMapCanvas({
   selectedVenueId,
   onMarkerSelect,
 }: GoogleMapCanvasProps) {
+  const { theme } = useTheme();
+  const initialTheme = useRef(theme);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any | null>(null);
   const markersRef = useRef<any[]>([]);
@@ -174,7 +177,7 @@ export function GoogleMapCanvas({
         center: MAP_DEFAULT_CENTER,
         zoom: 6,
         disableDefaultUI: true,
-        styles: mapStyles,
+        styles: mapStylesByTheme[initialTheme.current],
       });
     }
 
@@ -226,6 +229,11 @@ export function GoogleMapCanvas({
       map.setZoom(Math.max(map.getZoom(), 11));
     }
   }, [apiKey, isScriptLoaded, venuePoints, activeCity]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    mapRef.current.setOptions({ styles: mapStylesByTheme[theme] });
+  }, [theme]);
 
   // Fokus auf ausgewähltes Venue
   useEffect(() => {
@@ -435,16 +443,53 @@ function createInfoWindowContent(venue: Venue) {
   `;
 }
 
-const mapStyles = [
-  { elementType: "geometry", stylers: [{ color: "#e8f7ef" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#1d5c3d" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#f5fffa" }] },
-  { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#c8ebd9" }] },
-  { featureType: "administrative", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
-  { featureType: "poi", stylers: [{ visibility: "off" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
-  { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ab8af" }] },
-  { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
-  { featureType: "transit", stylers: [{ visibility: "off" }] },
-  { featureType: "water", stylers: [{ color: "#c9f1e4" }] },
-];
+const mapStylesByTheme = {
+  light: [
+    { elementType: "geometry", stylers: [{ color: "#d9efe4" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#1c4e34" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#f5fffa" }] },
+    { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#b7e0cd" }] },
+    { featureType: "administrative", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+    { featureType: "poi", stylers: [{ visibility: "off" }] },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        { color: "#f5fbf7" },
+        { lightness: -6 },
+      ],
+    },
+    { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#7aa08f" }] },
+    { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+    { featureType: "transit", stylers: [{ visibility: "off" }] },
+    { featureType: "water", stylers: [{ color: "#b6e5d3" }] },
+    {
+      featureType: "landscape.natural",
+      stylers: [{ color: "#e7f4ec" }],
+    },
+  ],
+  dark: [
+    { elementType: "geometry", stylers: [{ color: "#0b1b14" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#7bd1a5" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#03120c" }] },
+    { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#123c2a" }] },
+    { featureType: "administrative", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+    { featureType: "poi", stylers: [{ visibility: "off" }] },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        { color: "#163427" },
+        { lightness: 10 },
+      ],
+    },
+    { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#4c8264" }] },
+    { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+    { featureType: "transit", stylers: [{ visibility: "off" }] },
+    { featureType: "water", stylers: [{ color: "#0f2a1e" }] },
+    {
+      featureType: "landscape.natural",
+      stylers: [{ color: "#10291d" }],
+    },
+  ],
+} as const;
