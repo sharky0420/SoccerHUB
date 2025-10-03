@@ -2,11 +2,21 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useTheme } from "@/components/theme-provider";
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const isDarkTheme = theme === "dark";
+
+  const toggleLabel = useMemo(
+    () => (isDarkTheme ? "Zum hellen Modus wechseln" : "Zum dunklen Modus wechseln"),
+    [isDarkTheme],
+  );
+
+  const toggleText = useMemo(() => (isDarkTheme ? "Dunkel" : "Hell"), [isDarkTheme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +74,18 @@ export function SiteHeader() {
           </a>
         </nav>
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-pressed={isDarkTheme}
+            aria-label={toggleLabel}
+            className="theme-transition inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-3 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background-primary)]"
+          >
+            <span aria-hidden className="text-base leading-none">
+              {isDarkTheme ? "🌙" : "🌞"}
+            </span>
+            <span>{toggleText}</span>
+          </button>
           <div className="hidden items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-4 py-2 text-[color:var(--text-secondary)] sm:flex">
             <span className="text-xs font-semibold uppercase tracking-[0.28em]">Live</span>
             <span className="inline-flex items-center gap-2 text-xs font-semibold text-[color:var(--accent-primary)]">
@@ -126,6 +148,22 @@ export function SiteHeader() {
             >
               Demo anfragen
             </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => {
+                toggleTheme();
+              }}
+              aria-pressed={isDarkTheme}
+              aria-label={toggleLabel}
+              className="theme-transition inline-flex w-full items-center justify-center gap-2 rounded-full border border-[color:var(--border-subtle)] px-4 py-2 font-semibold text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background-primary)]"
+            >
+              <span aria-hidden className="text-base leading-none">
+                {isDarkTheme ? "🌙" : "🌞"}
+              </span>
+              <span>{toggleText}-Modus</span>
+            </button>
           </li>
         </ul>
       </nav>
