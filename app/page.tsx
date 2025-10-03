@@ -10,10 +10,10 @@ export default function HomePage() {
   const amenities = getUniqueAmenities();
 
   return (
-    <div className="space-y-20 lg:space-y-24">
+    <div className="space-y-16 lg:space-y-20">
       {/* HERO: left copy, right live map */}
       <section className="container-narrow">
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-[color:var(--border-subtle)]/70 bg-[color:var(--background-elevated)]/85 px-6 py-12 shadow-[0_40px_140px_-70px_rgba(8,52,28,0.75)] backdrop-blur-[18px] sm:px-10 sm:py-16">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-[color:var(--border-subtle)]/70 bg-[linear-gradient(140deg,rgba(255,255,255,0.78),rgba(182,238,210,0.48))] px-6 py-10 shadow-[0_46px_160px_-80px_rgba(8,52,28,0.78)] backdrop-blur-[20px] sm:px-10 sm:py-14">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(92,255,157,0.10),transparent_60%)]" aria-hidden />
           <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr),460px] lg:gap-14">
             {/* Left: value + CTA */}
@@ -28,10 +28,10 @@ export default function HomePage() {
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto sm:text-5xl">
+                <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto sm:text-[2.8rem]">
                   Sports Hub – Dein Live-Überblick über Indoor-Sportanlagen
                 </h1>
-                <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]/90">
+                <p className="max-w-2xl text-lg leading-relaxed text-[color:var(--text-secondary)]/90 break-words hyphens-auto">
                   Finde in Sekunden die passende Halle: Indoor-Soccer, Padel, Functional – mit Live-Verfügbarkeit, Ausstattung und Buchungslink.
                 </p>
               </div>
@@ -74,8 +74,8 @@ export default function HomePage() {
             {/* Right: live map */}
             <div className="relative">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(8,120,64,0.22),transparent_70%)]" aria-hidden />
-              <div className="relative overflow-hidden rounded-[2rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)]/90 p-2 shadow-[0_65px_180px_-90px_rgba(2,22,12,0.95)] backdrop-blur-2xl">
-                <div className="h-[380px] rounded-[1.6rem] overflow-hidden">
+              <div className="relative overflow-hidden rounded-[2rem] border border-[color:var(--surface-glass-border)] bg-[linear-gradient(150deg,rgba(6,32,20,0.85),rgba(18,72,44,0.65))] p-2 shadow-[0_75px_200px_-90px_rgba(2,22,12,0.92)] backdrop-blur-[30px]">
+                <div className="h-[360px] rounded-[1.6rem] overflow-hidden">
                   {/* Use your Google map as visual anchor in hero */}
                   <GoogleMapCanvas venues={allVenues} />
                 </div>
@@ -90,9 +90,9 @@ export default function HomePage() {
 
       {/* CATEGORIES / VALUE PROPS */}
       <section className="container-narrow" id="netzwerk">
-        <div className="relative overflow-hidden rounded-[2.25rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card-muted)]/82 px-6 py-12 shadow-[0_55px_160px_-100px_rgba(4,32,18,0.85)] backdrop-blur-[16px] sm:px-10">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-[color:var(--surface-glass-border)] bg-[linear-gradient(150deg,rgba(255,255,255,0.75),rgba(176,230,201,0.45))] px-6 py-11 shadow-[0_60px_170px_-100px_rgba(4,32,18,0.82)] backdrop-blur-[18px] sm:px-10">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(92,255,157,0.16),transparent_70%)]" aria-hidden />
-          <div className="relative space-y-10">
+          <div className="relative space-y-9">
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-start">
               <div className="space-y-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">Hallenkategorien</p>
@@ -153,8 +153,8 @@ export default function HomePage() {
 
       {/* EXPLAINER / STATS */}
       <section className="container-narrow" id="matchcenter">
-        <div className="relative overflow-hidden rounded-[2.25rem] border border-[color:var(--surface-glass-border)] bg-[color:var(--surface-card)] px-6 py-10 shadow-[0_55px_160px_-90px_rgba(6,38,20,0.78)] backdrop-blur-[20px] sm:px-10">
-          <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr),320px]">
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-[color:var(--surface-glass-border)] bg-[linear-gradient(150deg,rgba(255,255,255,0.78),rgba(164,226,195,0.45))] px-6 py-10 shadow-[0_65px_180px_-90px_rgba(6,38,20,0.76)] backdrop-blur-[22px] sm:px-10">
+          <div className="relative grid gap-8 lg:grid-cols-[minmax(0,1fr),320px]">
             <div className="space-y-8">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,320px)] sm:items-center">
                 <h2 className="text-3xl font-semibold text-[color:var(--text-primary)] break-words hyphens-auto">So funktioniert die Hallen-Suche</h2>

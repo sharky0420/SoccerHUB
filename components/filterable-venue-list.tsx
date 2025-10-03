@@ -6,7 +6,7 @@ import { VenueCard } from "@/components/venue-card";
 import { VenueMap } from "@/components/venue-map";
 import { FilterIcon, MapPinIcon, TargetIcon } from "@/components/icons";
 import { StickyCta } from "@/components/sticky-cta";
-import type { Venue } from "@/types/venue";
+import type { Venue, Weekday } from "@/types/venue";
 
 interface FilterableVenueListProps {
   venues: Venue[];
@@ -25,6 +25,16 @@ const sortLabels: Record<SortOption, string> = {
   name: "Name A-Z",
 };
 
+const weekdayLabels: Record<Weekday, string> = {
+  monday: "Montag",
+  tuesday: "Dienstag",
+  wednesday: "Mittwoch",
+  thursday: "Donnerstag",
+  friday: "Freitag",
+  saturday: "Samstag",
+  sunday: "Sonntag",
+};
+
 export function FilterableVenueList({ venues, sports, amenities }: FilterableVenueListProps) {
   const [filters, setFilters] = useState<FilterState>({
     sports: [],
@@ -37,6 +47,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [desktopLayout, setDesktopLayout] = useState<"stacked" | "split">("stacked");
+  const [isDesktopFilterOpen, setIsDesktopFilterOpen] = useState(true);
 
   const filteredVenues = useMemo(() => {
     const normalizedCity = filters.city.trim().toLowerCase();
@@ -187,9 +198,52 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
     </div>
   );
 
+  const filterSummaryTokens = useMemo(() => {
+    const tokens: string[] = [];
+    const cityLabel = filters.city.trim();
+    if (filters.nearby) {
+      tokens.push("Near Me aktiv");
+    } else if (cityLabel) {
+      tokens.push(cityLabel);
+    }
+
+    if (filters.sports.length > 0) {
+      tokens.push(
+        `${filters.sports.length} Sport${filters.sports.length === 1 ? "art" : "arten"}`
+      );
+    }
+
+    if (typeof filters.priceMin === "number" || typeof filters.priceMax === "number") {
+      const formatter = new Intl.NumberFormat("de-DE", {
+        style: "currency",
+        currency: "EUR",
+        maximumFractionDigits: 0,
+      });
+      if (typeof filters.priceMin === "number" && typeof filters.priceMax === "number") {
+        tokens.push(`${formatter.format(filters.priceMin)} – ${formatter.format(filters.priceMax)}`);
+      } else if (typeof filters.priceMin === "number") {
+        tokens.push(`ab ${formatter.format(filters.priceMin)}`);
+      } else if (typeof filters.priceMax === "number") {
+        tokens.push(`bis ${formatter.format(filters.priceMax)}`);
+      }
+    }
+
+    if (filters.day) {
+      tokens.push(`Tag: ${weekdayLabels[filters.day as Weekday] ?? filters.day}`);
+    }
+
+    if (filters.amenities.length > 0) {
+      tokens.push(
+        `${filters.amenities.length} Feature${filters.amenities.length === 1 ? "" : "s"}`
+      );
+    }
+
+    return tokens;
+  }, [filters]);
+
   return (
-    <section className="container-narrow pb-32" id="hallen">
-      <div className="space-y-10">
+    <section className="container-narrow pb-24" id="hallen">
+      <div className="space-y-8">
         <div className="lg:hidden">
           <button
             type="button"
@@ -225,22 +279,67 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
         </div>
 
         <div className="hidden lg:block">
-          <FilterPanel
-            sportsOptions={sports}
-            amenityOptions={amenities}
-            state={filters}
-            density="compact"
-            onChange={(state) => {
-              setFilters(state);
-              setVisibleCount(ITEMS_PER_PAGE);
-            }}
-            onReset={handleReset}
-            className="lg:sticky lg:top-28"
-          />
+          {isDesktopFilterOpen ? (
+            <div className="lg:sticky lg:top-24 space-y-3">
+              <div className="flex justify-end pr-1">
+                <button
+                  type="button"
+                  onClick={() => setIsDesktopFilterOpen(false)}
+                  className="theme-transition inline-flex items-center gap-2 rounded-full border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--text-secondary)]/80 shadow-[0_18px_48px_-28px_rgba(6,36,22,0.5)] hover:border-[color:var(--accent-primary)]/45 hover:text-[color:var(--accent-primary)]"
+                >
+                  Menü einklappen
+                </button>
+              </div>
+              <FilterPanel
+                sportsOptions={sports}
+                amenityOptions={amenities}
+                state={filters}
+                density="compact"
+                onChange={(state) => {
+                  setFilters(state);
+                  setVisibleCount(ITEMS_PER_PAGE);
+                }}
+                onReset={handleReset}
+              />
+            </div>
+          ) : (
+            <div className="lg:sticky lg:top-24 rounded-3xl border border-[color:var(--surface-glass-border)]/60 bg-[linear-gradient(150deg,rgba(12,40,26,0.45),rgba(18,64,40,0.35))] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_60px_160px_-90px_rgba(6,36,22,0.6)] backdrop-blur-2xl">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="space-y-2">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary)]/85">
+                    Filter kompakt
+                  </p>
+                  <div className="flex max-w-xl flex-wrap gap-2">
+                    {filterSummaryTokens.length > 0 ? (
+                      filterSummaryTokens.map((token) => (
+                        <span
+                          key={token}
+                          className="inline-flex min-w-[5rem] items-center justify-center rounded-full border border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/75 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]/85 shadow-[0_16px_48px_-34px_rgba(6,36,22,0.55)] break-words"
+                        >
+                          {token}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="inline-flex items-center rounded-full border border-dashed border-[color:var(--surface-glass-border)]/60 bg-[color:var(--surface-card)]/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-[color:var(--text-secondary)]/70">
+                        Keine Filter aktiv
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsDesktopFilterOpen(true)}
+                  className="theme-transition inline-flex items-center gap-2 rounded-full bg-[linear-gradient(130deg,rgba(0,108,56,0.85),rgba(36,168,96,0.92))] px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--accent-primary-contrast)] shadow-[0_28px_82px_-40px_rgba(0,108,56,0.7)] hover:brightness-[1.04]"
+                >
+                  Filter öffnen
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="space-y-8">
-          <div className="glass-panel theme-transition space-y-6 rounded-3xl border border-[color:var(--border-subtle)]/75 bg-[color:var(--surface-card)]/82 px-6 py-6 text-[color:var(--text-primary)] lg:px-8 lg:py-7">
+        <div className="space-y-7">
+          <div className="glass-panel theme-transition space-y-5 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[linear-gradient(155deg,rgba(255,255,255,0.72),rgba(188,238,212,0.42))] px-6 py-6 text-[color:var(--text-primary)] shadow-[0_48px_160px_-90px_rgba(6,36,22,0.68)] lg:px-8 lg:py-7">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">
@@ -248,10 +347,10 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
                   Live Übersicht
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)] sm:text-3xl">
+                  <h2 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto sm:text-3xl">
                     {sortedVenues.length} Hallen im Sports Hub
                   </h2>
-                  <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]">
+                  <p className="text-sm leading-relaxed text-[color:var(--text-secondary)]/90 break-words hyphens-auto">
                     Filtere nach Sportarten, Preisen und Features. Sortiere nach Preis oder Name und öffne die Kartenansicht für eine visuelle Auswahl.
                   </p>
                   {activeCity && (
@@ -300,7 +399,7 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center justify-between gap-4 text-xs text-[color:var(--text-secondary)]">
+            <div className="hidden lg:flex items-center justify-between gap-4 text-xs text-[color:var(--text-secondary)]/85">
               <p>Wähle dein bevorzugtes Layout – gestapelt oder Split-Screen mit Karte neben der Liste.</p>
               <div className="inline-flex rounded-full border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/70 p-1">
                 {(
@@ -332,12 +431,12 @@ export function FilterableVenueList({ venues, sports, amenities }: FilterableVen
 
           <div className="hidden lg:block">
             {desktopLayout === "split" ? (
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,520px)]">
-                <div className="space-y-8">{listSection}</div>
-                <div className="lg:sticky lg:top-36">{mapSection}</div>
+              <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr),minmax(0,520px)]">
+                <div className="space-y-7">{listSection}</div>
+                <div className="lg:sticky lg:top-32">{mapSection}</div>
               </div>
             ) : (
-              <div className="space-y-10">
+              <div className="space-y-8">
                 {listSection}
                 {mapSection}
               </div>
