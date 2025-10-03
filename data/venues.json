@@ -349,5 +349,173 @@
     "images": [],
     "externalUrl": "https://www.tsg78.com/leichtathletik/",
     "notes": "Trainingszeiten über Vereinsgruppen buchbar; Tageskarten für Gastathlet:innen auf Anfrage."
+  }, 
+  {
+    "id": "john-reed-mannheim",
+    "name": "John Reed Mannheim",
+    "city": "Mannheim",
+    "address": null,
+    "description": "Club mit Group Workouts, Cardio & Functional Training, Free Weights, Box Area, Live DJs, Designambiente.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Functional Training", "Kurse", "Krafttraining"],
+    "amenities": ["Kurse", "Freihantelbereich", "Cardiogeräte", "Box Area", "Designambiente"],
+    "openingHours": {
+      "monday": { "open": "06:00", "close": "00:00" },
+      "tuesday": { "open": "06:00", "close": "00:00" },
+      "wednesday": { "open": "06:00", "close": "00:00" },
+      "thursday": { "open": "06:00", "close": "00:00" },
+      "friday": { "open": "06:00", "close": "00:00" },
+      "saturday": { "open": "06:00", "close": "00:00" },
+      "sunday": { "open": "06:00", "close": "00:00" }
+    },
+    "images": [],
+    "externalUrl": "https://johnreed.fitness/clubs/mannheim",
+    "notes": null
+  },
+  {
+    "id": "venicebeach-mannheim-neckarau",
+    "name": "VeniceBeach Plus Mannheim Neckarau",
+    "city": "Mannheim",
+    "address": "Angelstraße 7, 68199 Mannheim",
+    "description": "Fitnessclub mit umfassender Ausstattung, Wellnessbereich mit Sauna & Dampfbad, Kurse, Functional Training, Bistro.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Kurse", "Functional Training", "Wellness"],
+    "amenities": ["Sauna", "Dampfbad", "Kurse", "Functional Training", "Bistro", "Parkhaus"],
+    "openingHours": {
+      "monday": { "open": "06:30", "close": "22:30" },
+      "tuesday": { "open": "06:30", "close": "22:30" },
+      "wednesday": { "open": "06:30", "close": "22:30" },
+      "thursday": { "open": "06:30", "close": "22:30" },
+      "friday": { "open": "06:30", "close": "22:30" },
+      "saturday": { "open": "09:00", "close": "21:00" },
+      "sunday": { "open": "09:00", "close": "21:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.venicebeach-fitness.de/clubs/venicebeach-plus/mannheim-neckarau/",
+    "notes": "Wellnessbereiche teils eingeschränkt, Aufgusszeiten vorhanden. :contentReference[oaicite:0]{index=0}"
+  },
+  {
+    "id": "venicebeach-mannheim-kaefertal",
+    "name": "VeniceBeach Mannheim Käfertal",
+    "city": "Mannheim",
+    "address": "Auf dem Sand 79, 68309 Mannheim",
+    "description": "Fitnessstudio mit Sauna, Dampfbad, Damen-Sauna, Kurse, gute Ausstattung.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Kurse", "Wellness"],
+    "amenities": ["Sauna", "Dampfbad", "Kurse", "Damensauna"],
+    "openingHours": {
+      "monday": { "open": "07:30", "close": "21:30" },
+      "tuesday": { "open": "07:30", "close": "21:30" },
+      "wednesday": { "open": "07:30", "close": "21:30" },
+      "thursday": { "open": "07:30", "close": "21:30" },
+      "friday": { "open": "07:30", "close": "21:30" },
+      "saturday": { "open": "09:00", "close": "19:30" },
+      "sunday": { "open": "09:00", "close": "19:30" }
+    },
+    "images": [],
+    "externalUrl": "https://www.venicebeach-fitness.de/clubs/venicebeach/mannheim-kaefertal/",
+    "notes": null
+  },
+  {
+    "id": "fitbase-mannheim-city-e1",
+    "name": "Fitbase Mannheim City E1",
+    "city": "Mannheim",
+    "address": "Quadrat E1 2, 68159 Mannheim",
+    "description": "Modernes Fitnessstudio mit großer Trainingsfläche und professioneller Betreuung.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio"],
+    "amenities": ["Trainingsfläche", "Betreuung"],
+    "openingHours": {
+      "monday": { "open": "06:00", "close": "23:00" },
+      "tuesday": { "open": "06:00", "close": "23:00" },
+      "wednesday": { "open": "06:00", "close": "23:00" },
+      "thursday": { "open": "06:00", "close": "23:00" },
+      "friday": { "open": "06:e00", "close": "23:00" },
+      "saturday": { "open": "08:00", "close": "22:00" },
+      "sunday": { "open": "08:00", "close": "22:00" }
+    },
+    "images": [],
+    "externalUrl": "https://fitbase.fitness/studios/mannheim-city-e1.html",
+    "notes": null
+  },
+  {
+    "id": "american-fitness-mannheim",
+    "name": "American Fitness Mannheim",
+    "city": "Mannheim",
+    "address": "Trierer Straße 13-15, 68309 Mannheim",
+    "description": "Fitnessstudio mit Kursangebot und Kinderbetreuung.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Kurse"],
+    "amenities": ["Kurse", "Kinderbetreuung"],
+    "openingHours": {
+      "monday": { "open": "08:00", "close": "22:00" },
+      "tuesday": { "open": "08:00", "close": "22:00" },
+      "wednesday": { "open": "08:00", "close": "22:00" },
+      "thursday": { "open": "08:00", "close": "22:00" },
+      "friday": { "open": "08:00", "close": "22:00" },
+      "saturday": { "open": "09:00", "close": "18:00" },
+      "sunday": { "open": "09:00", "close": "18:00" }
+    },
+    "images": [],
+    "externalUrl": "https://american-fitness.org/mannheim",
+    "notes": "Kinderbetreuung verfügbar. :contentReference[oaicite:1]{index=1}"
+  },
+  {
+    "id": "vita-balance-mannheim",
+    "name": "Vita Balance Mannheim",
+    "city": "Mannheim",
+    "address": "Meerfeldstraße 73, 68163 Mannheim",
+    "description": "Medical Fitness & Wellness mit ganzheitlichem Angebot.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Wellness"],
+    "amenities": ["Wellness", "Sauna"],
+    "openingHours": {
+      "monday": { "open": "08:00", "close": "21:00" },
+      "tuesday": { "open": "08:00", "close": "21:00" },
+      "wednesday": { "open": "08:00", "close": "21:00" },
+      "thursday": { "open": "08:00", "close": "21:00" },
+      "friday": { "open": "09:00", "close": "21:00" },
+      "saturday": { "open": "10:00", "close": "16:00" },
+      "sunday": { "open": "10:00", "close": "16:00" }
+    },
+    "images": [],
+    "externalUrl": "https://www.vitabalance-ma.de/",
+    "notes": null
+  },
+  {
+    "id": "krafthof-sinsheim",
+    "name": "Krafthof Sinsheim",
+    "city": "Sinsheim",
+    "address": null,
+    "description": "Fitness- & Athletik-Location mit persönlicher Atmosphäre und individueller Betreuung.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Athletiktraining"],
+    "amenities": ["individuelle Betreuung"],
+    "openingHours": null,
+    "images": [],
+    "externalUrl": "https://krafthof-sinsheim.de/",
+    "notes": null
+  },
+  {
+    "id": "pfitzenmeier-heidelberg",
+    "name": "Pfitzenmeier Wellness & Fitness Park Heidelberg",
+    "city": "Heidelberg",
+    "address": "Poststraße 1-3, Heidelberg",
+    "description": "Premium-Fitnessclub mit Kursen, Wellnesslandschaft, Kinderbetreuung.",
+    "pricePerHour": null,
+    "sports": ["Fitnessstudio", "Kurse", "Wellness"],
+    "amenities": ["Sauna", "Wellness", "Kurse", "Kinderbetreuung"],
+    "openingHours": {
+      "monday": { "open": "06:30", "close": "23:30" },
+      "tuesday": { "open": "06:30", "close": "23:30" },
+      "wednesday": { "open": "06:30", "close": "23:30" },
+      "thursday": { "open": "06:30", "close": "23:30" },
+      "friday": { "open": "06:30", "close": "23:30" },
+      "saturday": { "open": "09:00", "close": "22:30" },
+      "sunday": { "open": "09:00", "close": "22:30" }
+    },
+    "images": [],
+    "externalUrl": "https://www.pfitzenmeier.de/club/heidelberg/",
+    "notes": "11-er Karte, 4-Wochen-Karte etc. :contentReference[oaicite:2]{index=2}"
   }
 ]
