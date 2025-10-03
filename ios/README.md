@@ -12,20 +12,42 @@ This directory contains a fully wired Expo React Native application that impleme
 
 ## Getting started
 
-1. Install dependencies (requires Node.js 18+):
+1. **Install prerequisites**
+   - Node.js 18 or newer (use `nvm install 18 && nvm use 18` if required).
+   - Xcode with the iOS Simulator component.
+   - Expo CLI (no global install required, we will use `npx`).
+
+2. **Install dependencies**
 
    ```bash
    cd ios
    npm install
    ```
 
-2. Launch the Expo development server:
+   If you previously installed packages before this update, clear caches first:
+
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install
+   ```
+
+3. **Start the development server**
 
    ```bash
    npm run start
    ```
 
-3. Press `i` to open the iOS simulator or scan the QR code with the Expo Go app on an iPhone.
+4. **Open the app**
+   - Press `i` in the Expo CLI terminal to launch the iOS simulator, or
+   - Scan the QR code with the Expo Go app on a physical iPhone (both devices must be on the same network).
+
+5. **(Optional) Run a full native build**
+
+   ```bash
+   npm run ios
+   ```
+
+   This will create a local development build using Xcode and open it in the simulator.
 
 ## Project structure
 
