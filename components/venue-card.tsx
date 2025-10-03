@@ -103,10 +103,10 @@ export function VenueCard({ venue }: VenueCardProps) {
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold leading-tight text-[color:var(--text-primary)] sm:text-[1.7rem]">
+              <h3 className="text-2xl font-bold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto sm:text-[1.7rem]">
                 {venue.name}
               </h3>
-              <p className="text-base leading-relaxed text-[color:var(--text-secondary)]/90">{venue.description}</p>
+              <p className="text-base leading-relaxed text-[color:var(--text-secondary)]/90 break-words hyphens-auto">{venue.description}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 text-sm text-[color:var(--text-secondary)]">
@@ -144,7 +144,7 @@ export function VenueCard({ venue }: VenueCardProps) {
                   )}
                 </p>
                 {venue.notes ? (
-                  <p className="text-sm leading-relaxed text-[color:var(--text-tertiary)]/85">{venue.notes}</p>
+                  <p className="text-sm leading-relaxed text-[color:var(--text-tertiary)]/85 break-words hyphens-auto">{venue.notes}</p>
                 ) : null}
               </div>
             </div>
