@@ -251,8 +251,8 @@ export function GoogleMapCanvas({
   const shouldRenderFallback = !apiKey || !!scriptError || !isScriptLoaded;
 
   return (
-    <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)]/90 bg-[linear-gradient(160deg,rgba(7,34,23,0.85),rgba(4,20,12,0.92))]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(62,202,130,0.25),transparent_55%)]" aria-hidden />
+    <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)]/70 bg-[linear-gradient(155deg,rgba(255,255,255,0.82),rgba(204,239,222,0.78))] shadow-[0_45px_160px_-100px_rgba(12,78,48,0.55)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(64,196,130,0.22),transparent_60%)]" aria-hidden />
       {shouldRenderFallback ? (
         <FallbackMap
           points={venuePoints}
@@ -265,12 +265,12 @@ export function GoogleMapCanvas({
         <div ref={containerRef} className="absolute inset-0" role="presentation" />
       )}
       {!apiKey && (
-        <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-black/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white">
+        <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary-strong)] shadow-[0_12px_32px_-20px_rgba(12,74,48,0.45)]">
           Demo-Modus ohne API-Key
         </div>
       )}
       {scriptError ? (
-        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--accent-secondary)]/40 bg-black/60 px-4 py-3 text-sm text-white">
+        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--accent-secondary)]/40 bg-white/80 px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(12,78,48,0.45)]">
           {scriptError}
         </div>
       ) : null}
@@ -302,10 +302,10 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
         {[...Array(6)].map((_, index) => (
           <div key={`grid-${index}`} className="absolute inset-0">
             <div className="absolute inset-x-0" style={{ top: `${(index + 1) * 16}%` }}>
-              <div className="h-px w-full bg-white/8" />
+              <div className="h-px w-full bg-[color:var(--accent-primary)]/25" />
             </div>
             <div className="absolute inset-y-0" style={{ left: `${(index + 1) * 16}%` }}>
-              <div className="h-full w-px bg-white/8" />
+              <div className="h-full w-px bg-[color:var(--accent-primary)]/25" />
             </div>
           </div>
         ))}
@@ -324,36 +324,42 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
             key={point.venue.id}
             type="button"
             style={{ top: `${top}%`, left: `${left}%` }}
-            className={`theme-transition absolute -translate-x-1/2 -translate-y-full rounded-2xl border px-4 py-3 text-left shadow-[0_22px_60px_-40px_rgba(5,64,38,0.9)] backdrop-blur ${
+            className={`theme-transition absolute -translate-x-1/2 -translate-y-full rounded-2xl border px-4 py-3 text-left shadow-[0_26px_70px_-42px_rgba(16,88,60,0.55)] backdrop-blur ${
               isSelected
-                ? "border-[color:var(--accent-primary-strong)] bg-[color:var(--accent-primary-strong)]/85 text-[color:var(--accent-primary-contrast)]"
-                : "border-white/18 bg-white/14 text-white/90 hover:border-[color:var(--accent-primary)]/50 hover:bg-[color:var(--accent-primary)]/18"
+                ? "border-[color:var(--accent-primary-strong)] bg-[color:var(--accent-primary-strong)]/88 text-[color:var(--accent-primary-contrast)]"
+                : "border-[color:var(--surface-glass-border)]/70 bg-white/75 text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/55 hover:bg-[color:var(--accent-primary)]/18"
             } ${isActiveCity ? "ring-2 ring-[color:var(--accent-secondary)]/70" : ""}`}
             onClick={() => onMarkerSelect?.(point.venue)}
           >
             <div className="flex items-center gap-2">
               <span
                 className={`inline-flex items-center justify-center rounded-full p-1.5 text-[color:var(--accent-primary-contrast)] ${
-                  isLive ? "bg-[color:var(--accent-primary-strong)]" : "bg-[color:var(--accent-secondary-strong)] text-[color:var(--pitch-dark)]"
+                  isLive
+                    ? "bg-[color:var(--accent-primary-strong)]"
+                    : "bg-[color:var(--accent-secondary-strong)] text-[color:var(--pitch-dark)]"
                 }`}
               >
                 ●
               </span>
               <div className="leading-tight">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-90">{point.venue.city ?? "Unbekannt"}</p>
-                <p className="text-xs font-medium opacity-75">{point.venue.name}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--text-secondary)]/80">
+                  {point.venue.city ?? "Unbekannt"}
+                </p>
+                <p className="text-xs font-medium text-[color:var(--text-primary)]/85 break-words hyphens-auto">{point.venue.name}</p>
               </div>
             </div>
-            <div className="mt-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
+            <div className="mt-3 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--text-secondary)]/80">
               <span>{isLive ? "Live Slots" : "Auf Anfrage"}</span>
-              <span className="text-white">{isLive ? `${point.venue.pricePerHour} €` : "Kontakt"}</span>
+              <span className="text-[color:var(--accent-primary-strong)]">
+                {isLive ? `${point.venue.pricePerHour} €` : "Kontakt"}
+              </span>
             </div>
           </button>
         );
       })}
 
       {errorMessage ? (
-        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-black/60 px-4 py-3 text-sm text-white">
+        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--surface-glass-border)]/70 bg-white/85 px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(16,88,60,0.45)]">
           {errorMessage}
         </div>
       ) : null}
@@ -394,10 +400,10 @@ function createMarkerIcon(isLive: boolean, PointCtor?: any) {
   if (!Point) return undefined;
   return {
     path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z",
-    fillColor: isLive ? "#1FB864" : "#7C8A82",
-    fillOpacity: 0.95,
-    strokeColor: "#042416",
-    strokeWeight: 1,
+    fillColor: isLive ? "#1FB864" : "#9AB8AF",
+    fillOpacity: 0.92,
+    strokeColor: "#7BD1A5",
+    strokeWeight: 0.8,
     scale: 1.2,
     anchor: new Point(12, 22),
   };
@@ -430,11 +436,15 @@ function createInfoWindowContent(venue: Venue) {
 }
 
 const mapStyles = [
-  { elementType: "geometry", stylers: [{ color: "#0b1f16" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#6bf3a5" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#011009" }] },
-  { featureType: "administrative", elementType: "geometry", stylers: [{ visibility: "off" }] },
+  { elementType: "geometry", stylers: [{ color: "#e8f7ef" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#1d5c3d" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f5fffa" }] },
+  { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#c8ebd9" }] },
+  { featureType: "administrative", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
   { featureType: "poi", stylers: [{ visibility: "off" }] },
-  { featureType: "road", stylers: [{ color: "#123525" }] },
-  { featureType: "water", stylers: [{ color: "#05261a" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+  { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ab8af" }] },
+  { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { featureType: "transit", stylers: [{ visibility: "off" }] },
+  { featureType: "water", stylers: [{ color: "#c9f1e4" }] },
 ];

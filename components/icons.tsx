@@ -109,6 +109,22 @@ export function FilterIcon({ className, ...props }: IconProps) {
   );
 }
 
+export function ChevronDownIcon({ className, ...props }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      strokeWidth={1.8}
+      stroke="currentColor"
+      className={className}
+      aria-hidden
+      {...props}
+    >
+      <path d="m6.5 9.5 5.5 5 5.5-5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function WifiIcon({ className, ...props }: IconProps) {
   return (
     <svg

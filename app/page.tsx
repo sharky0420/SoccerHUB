@@ -28,7 +28,7 @@ export default function HomePage() {
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] sm:text-5xl">
+                <h1 className="text-4xl font-bold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto sm:text-5xl">
                   Sports Hub – Dein Live-Überblick über Indoor-Sportanlagen
                 </h1>
                 <p className="max-w-2xl text-lg text-[color:var(--text-secondary)]/90">
@@ -96,7 +96,7 @@ export default function HomePage() {
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-start">
               <div className="space-y-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">Hallenkategorien</p>
-                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">Strukturiert nach Sportart &amp; Ausstattung</h2>
+                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)] break-words hyphens-auto">Strukturiert nach Sportart &amp; Ausstattung</h2>
                 <p className="text-base text-[color:var(--text-secondary)]">
                   Kuratierte Profile mit Fokus auf Spielflächen, Equipment und Services. Ideal für Training, Turniere oder Corporate Events.
                 </p>
@@ -157,7 +157,7 @@ export default function HomePage() {
           <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr),320px]">
             <div className="space-y-8">
               <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr),minmax(0,320px)] sm:items-center">
-                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)]">So funktioniert die Hallen-Suche</h2>
+                <h2 className="text-3xl font-semibold text-[color:var(--text-primary)] break-words hyphens-auto">So funktioniert die Hallen-Suche</h2>
                 <p className="text-base text-[color:var(--text-secondary)]">
                   Filtere nach Sportart, Fläche, Ausstattung – erhalte sofort passende Ergebnisse. Jedes Profil mit Preisfenster, Auslastung, Extras und Direktbuchung.
                 </p>

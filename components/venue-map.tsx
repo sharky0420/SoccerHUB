@@ -55,7 +55,7 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
   );
 
   return (
-    <div className="glass-panel theme-transition flex h-full flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/70 bg-[color:var(--surface-card)]/78 p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.85)]">
+    <div className="glass-panel theme-transition flex h-full flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/65 bg-[linear-gradient(150deg,rgba(255,255,255,0.62),rgba(198,238,216,0.34))] p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.7)] backdrop-blur-2xl">
       <header className="space-y-4">
         <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">
           <TargetIcon className="h-4 w-4" />
@@ -63,10 +63,10 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
         </div>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-2">
-            <h3 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)]">
+            <h3 className="text-2xl font-semibold leading-tight text-[color:var(--text-primary)] break-words hyphens-auto">
               Map View – verfügbare Arenen
             </h3>
-            <p className="max-w-xl text-sm leading-relaxed text-[color:var(--text-secondary)]/85">
+            <p className="max-w-xl text-sm leading-relaxed text-[color:var(--text-secondary)]/85 break-words hyphens-auto">
               Interaktive Pins zeigen dir Preise, Live-Verfügbarkeiten und die schnellsten Buchungswege. Klicke auf einen Marker, um Details zu öffnen und die Ergebnisliste zu fokussieren.
             </p>
           </div>
@@ -93,8 +93,8 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
                   <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary-strong)]">
                     {selectedVenue.city ?? "Unbekannter Standort"}
                   </p>
-                  <h4 className="mt-1 text-lg font-semibold leading-tight">{selectedVenue.name}</h4>
-                  <p className="mt-2 text-sm text-[color:var(--text-secondary)]">
+                  <h4 className="mt-1 text-lg font-semibold leading-tight break-words hyphens-auto">{selectedVenue.name}</h4>
+                  <p className="mt-2 text-sm text-[color:var(--text-secondary)] break-words hyphens-auto">
                     {selectedVenue.address ?? "Adresse folgt"}
                   </p>
                 </div>
