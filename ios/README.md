@@ -24,12 +24,7 @@ This directory contains a fully wired Expo React Native application that impleme
    npm install
    ```
 
-   If you previously installed packages before this update, clear caches first:
-
-   ```bash
-   rm -rf node_modules package-lock.json
-   npm install
-   ```
+   > **Tip:** if you previously installed packages before this update, clear caches first with `rm -rf node_modules package-lock.json` and run `npm install` again.
 
 3. **Start the development server**
 
@@ -37,9 +32,13 @@ This directory contains a fully wired Expo React Native application that impleme
    npm run start
    ```
 
+   The bundler should report `Tunnel ready`/`Metro waiting on exp://...` within a few seconds. Wait for that log before attempting to open the simulator so the deep link does not time out.
+
 4. **Open the app**
    - Press `i` in the Expo CLI terminal to launch the iOS simulator, or
-   - Scan the QR code with the Expo Go app on a physical iPhone (both devices must be on the same network).
+   - Use the Expo Go app on a physical device (both the phone and your computer must be on the same network).
+
+   If `simctl openurl` times out, ensure the Metro bundler is still running and reachable (no firewall/VPN blocking `exp://` URLs) and re-run the `i` shortcut once Metro is ready.
 
 5. **(Optional) Run a full native build**
 
@@ -48,6 +47,15 @@ This directory contains a fully wired Expo React Native application that impleme
    ```
 
    This will create a local development build using Xcode and open it in the simulator.
+
+6. **(Optional) Static quality checks**
+
+   ```bash
+   npm run lint
+   npx tsc --noEmit
+   ```
+
+   Run these before launching if you want to ensure the TypeScript and linting steps pass locally.
 
 ## Project structure
 
