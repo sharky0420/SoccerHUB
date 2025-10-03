@@ -5,6 +5,7 @@ import "./globals.css";
 import clsx from "clsx";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeScript } from "@/components/theme-script";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -38,7 +39,10 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="de" className={clsx(inter.variable)}>
+    <html lang="de" className={clsx(inter.variable)} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
         <ThemeProvider>
           <SiteHeader />
