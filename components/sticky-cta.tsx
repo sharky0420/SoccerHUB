@@ -9,7 +9,7 @@ export function StickyCta() {
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3">
       {isOpen ? (
-        <div className="w-full max-w-[260px] rounded-3xl border border-[color:var(--surface-glass-border)]/65 bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(186,234,213,0.75))] p-4 text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(12,74,48,0.45)] backdrop-blur-xl">
+    <div className="w-full max-w-[260px] rounded-3xl border border-[color:var(--surface-glass-border)]/65 bg-[var(--gradient-sticky-cta)] p-4 text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(12,74,48,0.45)] backdrop-blur-xl">
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-tertiary)]">
             <SparkleIcon className="h-3.5 w-3.5" />
             Quick Actions

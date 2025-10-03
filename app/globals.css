@@ -28,6 +28,28 @@
   --noise-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   --field-line: #d0f5dd;
   --pitch-dark: #072717;
+  --gradient-hero-shell: linear-gradient(140deg, rgba(255, 255, 255, 0.78), rgba(182, 238, 210, 0.48));
+  --radial-hero-shell: radial-gradient(circle at top right, rgba(92, 255, 157, 0.1), transparent 60%);
+  --gradient-hero-map: linear-gradient(150deg, rgba(6, 32, 20, 0.85), rgba(18, 72, 44, 0.65));
+  --radial-hero-map: radial-gradient(circle at top, rgba(8, 120, 64, 0.22), transparent 70%);
+  --gradient-panel-soft: linear-gradient(150deg, rgba(255, 255, 255, 0.75), rgba(176, 230, 201, 0.45));
+  --radial-panel-soft: radial-gradient(circle at bottom, rgba(92, 255, 157, 0.16), transparent 70%);
+  --gradient-panel-alt: linear-gradient(150deg, rgba(255, 255, 255, 0.78), rgba(164, 226, 195, 0.45));
+  --gradient-filter-card: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(200, 238, 220, 0.38));
+  --gradient-filter-shell: linear-gradient(150deg, rgba(255, 255, 255, 0.58), rgba(198, 239, 219, 0.35));
+  --gradient-sticky-cta: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(186, 234, 213, 0.75));
+  --gradient-filter-sidebar: linear-gradient(150deg, rgba(12, 40, 26, 0.45), rgba(18, 64, 40, 0.35));
+  --gradient-filter-results: linear-gradient(155deg, rgba(255, 255, 255, 0.72), rgba(188, 238, 212, 0.42));
+  --gradient-venue-map: linear-gradient(150deg, rgba(255, 255, 255, 0.62), rgba(198, 238, 216, 0.34));
+  --gradient-map-container: linear-gradient(155deg, rgba(255, 255, 255, 0.82), rgba(204, 239, 222, 0.78));
+  --radial-map-container: radial-gradient(circle at top right, rgba(64, 196, 130, 0.22), transparent 60%);
+  --map-fallback-card-bg: color-mix(in srgb, var(--surface-card) 88%, transparent);
+  --map-fallback-card-border: color-mix(in srgb, var(--surface-glass-border) 68%, transparent);
+  --map-fallback-demo-bg: color-mix(in srgb, var(--surface-card) 82%, transparent);
+  --map-fallback-alert-bg: color-mix(in srgb, var(--surface-card-strong) 82%, transparent);
+  --floating-badge-border: rgba(255, 255, 255, 0.28);
+  --floating-badge-background: rgba(255, 255, 255, 0.18);
+  --floating-badge-text: #ffffff;
   color-scheme: light;
 }
 
@@ -58,6 +80,28 @@
   --noise-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
   --field-line: #1f5536;
   --pitch-dark: #02160d;
+  --gradient-hero-shell: linear-gradient(140deg, rgba(12, 34, 24, 0.88), rgba(10, 74, 42, 0.58));
+  --radial-hero-shell: radial-gradient(circle at top right, rgba(64, 196, 130, 0.18), transparent 60%);
+  --gradient-hero-map: linear-gradient(150deg, rgba(2, 20, 12, 0.94), rgba(8, 52, 32, 0.72));
+  --radial-hero-map: radial-gradient(circle at top, rgba(36, 168, 102, 0.18), transparent 70%);
+  --gradient-panel-soft: linear-gradient(150deg, rgba(10, 26, 20, 0.88), rgba(6, 52, 32, 0.52));
+  --radial-panel-soft: radial-gradient(circle at bottom, rgba(56, 186, 112, 0.24), transparent 70%);
+  --gradient-panel-alt: linear-gradient(150deg, rgba(8, 24, 18, 0.9), rgba(4, 44, 26, 0.62));
+  --gradient-filter-card: linear-gradient(145deg, rgba(12, 36, 26, 0.72), rgba(8, 48, 30, 0.5));
+  --gradient-filter-shell: linear-gradient(150deg, rgba(10, 32, 24, 0.72), rgba(6, 48, 30, 0.48));
+  --gradient-sticky-cta: linear-gradient(135deg, rgba(10, 34, 24, 0.82), rgba(14, 54, 34, 0.68));
+  --gradient-filter-sidebar: linear-gradient(150deg, rgba(6, 28, 18, 0.72), rgba(4, 36, 22, 0.55));
+  --gradient-filter-results: linear-gradient(155deg, rgba(10, 30, 22, 0.82), rgba(14, 52, 34, 0.58));
+  --gradient-venue-map: linear-gradient(150deg, rgba(10, 32, 24, 0.78), rgba(8, 48, 30, 0.52));
+  --gradient-map-container: linear-gradient(155deg, rgba(8, 26, 20, 0.92), rgba(6, 40, 28, 0.7));
+  --radial-map-container: radial-gradient(circle at top right, rgba(64, 196, 130, 0.26), transparent 60%);
+  --map-fallback-card-bg: color-mix(in srgb, var(--surface-card) 90%, transparent);
+  --map-fallback-card-border: color-mix(in srgb, var(--surface-glass-border) 78%, transparent);
+  --map-fallback-demo-bg: color-mix(in srgb, var(--surface-card-strong) 82%, transparent);
+  --map-fallback-alert-bg: color-mix(in srgb, var(--surface-card-strong) 86%, transparent);
+  --floating-badge-border: rgba(62, 104, 84, 0.42);
+  --floating-badge-background: rgba(12, 40, 28, 0.58);
+  --floating-badge-text: #ecfff1;
 }
 
 body {

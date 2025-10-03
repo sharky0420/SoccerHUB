@@ -55,7 +55,7 @@ export function VenueMap({ venues, activeCity, onCitySelect }: VenueMapProps) {
   );
 
   return (
-    <div className="glass-panel theme-transition flex h-full flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/65 bg-[linear-gradient(150deg,rgba(255,255,255,0.62),rgba(198,238,216,0.34))] p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.7)] backdrop-blur-2xl">
+    <div className="glass-panel theme-transition flex h-full flex-col gap-6 rounded-3xl border border-[color:var(--border-subtle)]/65 bg-[var(--gradient-venue-map)] p-6 text-[color:var(--text-primary)] shadow-[0_45px_160px_-100px_rgba(6,26,18,0.7)] backdrop-blur-2xl">
       <header className="space-y-4">
         <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-primary-strong)]">
           <TargetIcon className="h-4 w-4" />

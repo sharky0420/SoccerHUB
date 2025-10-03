@@ -259,8 +259,8 @@ export function GoogleMapCanvas({
   const shouldRenderFallback = !apiKey || !!scriptError || !isScriptLoaded;
 
   return (
-    <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)]/70 bg-[linear-gradient(155deg,rgba(255,255,255,0.82),rgba(204,239,222,0.78))] shadow-[0_45px_160px_-100px_rgba(12,78,48,0.55)]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(64,196,130,0.22),transparent_60%)]" aria-hidden />
+    <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-[color:var(--surface-glass-border)]/70 bg-[var(--gradient-map-container)] shadow-[0_45px_160px_-100px_rgba(12,78,48,0.55)]">
+      <div className="pointer-events-none absolute inset-0 bg-[var(--radial-map-container)]" aria-hidden />
       {shouldRenderFallback ? (
         <FallbackMap
           points={venuePoints}
@@ -273,12 +273,12 @@ export function GoogleMapCanvas({
         <div ref={containerRef} className="absolute inset-0" role="presentation" />
       )}
       {!apiKey && (
-        <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary-strong)] shadow-[0_12px_32px_-20px_rgba(12,74,48,0.45)]">
+        <div className="pointer-events-none absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-[color:var(--map-fallback-demo-bg)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-primary-strong)] shadow-[0_12px_32px_-20px_rgba(12,74,48,0.45)]">
           Demo-Modus ohne API-Key
         </div>
       )}
       {scriptError ? (
-        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--accent-secondary)]/40 bg-white/80 px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(12,78,48,0.45)]">
+        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--accent-secondary)]/40 bg-[color:var(--map-fallback-alert-bg)] px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(12,78,48,0.45)]">
           {scriptError}
         </div>
       ) : null}
@@ -335,7 +335,7 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
             className={`theme-transition absolute -translate-x-1/2 -translate-y-full rounded-2xl border px-4 py-3 text-left shadow-[0_26px_70px_-42px_rgba(16,88,60,0.55)] backdrop-blur ${
               isSelected
                 ? "border-[color:var(--accent-primary-strong)] bg-[color:var(--accent-primary-strong)]/88 text-[color:var(--accent-primary-contrast)]"
-                : "border-[color:var(--surface-glass-border)]/70 bg-white/75 text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/55 hover:bg-[color:var(--accent-primary)]/18"
+                : "border-[color:var(--map-fallback-card-border)] bg-[color:var(--map-fallback-card-bg)] text-[color:var(--text-primary)] hover:border-[color:var(--accent-primary)]/55 hover:bg-[color:var(--accent-primary)]/18"
             } ${isActiveCity ? "ring-2 ring-[color:var(--accent-secondary)]/70" : ""}`}
             onClick={() => onMarkerSelect?.(point.venue)}
           >
@@ -367,7 +367,7 @@ function FallbackMap({ points, activeCity, selectedVenueId, onMarkerSelect, erro
       })}
 
       {errorMessage ? (
-        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--surface-glass-border)]/70 bg-white/85 px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(16,88,60,0.45)]">
+        <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-[color:var(--surface-glass-border)]/70 bg-[color:var(--map-fallback-alert-bg)] px-4 py-3 text-sm text-[color:var(--text-primary)] shadow-[0_32px_120px_-60px_rgba(16,88,60,0.45)]">
           {errorMessage}
         </div>
       ) : null}

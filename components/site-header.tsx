@@ -10,6 +10,7 @@ export function SiteHeader() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const isDarkTheme = theme === "dark";
+  const [isMounted, setIsMounted] = useState(false);
 
   const toggleLabel = useMemo(
     () => (isDarkTheme ? "Zum hellen Modus wechseln" : "Zum dunklen Modus wechseln"),
@@ -17,6 +18,12 @@ export function SiteHeader() {
   );
 
   const toggleText = useMemo(() => (isDarkTheme ? "Dunkel" : "Hell"), [isDarkTheme]);
+  const displayedToggleText = isMounted ? toggleText : "Modus";
+  const displayedIcon = isMounted ? (isDarkTheme ? "🌙" : "🌞") : "🌗";
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,9 +89,9 @@ export function SiteHeader() {
             className="theme-transition inline-flex items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-3 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background-primary)]"
           >
             <span aria-hidden className="text-base leading-none">
-              {isDarkTheme ? "🌙" : "🌞"}
+              {displayedIcon}
             </span>
-            <span>{toggleText}</span>
+            <span>{displayedToggleText}</span>
           </button>
           <div className="hidden items-center gap-2 rounded-full border border-[color:var(--border-subtle)]/80 bg-[color:var(--surface-card)]/70 px-4 py-2 text-[color:var(--text-secondary)] sm:flex">
             <span className="text-xs font-semibold uppercase tracking-[0.28em]">Live</span>
@@ -160,9 +167,9 @@ export function SiteHeader() {
               className="theme-transition inline-flex w-full items-center justify-center gap-2 rounded-full border border-[color:var(--border-subtle)] px-4 py-2 font-semibold text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--background-primary)]"
             >
               <span aria-hidden className="text-base leading-none">
-                {isDarkTheme ? "🌙" : "🌞"}
+                {displayedIcon}
               </span>
-              <span>{toggleText}-Modus</span>
+              <span>{isMounted ? `${toggleText}-Modus` : "Modus"}</span>
             </button>
           </li>
         </ul>
