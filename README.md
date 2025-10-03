@@ -5,11 +5,12 @@ Dieses Projekt ist ein Next.js-14-Aufbau für Sports Hub – eine deutschlandwei
 ## Quickstart
 
 ```bash
+rm -rf node_modules package-lock.json
 npm install
 npm run dev
 ```
 
-> Hinweis: In der bereitgestellten Umgebung können Registry-Policies die Installation von Paketen verhindern. In diesem Fall bitte lokal mit eigener npm-Konfiguration installieren.
+> Hinweis: In der bereitgestellten Umgebung können Registry-Policies die Installation von Paketen verhindern. In diesem Fall bitte lokal mit eigener npm-Konfiguration installieren. Durch das Entfernen alter Installationen stellt ihr sicher, dass die festgepinnten React-18.2-Versionen geladen werden und keine Konflikte mit Next.js 14 auftreten.
 
 ## Features
 

@@ -19,12 +19,20 @@ This directory contains a fully wired Expo React Native application that impleme
 
 2. **Install dependencies**
 
+   Install once in the repository root to refresh the pinned web dependencies and then inside the iOS app:
+
    ```bash
+   # From the repo root
+   rm -rf node_modules package-lock.json
+   npm install
+
+   # Then install the native app dependencies
    cd ios
+   rm -rf node_modules package-lock.json
    npm install
    ```
 
-   > **Tip:** if you previously installed packages before this update, clear caches first with `rm -rf node_modules package-lock.json` and run `npm install` again.
+   > **Tip:** removing old lockfiles ensures npm does not reuse previously cached React 18.3 builds that conflict with the Expo/React Native 0.74.3 toolchain shipped with this project.
 
 3. **Start the development server**
 
