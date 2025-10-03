@@ -11,7 +11,7 @@ export const FavoritesScreen = () => {
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <View style={styles.container}>
         <Text style={[typography.headingL, styles.title]}>Favorites</Text>
-        <GlassCard style={styles.card}>
+        <GlassCard contentStyle={styles.cardContent}>
           <Text style={[typography.caption, styles.copy]}>
             Save your go-to pitches here. Booked venues will surface with upcoming reservations,
             loyalty perks, and instant re-booking actions.
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 20
   },
-  card: {
+  cardContent: {
     padding: 20
   },
   copy: {

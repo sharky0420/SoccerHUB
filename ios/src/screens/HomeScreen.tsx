@@ -60,7 +60,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
         <MapPreview>
           <View style={styles.mapOverlay}>
-            <GlassCard style={styles.mapCallout} intensity={80}>
+            <GlassCard contentStyle={styles.mapCalloutContent} intensity={80}>
               <Text style={[typography.headingM, styles.calloutTitle]}>Liquid Glass Pavilion</Text>
               <View style={styles.calloutMeta}>
                 <Ionicons name="navigate" size={16} color={colors.aqua} />
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     left: 24,
     right: 24
   },
-  mapCallout: {
+  mapCalloutContent: {
     padding: 18
   },
   calloutTitle: {

@@ -65,7 +65,7 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
         contentContainerStyle={{ paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
       >
-        <GlassCard style={styles.infoCard}>
+        <GlassCard style={styles.infoCard} contentStyle={styles.infoCardContent}>
           <View style={styles.infoHeader}>
             <View>
               <Text style={[typography.headingL, styles.infoTitle]}>${venue.hourlyRate}/hr</Text>
@@ -103,7 +103,7 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
 
         <View style={styles.section}>
           <Text style={[typography.headingM, styles.sectionTitle]}>Location</Text>
-          <GlassCard style={styles.mapCard}>
+          <GlassCard contentStyle={styles.mapCardContent}>
             <View style={styles.mapRow}>
               <Ionicons name="navigate" size={20} color={colors.aqua} />
               <Text style={[typography.caption, styles.mapLabel]}>
@@ -181,8 +181,10 @@ const styles = StyleSheet.create({
     marginTop: -32
   },
   infoCard: {
-    padding: 20,
     marginBottom: 24
+  },
+  infoCardContent: {
+    padding: 20
   },
   infoHeader: {
     flexDirection: 'row',
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
-  mapCard: {
+  mapCardContent: {
     padding: 20
   },
   mapRow: {

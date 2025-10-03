@@ -22,7 +22,7 @@ export const ProfileScreen = () => {
             <Text style={[typography.caption, styles.subtitle]}>Club captain • Skyline Fives</Text>
           </View>
         </View>
-        <GlassCard style={styles.card}>
+        <GlassCard contentStyle={styles.cardContent}>
           <Text style={[typography.caption, styles.copy]}>
             Manage account, payment methods, and your upcoming fixtures. Future updates will connect to
             Apple Wallet passes, Live Activities, and shareable match highlights.
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.75)',
     marginTop: 6
   },
-  card: {
+  cardContent: {
     padding: 20
   },
   copy: {
