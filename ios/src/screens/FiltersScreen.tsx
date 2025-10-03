@@ -11,7 +11,7 @@ export const FiltersScreen = () => {
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={[typography.headingL, styles.title]}>Filters</Text>
-        <GlassCard style={styles.card}>
+        <GlassCard contentStyle={styles.cardContent}>
           <Text style={[typography.caption, styles.copy]}>
             Use the upcoming iterations of this screen to configure complex filters, including price
             sliders, facility features, and advanced scheduling with bottom-sheet interactions.
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 20
   },
-  card: {
+  cardContent: {
     padding: 20
   },
   copy: {

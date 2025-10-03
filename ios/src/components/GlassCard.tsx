@@ -7,10 +7,11 @@ import { useTheme } from '../theme/ThemeProvider';
 interface GlassCardProps {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
+  contentStyle?: StyleProp<ViewStyle>;
   intensity?: number;
 }
 
-export const GlassCard = ({ children, style, intensity = 50 }: GlassCardProps) => {
+export const GlassCard = ({ children, style, contentStyle, intensity = 50 }: GlassCardProps) => {
   const { colors } = useTheme();
 
   return (
@@ -20,7 +21,7 @@ export const GlassCard = ({ children, style, intensity = 50 }: GlassCardProps) =
           colors={[colors.surface, 'rgba(94,157,255,0.08)']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={styles.gradient}
+          style={[styles.gradient, contentStyle]}
         >
           {children}
         </LinearGradient>
