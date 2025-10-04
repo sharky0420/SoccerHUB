@@ -17,6 +17,7 @@ import { GlassCard } from '../components/GlassCard';
 import { venues } from '../data/venues';
 import { RootStackParamList } from '../types/navigation';
 import { useTheme } from '../theme/ThemeProvider';
+import { useFavorites } from '../context/FavoritesContext';
 
 type VenueDetailNavigationProp = NativeStackNavigationProp<RootStackParamList, 'VenueDetail'>;
 type VenueDetailRouteProp = RouteProp<RootStackParamList, 'VenueDetail'>;
@@ -56,6 +57,7 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
   const insets = useSafeAreaInsets();
   const route = useRoute<VenueDetailRouteProp>();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const venue = useMemo(() => {
     const id = route.params?.venueId ?? venues[0].id;
@@ -94,15 +96,30 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
             >
               <Ionicons name="chevron-back" size={22} color="white" />
             </TouchableOpacity>
-            {venue.externalUrl && (
+            <View style={styles.heroActionRow}>
               <TouchableOpacity
-                style={styles.heroButton}
-                accessibilityLabel="Website öffnen"
-                onPress={handleOpenWebsite}
+                style={[styles.heroButton, isFavorite(venue.id) && styles.heroButtonActive]}
+                accessibilityLabel={
+                  isFavorite(venue.id) ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'
+                }
+                onPress={() => toggleFavorite(venue.id)}
               >
-                <Ionicons name="open-outline" size={20} color="white" />
+                <Ionicons
+                  name={isFavorite(venue.id) ? 'heart' : 'heart-outline'}
+                  size={20}
+                  color={isFavorite(venue.id) ? '#05080F' : 'white'}
+                />
               </TouchableOpacity>
-            )}
+              {venue.externalUrl && (
+                <TouchableOpacity
+                  style={styles.heroButton}
+                  accessibilityLabel="Website öffnen"
+                  onPress={handleOpenWebsite}
+                >
+                  <Ionicons name="open-outline" size={20} color="white" />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
         </SafeAreaView>
         <View style={styles.heroOverlay}>
@@ -232,6 +249,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20
   },
+  heroActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12
+  },
   heroButton: {
     width: 44,
     height: 44,
@@ -241,6 +263,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.15)'
+  },
+  heroButtonActive: {
+    backgroundColor: 'rgba(92,225,230,0.9)',
+    borderColor: 'rgba(92,225,230,0.9)'
   },
   heroOverlay: {
     flex: 1,

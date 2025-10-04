@@ -30,7 +30,7 @@ const GlassTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.tabBarContainer, { paddingBottom: insets.bottom + 12 }]}>
+    <View style={[styles.tabBarContainer, { paddingBottom: Math.max(insets.bottom + 4, 12) }]}>
       <BlurView intensity={60} tint="dark" style={styles.blurLayer}>
         <LinearGradient
           colors={[colors.surface, 'rgba(5,8,15,0.5)']}
@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 8,
     paddingHorizontal: 16
   },
   tabButton: {
-    paddingVertical: 8,
+    paddingVertical: 6,
     paddingHorizontal: 18,
     borderRadius: 20
   },

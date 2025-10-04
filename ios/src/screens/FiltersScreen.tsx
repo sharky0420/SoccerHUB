@@ -15,6 +15,7 @@ import { useFilters, weekdayLabels } from '../context/FiltersContext';
 import { venues } from '../data/venues';
 import { filterVenues, weekdayOrder } from '../utils/filtering';
 import { VenueCard } from '../components/VenueCard';
+import { useFavorites } from '../context/FavoritesContext';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 
@@ -27,6 +28,7 @@ const getUniqueValues = (items: string[]): string[] => Array.from(new Set(items)
 export const FiltersScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
   const { filters, updateFilters, resetFilters } = useFilters();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const sportOptions = useMemo(() => getUniqueValues(venues.flatMap((venue) => venue.sports)), []);
   const amenityOptions = useMemo(() => getUniqueValues(venues.flatMap((venue) => venue.amenities)), []);
@@ -56,7 +58,15 @@ export const FiltersScreen = ({ navigation }: Props) => {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.headerRow}>
-          <View>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => navigation.goBack()}
+            accessibilityRole="button"
+            accessibilityLabel="Filter schließen"
+          >
+            <Ionicons name="close" size={20} color="white" />
+          </TouchableOpacity>
+          <View style={styles.headerTitleBlock}>
             <Text style={[typography.caption, styles.caption]}>Filter konfigurieren</Text>
             <Text style={[typography.headingXL, styles.title]}>Feinjustierung</Text>
           </View>
@@ -220,6 +230,8 @@ export const FiltersScreen = ({ navigation }: Props) => {
             onPress={() => {
               navigation.navigate('VenueDetail', { venueId: venue.id });
             }}
+            isFavorite={isFavorite(venue.id)}
+            onToggleFavorite={() => toggleFavorite(venue.id)}
           />
         ))}
 
@@ -250,7 +262,23 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 12
+  },
+  closeButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(92,225,230,0.35)',
+    backgroundColor: 'rgba(9,14,24,0.55)'
+  },
+  headerTitleBlock: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 6
   },
   caption: {
     color: 'rgba(255,255,255,0.65)'
