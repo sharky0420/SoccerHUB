@@ -9,9 +9,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme/ThemeProvider';
 import { HomeScreen } from '../screens/HomeScreen';
 import { VenueDetailScreen } from '../screens/VenueDetailScreen';
-import { FiltersScreen } from '../screens/FiltersScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
 import { FavoritesScreen } from '../screens/FavoritesScreen';
+import { MapScreen } from '../screens/MapScreen';
+import { FiltersScreen } from '../screens/FiltersScreen';
 import { RootStackParamList, TabParamList } from '../types/navigation';
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -20,7 +21,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const TAB_ICONS: Record<keyof TabParamList, keyof typeof Ionicons.glyphMap> = {
   Home: 'home-outline',
   Favorites: 'heart-outline',
-  Filters: 'options-outline',
+  Map: 'map-outline',
   Profile: 'person-outline'
 };
 
@@ -92,7 +93,7 @@ const Tabs = () => {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Filters" component={FiltersScreen} />
+      <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -109,6 +110,7 @@ export const RootNavigator = () => {
       }}
     >
       <Stack.Screen name="Tabs" component={Tabs} />
+      <Stack.Screen name="Filters" component={FiltersScreen} />
       <Stack.Screen name="VenueDetail" component={VenueDetailScreen} />
     </Stack.Navigator>
   );
