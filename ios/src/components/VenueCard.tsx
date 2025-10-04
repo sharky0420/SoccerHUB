@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Venue } from '../data/venues';
 import { useTheme } from '../theme/ThemeProvider';
@@ -10,47 +10,71 @@ interface VenueCardProps {
   onPress: () => void;
 }
 
+const priceFormatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+  maximumFractionDigits: 0
+});
+
 export const VenueCard = ({ venue, onPress }: VenueCardProps) => {
   const { typography, colors } = useTheme();
 
+  const priceLabel = useMemo(() => {
+    if (typeof venue.pricePerHour === 'number') {
+      return priceFormatter.format(venue.pricePerHour);
+    }
+    return 'Preis auf Anfrage';
+  }, [venue.pricePerHour]);
+
+  const amenities = venue.amenities.slice(0, 3);
+
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable style={styles.container} onPress={onPress} accessibilityRole="button">
       <ImageBackground
         source={{ uri: venue.heroImage }}
         style={styles.image}
         imageStyle={styles.imageRadius}
       >
         <View style={styles.overlay}>
-          <View style={styles.badge}>
-            <Ionicons name="flash" size={16} color={colors.neon} />
-            <Text style={[typography.caption, styles.badgeLabel]}>{venue.nextAvailable}</Text>
+          <View style={styles.badgeRow}>
+            {venue.tags.livePricing && (
+              <View style={styles.badge}>
+                <Ionicons name="flash" size={16} color={colors.neon} />
+                <Text style={[typography.caption, styles.badgeLabel]}>Live Preis</Text>
+              </View>
+            )}
+            <View style={[styles.badge, styles.locationBadge]}>
+              <Ionicons name="navigate" size={16} color={colors.aqua} />
+              <Text style={[typography.caption, styles.badgeLabel]}>{venue.city}</Text>
+            </View>
           </View>
         </View>
       </ImageBackground>
       <View style={styles.body}>
         <View style={styles.headerRow}>
           <View style={styles.titleBlock}>
-            <Text style={[typography.headingM, styles.title]}>{venue.name}</Text>
-            <Text style={[typography.caption, styles.subtitle]}>{venue.neighborhood}</Text>
-          </View>
-          <View style={styles.ratingBlock}>
-            <Ionicons name="star" size={16} color={colors.neon} />
-            <Text style={[typography.caption, styles.rating]}>
-              {venue.rating.toFixed(1)}
+            <Text style={[typography.headingM, styles.title]} numberOfLines={2}>
+              {venue.name}
+            </Text>
+            <Text style={[typography.caption, styles.subtitle]} numberOfLines={1}>
+              {venue.address ?? venue.notes ?? 'Adresse auf Anfrage'}
             </Text>
           </View>
+          <View style={styles.pricePill}>
+            <Ionicons name="cash-outline" size={16} color={colors.aqua} />
+            <Text style={[typography.caption, styles.priceLabel]}>{priceLabel}</Text>
+          </View>
         </View>
-        <View style={styles.metaRow}>
-          <Text style={[typography.caption, styles.meta]}>{venue.surface}</Text>
-          <View style={styles.dot} />
-          <Text style={[typography.caption, styles.meta]}>{venue.distance.toFixed(1)} mi</Text>
-          <View style={styles.dot} />
-          <Text style={[typography.caption, styles.meta]}>${venue.hourlyRate}/hr</Text>
-        </View>
+        <Text style={[typography.caption, styles.description]} numberOfLines={2}>
+          {venue.description}
+        </Text>
         <View style={styles.amenitiesRow}>
-          {venue.amenities.slice(0, 3).map((amenity) => (
+          {amenities.map((amenity) => (
             <AmenityPill key={amenity} amenity={amenity} />
           ))}
+          {amenities.length === 0 && (
+            <Text style={[typography.caption, styles.placeholder]}>Keine Angaben zu Ausstattungen</Text>
+          )}
         </View>
       </View>
     </Pressable>
@@ -64,10 +88,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'rgba(9,14,24,0.68)',
     borderWidth: 1,
-    borderColor: 'rgba(92,225,230,0.12)'
+    borderColor: 'rgba(92,225,230,0.18)'
   },
   image: {
-    height: 180
+    height: 200
   },
   imageRadius: {
     borderTopLeftRadius: 28,
@@ -75,8 +99,12 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     padding: 16
+  },
+  badgeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   badge: {
     flexDirection: 'row',
@@ -85,7 +113,13 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
-    backgroundColor: 'rgba(9,14,24,0.75)'
+    backgroundColor: 'rgba(9,14,24,0.65)',
+    borderWidth: 1,
+    borderColor: 'rgba(92,225,230,0.35)',
+    marginRight: 8
+  },
+  locationBadge: {
+    backgroundColor: 'rgba(9,14,24,0.55)'
   },
   badgeLabel: {
     marginLeft: 6,
@@ -97,7 +131,7 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   },
   titleBlock: {
     flex: 1,
@@ -107,39 +141,31 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: 2
+    color: 'rgba(255,255,255,0.6)',
+    marginTop: 4
   },
-  ratingBlock: {
+  pricePill: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    backgroundColor: 'rgba(140,255,218,0.15)',
-    borderRadius: 16
+    backgroundColor: 'rgba(92,225,230,0.12)',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 6
   },
-  rating: {
+  priceLabel: {
     color: 'white',
-    marginLeft: 4
+    marginLeft: 6
   },
-  metaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  description: {
+    color: 'rgba(255,255,255,0.75)',
     marginTop: 12
-  },
-  meta: {
-    color: 'rgba(255,255,255,0.75)'
-  },
-  dot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: 'rgba(255,255,255,0.4)',
-    marginHorizontal: 8
   },
   amenitiesRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 14
+  },
+  placeholder: {
+    color: 'rgba(255,255,255,0.55)'
   }
 });

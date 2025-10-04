@@ -1,94 +1,102 @@
-export type Amenity =
-  | 'lights'
-  | 'locker'
-  | 'parking'
-  | 'refreshments'
-  | 'indoor'
-  | 'outdoor'
-  | 'coaching';
+import rawVenues from '../../../data/venues.json';
+
+export type OpeningHours = Record<string, { open: string; close: string } | null> | null;
 
 export type Venue = {
   id: string;
   name: string;
-  neighborhood: string;
-  hourlyRate: number;
-  surface: string;
-  distance: number;
-  rating: number;
-  reviewCount: number;
-  heroImage: string;
-  amenities: Amenity[];
-  availability: string;
-  nextAvailable: string;
+  city: string;
+  address: string | null;
   description: string;
-  coordinates: {
-    latitude: number;
-    longitude: number;
+  pricePerHour: number | null;
+  sports: string[];
+  amenities: string[];
+  openingHours: OpeningHours;
+  notes: string | null;
+  externalUrl: string | null;
+  heroImage: string;
+  tags: {
+    livePricing: boolean;
+    hasShowers: boolean;
+    hasCatering: boolean;
+    accessible: boolean;
   };
 };
 
-export const venues: Venue[] = [
-  {
-    id: '1',
-    name: 'Skyline Fives Arena',
-    neighborhood: 'Brooklyn Navy Yard',
-    hourlyRate: 120,
-    surface: '5v5 rooftop turf',
-    distance: 1.2,
-    rating: 4.8,
-    reviewCount: 312,
-    heroImage:
-      'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1200&q=80',
-    amenities: ['lights', 'locker', 'parking', 'refreshments', 'outdoor'],
-    availability: 'Prime time slots available tonight',
-    nextAvailable: '7:30 PM – 9:00 PM',
-    description:
-      'A rooftop pitch with skyline views, pro-grade turf, and curated playlists for match nights.',
-    coordinates: {
-      latitude: 40.703333,
-      longitude: -73.980889
-    }
-  },
-  {
-    id: '2',
-    name: 'Liquid Glass Pavilion',
-    neighborhood: 'Lower Manhattan',
-    hourlyRate: 160,
-    surface: '7v7 climate-controlled dome',
-    distance: 2.5,
-    rating: 4.9,
-    reviewCount: 198,
-    heroImage:
-      'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80',
-    amenities: ['lights', 'indoor', 'locker', 'refreshments', 'coaching'],
-    availability: 'Members priority until 6:00 PM',
-    nextAvailable: '9:30 PM – 11:00 PM',
-    description:
-      'A premium dome wrapped in electrochromic glass with adaptable lighting and dedicated analysts.',
-    coordinates: {
-      latitude: 40.7099,
-      longitude: -74.0134
-    }
-  },
-  {
-    id: '3',
-    name: 'Harborline Grounds',
-    neighborhood: 'Williamsburg Waterfront',
-    hourlyRate: 95,
-    surface: '7v7 hybrid turf',
-    distance: 1.9,
-    rating: 4.6,
-    reviewCount: 254,
-    heroImage:
-      'https://images.unsplash.com/photo-1505672678657-cc7037095e2c?auto=format&fit=crop&w=1200&q=80',
-    amenities: ['outdoor', 'parking', 'refreshments'],
-    availability: 'Sunset league in progress',
-    nextAvailable: '10:00 PM – 11:30 PM',
-    description:
-      'Flexible pitch with modular boards, perfect for pickup nights and custom tournament formats.',
-    coordinates: {
-      latitude: 40.7156,
-      longitude: -73.9627
+type RawVenue = (typeof rawVenues)[number];
+
+const fallbackImages = [
+  'https://images.unsplash.com/photo-1471295253337-3ceaaedca402?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1470163395405-d2b80e7450ed?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1526285840714-3b1b83f8ddc0?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1200&q=80'
+];
+
+const sanitiseAmenities = (amenities: RawVenue['amenities']): string[] => {
+  if (!Array.isArray(amenities)) {
+    return [];
+  }
+
+  return amenities
+    .map((item) => (typeof item === 'string' ? item.trim() : null))
+    .filter((item): item is string => Boolean(item && item.length > 0));
+};
+
+const createTags = (venue: RawVenue) => {
+  const amenities = sanitiseAmenities(venue.amenities);
+  const normalisedAmenities = amenities.map((item) => item.toLowerCase());
+
+  const includesAmenity = (needle: string | string[]) => {
+    const needles = Array.isArray(needle) ? needle : [needle];
+    return needles.some((value) => normalisedAmenities.includes(value.toLowerCase()));
+  };
+
+  return {
+    livePricing: typeof venue.pricePerHour === 'number',
+    hasShowers: includesAmenity(['duschen', 'dusche']),
+    hasCatering: includesAmenity(['gastronomie', 'verpflegung', 'sportsbar', 'bar']),
+    accessible: includesAmenity(['barrierefrei'])
+  };
+};
+
+const ensureHeroImage = (venue: RawVenue, index: number): string => {
+  if (Array.isArray(venue.images) && venue.images.length > 0) {
+    const source = venue.images.find((image) => typeof image === 'string' && image.length > 0);
+    if (source) {
+      return source;
     }
   }
-];
+
+  return fallbackImages[index % fallbackImages.length];
+};
+
+const normaliseField = <T>(value: T | null | undefined): T | null => {
+  if (value === undefined || value === null) {
+    return null;
+  }
+  return value;
+};
+
+export const venues: Venue[] = rawVenues.map((venue, index) => {
+  const tags = createTags(venue);
+  const amenities = sanitiseAmenities(venue.amenities);
+
+  return {
+    id: venue.id,
+    name: venue.name,
+    city: venue.city ?? 'Unbekannter Standort',
+    address: normaliseField(venue.address),
+    description:
+      venue.description?.trim() ?? 'Für diesen Standort liegt derzeit keine Beschreibung vor.',
+    pricePerHour: typeof venue.pricePerHour === 'number' ? venue.pricePerHour : null,
+    sports: Array.isArray(venue.sports) ? venue.sports.filter((sport): sport is string => !!sport) : [],
+    amenities,
+    openingHours: venue.openingHours ?? null,
+    notes: normaliseField(venue.notes),
+    externalUrl: normaliseField(venue.externalUrl),
+    heroImage: ensureHeroImage(venue, index),
+    tags
+  };
+});

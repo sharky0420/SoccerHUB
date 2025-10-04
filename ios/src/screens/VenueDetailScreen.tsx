@@ -4,6 +4,7 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 import React, { useMemo } from 'react';
 import {
   ImageBackground,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
@@ -24,6 +25,33 @@ interface Props {
   navigation: VenueDetailNavigationProp;
 }
 
+const priceFormatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+  maximumFractionDigits: 0
+});
+
+const formatDay = (day: string) => {
+  switch (day) {
+    case 'monday':
+      return 'Montag';
+    case 'tuesday':
+      return 'Dienstag';
+    case 'wednesday':
+      return 'Mittwoch';
+    case 'thursday':
+      return 'Donnerstag';
+    case 'friday':
+      return 'Freitag';
+    case 'saturday':
+      return 'Samstag';
+    case 'sunday':
+      return 'Sonntag';
+    default:
+      return day;
+  }
+};
+
 export const VenueDetailScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -34,6 +62,26 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
     return venues.find((item) => item.id === id) ?? venues[0];
   }, [route.params?.venueId]);
 
+  const priceLabel =
+    typeof venue.pricePerHour === 'number'
+      ? `${priceFormatter.format(venue.pricePerHour)} / Stunde`
+      : 'Preis auf Anfrage';
+
+  const openingHours = useMemo(() => {
+    if (!venue.openingHours) {
+      return [] as Array<[string, { open: string; close: string }]>;
+    }
+    return Object.entries(venue.openingHours).filter(
+      (entry): entry is [string, { open: string; close: string }] => Boolean(entry[1])
+    );
+  }, [venue.openingHours]);
+
+  const handleOpenWebsite = () => {
+    if (venue.externalUrl) {
+      Linking.openURL(venue.externalUrl).catch(() => undefined);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground source={{ uri: venue.heroImage }} style={styles.hero}>
@@ -42,20 +90,30 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
             <TouchableOpacity
               style={styles.heroButton}
               onPress={() => navigation.goBack()}
-              accessibilityLabel="Go back"
+              accessibilityLabel="Zurück"
             >
               <Ionicons name="chevron-back" size={22} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.heroButton} accessibilityLabel="Save to favorites">
-              <Ionicons name="heart-outline" size={22} color="white" />
-            </TouchableOpacity>
+            {venue.externalUrl && (
+              <TouchableOpacity
+                style={styles.heroButton}
+                accessibilityLabel="Website öffnen"
+                onPress={handleOpenWebsite}
+              >
+                <Ionicons name="open-outline" size={20} color="white" />
+              </TouchableOpacity>
+            )}
           </View>
         </SafeAreaView>
         <View style={styles.heroOverlay}>
-          <Text style={[typography.headingXL, styles.heroTitle]}>{venue.name}</Text>
+          <Text style={[typography.headingXL, styles.heroTitle]} numberOfLines={2}>
+            {venue.name}
+          </Text>
           <View style={styles.heroMeta}>
             <Ionicons name="location-outline" size={18} color={colors.aqua} />
-            <Text style={[typography.caption, styles.heroMetaLabel]}>{venue.neighborhood}</Text>
+            <Text style={[typography.caption, styles.heroMetaLabel]}>
+              {venue.address ?? venue.city}
+            </Text>
           </View>
         </View>
       </ImageBackground>
@@ -68,49 +126,72 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
         <GlassCard style={styles.infoCard} contentStyle={styles.infoCardContent}>
           <View style={styles.infoHeader}>
             <View>
-              <Text style={[typography.headingL, styles.infoTitle]}>${venue.hourlyRate}/hr</Text>
-              <Text style={[typography.caption, styles.infoSubhead]}>{venue.surface}</Text>
+              <Text style={[typography.caption, styles.infoLabel]}>Preis</Text>
+              <Text style={[typography.headingL, styles.infoTitle]}>{priceLabel}</Text>
             </View>
-            <View style={styles.ratingBadge}>
-              <Ionicons name="star" size={18} color={colors.neon} />
-              <Text style={[typography.caption, styles.ratingLabel]}>{venue.rating.toFixed(1)}</Text>
-              <Text style={[typography.caption, styles.ratingCount]}>({venue.reviewCount})</Text>
+            <View>
+              <Text style={[typography.caption, styles.infoLabel]}>Sportarten</Text>
+              <Text style={[typography.caption, styles.infoText]}>
+                {venue.sports.length > 0 ? venue.sports.join(', ') : 'Nach Anfrage'}
+              </Text>
             </View>
           </View>
-          <View style={styles.infoRow}>
-            <Ionicons name="time-outline" size={18} color={colors.aqua} />
-            <Text style={[typography.caption, styles.infoText]}>{venue.availability}</Text>
-          </View>
-          <View style={styles.infoRow}>
-            <Ionicons name="flash-outline" size={18} color={colors.aqua} />
-            <Text style={[typography.caption, styles.infoText]}>{venue.nextAvailable}</Text>
-          </View>
+          {venue.notes && (
+            <View style={styles.infoRow}>
+              <Ionicons name="information-circle-outline" size={18} color={colors.aqua} />
+              <Text style={[typography.caption, styles.infoText]}>{venue.notes}</Text>
+            </View>
+          )}
+          {venue.externalUrl && (
+            <TouchableOpacity style={styles.infoRow} onPress={handleOpenWebsite}>
+              <Ionicons name="globe-outline" size={18} color={colors.aqua} />
+              <Text style={[typography.caption, styles.linkText]}>Zur Website</Text>
+            </TouchableOpacity>
+          )}
         </GlassCard>
 
         <View style={styles.section}>
-          <Text style={[typography.headingM, styles.sectionTitle]}>Overview</Text>
+          <Text style={[typography.headingM, styles.sectionTitle]}>Beschreibung</Text>
           <Text style={[typography.body, styles.sectionCopy]}>{venue.description}</Text>
         </View>
 
         <View style={styles.section}>
-          <Text style={[typography.headingM, styles.sectionTitle]}>Amenities</Text>
+          <Text style={[typography.headingM, styles.sectionTitle]}>Ausstattung</Text>
           <View style={styles.amenitiesWrap}>
-            {venue.amenities.map((amenity) => (
-              <AmenityPill key={amenity} amenity={amenity} />
-            ))}
+            {venue.amenities.length > 0 ? (
+              venue.amenities.map((amenity) => <AmenityPill key={amenity} amenity={amenity} />)
+            ) : (
+              <Text style={[typography.caption, styles.sectionCopy]}>Keine Angaben verfügbar.</Text>
+            )}
           </View>
         </View>
 
+        {openingHours.length > 0 && (
+          <View style={styles.section}>
+            <Text style={[typography.headingM, styles.sectionTitle]}>Öffnungszeiten</Text>
+            <GlassCard contentStyle={styles.hoursCard}>
+              {openingHours.map(([day, hours]) => (
+                <View key={day} style={styles.hoursRow}>
+                  <Text style={[typography.caption, styles.hoursDay]}>{formatDay(day)}</Text>
+                  <Text style={[typography.caption, styles.hoursValue]}>
+                    {hours.open} – {hours.close}
+                  </Text>
+                </View>
+              ))}
+            </GlassCard>
+          </View>
+        )}
+
         <View style={styles.section}>
-          <Text style={[typography.headingM, styles.sectionTitle]}>Location</Text>
+          <Text style={[typography.headingM, styles.sectionTitle]}>Standort</Text>
           <GlassCard contentStyle={styles.mapCardContent}>
             <View style={styles.mapRow}>
               <Ionicons name="navigate" size={20} color={colors.aqua} />
-              <Text style={[typography.caption, styles.mapLabel]}>
-                {venue.coordinates.latitude.toFixed(4)}° N, {venue.coordinates.longitude.toFixed(4)}° W
+              <Text style={[typography.caption, styles.mapLabel]} numberOfLines={2}>
+                {venue.address ? `${venue.address}, ${venue.city}` : venue.city}
               </Text>
             </View>
-            <Text style={[typography.caption, styles.mapHint]}>Tap to open in Maps</Text>
+            <Text style={[typography.caption, styles.mapHint]}>Adresse für Navigation kopieren</Text>
           </GlassCard>
         </View>
       </ScrollView>
@@ -118,11 +199,15 @@ export const VenueDetailScreen = ({ navigation }: Props) => {
       <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.bookingBarSafeArea}>
         <View style={styles.bookingBar}>
           <View>
-            <Text style={[typography.caption, styles.bookingLabel]}>Next slot</Text>
-            <Text style={[typography.headingM, styles.bookingValue]}>{venue.nextAvailable}</Text>
+            <Text style={[typography.caption, styles.bookingLabel]}>Kontakt</Text>
+            <Text style={[typography.headingM, styles.bookingValue]} numberOfLines={1}>
+              {venue.externalUrl ? 'Online buchen' : 'Verfügbarkeit anfragen'}
+            </Text>
           </View>
-          <TouchableOpacity style={styles.bookingButton}>
-            <Text style={[typography.caption, styles.bookingButtonLabel]}>Request booking</Text>
+          <TouchableOpacity style={styles.bookingButton} onPress={handleOpenWebsite}>
+            <Text style={[typography.caption, styles.bookingButtonLabel]}>
+              {venue.externalUrl ? 'Website öffnen' : 'Infos anfordern'}
+            </Text>
             <Ionicons name="arrow-forward" size={18} color="white" style={{ marginLeft: 6 }} />
           </TouchableOpacity>
         </View>
@@ -161,7 +246,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     padding: 24,
-    backgroundColor: 'rgba(5,8,15,0.25)'
+    backgroundColor: 'rgba(5,8,15,0.35)'
   },
   heroTitle: {
     color: 'white'
@@ -189,43 +274,33 @@ const styles = StyleSheet.create({
   infoHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    gap: 16,
     marginBottom: 18
+  },
+  infoLabel: {
+    color: 'rgba(255,255,255,0.6)',
+    marginBottom: 4
   },
   infoTitle: {
     color: 'white'
   },
-  infoSubhead: {
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: 4
-  },
-  ratingBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    backgroundColor: 'rgba(140,255,218,0.15)'
-  },
-  ratingLabel: {
-    color: 'white',
-    marginLeft: 6
-  },
-  ratingCount: {
-    color: 'rgba(255,255,255,0.6)',
-    marginLeft: 4
-  },
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10
+    marginTop: 10
   },
   infoText: {
+    color: 'rgba(255,255,255,0.75)',
     marginLeft: 10,
-    color: 'rgba(255,255,255,0.8)'
+    flex: 1
+  },
+  linkText: {
+    color: '#5CE1E6',
+    marginLeft: 10
   },
   section: {
-    marginBottom: 28
+    marginBottom: 24
   },
   sectionTitle: {
     color: 'white',
@@ -233,55 +308,66 @@ const styles = StyleSheet.create({
   },
   sectionCopy: {
     color: 'rgba(255,255,255,0.75)',
-    lineHeight: 24
+    lineHeight: 22
   },
   amenitiesWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
+  hoursCard: {
+    padding: 18,
+    gap: 12
+  },
+  hoursRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  hoursDay: {
+    color: 'rgba(255,255,255,0.75)'
+  },
+  hoursValue: {
+    color: 'white'
+  },
   mapCardContent: {
-    padding: 20
+    padding: 20,
+    gap: 8
   },
   mapRow: {
     flexDirection: 'row',
     alignItems: 'center'
   },
   mapLabel: {
-    color: 'rgba(255,255,255,0.8)',
-    marginLeft: 10
+    color: 'rgba(255,255,255,0.85)',
+    marginLeft: 8,
+    flex: 1
   },
   mapHint: {
-    color: 'rgba(255,255,255,0.55)',
-    marginTop: 12
-  },
-  bookingBarSafeArea: {
-    backgroundColor: 'transparent'
-  },
-  bookingBar: {
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 28,
-    padding: 18,
-    backgroundColor: 'rgba(15,30,48,0.85)',
-    borderWidth: 1,
-    borderColor: 'rgba(92,225,230,0.18)',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  bookingLabel: {
     color: 'rgba(255,255,255,0.6)'
   },
+  bookingBarSafeArea: {
+    backgroundColor: '#05080F'
+  },
+  bookingBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderTopWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)'
+  },
+  bookingLabel: {
+    color: 'rgba(255,255,255,0.65)'
+  },
   bookingValue: {
-    color: 'white',
-    marginTop: 4
+    color: 'white'
   },
   bookingButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(63,111,219,0.9)',
-    borderRadius: 20,
-    paddingHorizontal: 20,
+    backgroundColor: 'rgba(63,111,219,0.85)',
+    borderRadius: 18,
+    paddingHorizontal: 18,
     paddingVertical: 10
   },
   bookingButtonLabel: {
