@@ -18,6 +18,8 @@ import { VenueCard } from '../components/VenueCard';
 import { Venue, venues } from '../data/venues';
 import { RootStackParamList, TabParamList } from '../types/navigation';
 import { useTheme } from '../theme/ThemeProvider';
+import { useFilters } from '../context/FiltersContext';
+import { filterVenues } from '../utils/filtering';
 
 type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'Home'>,
@@ -66,20 +68,23 @@ const quickFilters: FilterConfig[] = [
 
 export const HomeScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
+  const { filters } = useFilters();
   const [activeFilters, setActiveFilters] = useState<Set<FilterKey>>(new Set());
+
+  const advancedFiltered = useMemo(() => filterVenues(venues, filters), [filters]);
 
   const filteredVenues = useMemo(() => {
     if (activeFilters.size === 0) {
-      return venues;
+      return advancedFiltered;
     }
 
-    return venues.filter((venue) =>
+    return advancedFiltered.filter((venue) =>
       Array.from(activeFilters).every((key) => {
         const filter = quickFilters.find((item) => item.key === key);
         return filter ? filter.predicate(venue) : true;
       })
     );
-  }, [activeFilters]);
+  }, [activeFilters, advancedFiltered]);
 
   const toggleFilter = (key: FilterKey) => {
     setActiveFilters((prev) => {

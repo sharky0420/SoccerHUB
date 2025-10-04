@@ -5,6 +5,7 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { ThemeProvider, useTheme } from './src/theme/ThemeProvider';
+import { FiltersProvider } from './src/context/FiltersContext';
 
 const ThemedNavigation = () => {
   const { navigationTheme } = useTheme();
@@ -21,7 +22,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <ThemedNavigation />
+        <FiltersProvider>
+          <ThemedNavigation />
+        </FiltersProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
