@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE, type LatLng, type Region } from 'react-native-maps';
+import MapView, { Callout, Marker, PROVIDER_GOOGLE, type LatLng, type Region } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/ThemeProvider';
@@ -13,6 +13,7 @@ import { RootStackParamList, TabParamList } from '../types/navigation';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFavorites } from '../context/FavoritesContext';
 
 interface MapVenue {
   venue: Venue;
@@ -96,6 +97,7 @@ const computeRegion = (points: MapVenue[]): Region => {
 export const MapScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
   const { filters } = useFilters();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const filteredVenues = useMemo(() => filterVenues(venues, filters), [filters]);
   const mapVenues = useMemo(() => computeMapVenues(filteredVenues), [filteredVenues]);
@@ -144,8 +146,21 @@ export const MapScreen = ({ navigation }: Props) => {
               key={entry.venue.id}
               coordinate={entry.coordinate}
               pinColor={entry.isLive ? '#1FB864' : '#9AB8AF'}
+              identifier={entry.venue.id}
               onPress={() => setSelectedVenueId(entry.venue.id)}
-            />
+              onSelect={() => setSelectedVenueId(entry.venue.id)}
+            >
+              <Callout
+                tooltip
+                onPress={() => navigation.navigate('VenueDetail', { venueId: entry.venue.id })}
+              >
+                <View style={styles.calloutContainer}>
+                  <Text style={[typography.caption, styles.calloutTitle]}>{entry.venue.name}</Text>
+                  <Text style={[typography.caption, styles.calloutSubtitle]}>{entry.venue.city}</Text>
+                  <Text style={[typography.caption, styles.calloutAction]}>Tippen für Details</Text>
+                </View>
+              </Callout>
+            </Marker>
           ))}
         </MapView>
       </View>
@@ -160,6 +175,22 @@ export const MapScreen = ({ navigation }: Props) => {
                   {selectedVenue.venue.name}
                 </Text>
               </View>
+              <TouchableOpacity
+                style={[styles.favoriteButton, isFavorite(selectedVenue.venue.id) && styles.favoriteButtonActive]}
+                onPress={() => toggleFavorite(selectedVenue.venue.id)}
+                accessibilityRole="button"
+                accessibilityLabel={
+                  isFavorite(selectedVenue.venue.id)
+                    ? 'Aus Favoriten entfernen'
+                    : 'Zu Favoriten hinzufügen'
+                }
+              >
+                <Ionicons
+                  name={isFavorite(selectedVenue.venue.id) ? 'heart' : 'heart-outline'}
+                  size={18}
+                  color={isFavorite(selectedVenue.venue.id) ? '#05080F' : 'white'}
+                />
+              </TouchableOpacity>
               <View style={styles.pricePill}>
                 <Ionicons name="cash-outline" size={16} color={colors.aqua} />
                 <Text style={[typography.caption, styles.priceLabel]}>
@@ -246,6 +277,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(92,225,230,0.2)'
   },
+  calloutContainer: {
+    backgroundColor: 'rgba(5,8,15,0.85)',
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(92,225,230,0.35)',
+    maxWidth: 180
+  },
+  calloutTitle: {
+    color: 'white',
+    marginBottom: 4
+  },
+  calloutSubtitle: {
+    color: 'rgba(255,255,255,0.75)' 
+  },
+  calloutAction: {
+    color: 'rgba(92,225,230,0.85)',
+    marginTop: 6
+  },
   detailsCard: {
     marginHorizontal: 20,
     marginTop: -36,
@@ -260,7 +311,8 @@ const styles = StyleSheet.create({
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 16
+    gap: 16,
+    alignItems: 'flex-start'
   },
   cardEyebrow: {
     color: 'rgba(255,255,255,0.6)',
@@ -277,6 +329,17 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 16,
     backgroundColor: 'rgba(92,225,230,0.14)'
+  },
+  favoriteButton: {
+    padding: 8,
+    borderRadius: 16,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.15)'
+  },
+  favoriteButtonActive: {
+    backgroundColor: 'rgba(92,225,230,0.9)',
+    borderColor: 'rgba(92,225,230,0.9)'
   },
   priceLabel: {
     color: 'white',

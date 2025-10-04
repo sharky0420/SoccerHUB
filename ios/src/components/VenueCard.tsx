@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useMemo } from 'react';
-import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Venue } from '../data/venues';
 import { useTheme } from '../theme/ThemeProvider';
 import { AmenityPill } from './AmenityPill';
@@ -8,6 +8,8 @@ import { AmenityPill } from './AmenityPill';
 interface VenueCardProps {
   venue: Venue;
   onPress: () => void;
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 const priceFormatter = new Intl.NumberFormat('de-DE', {
@@ -16,7 +18,7 @@ const priceFormatter = new Intl.NumberFormat('de-DE', {
   maximumFractionDigits: 0
 });
 
-export const VenueCard = ({ venue, onPress }: VenueCardProps) => {
+export const VenueCard = ({ venue, onPress, isFavorite = false, onToggleFavorite }: VenueCardProps) => {
   const { typography, colors } = useTheme();
 
   const priceLabel = useMemo(() => {
@@ -36,17 +38,36 @@ export const VenueCard = ({ venue, onPress }: VenueCardProps) => {
         imageStyle={styles.imageRadius}
       >
         <View style={styles.overlay}>
-          <View style={styles.badgeRow}>
-            {venue.tags.livePricing && (
-              <View style={styles.badge}>
-                <Ionicons name="flash" size={16} color={colors.neon} />
-                <Text style={[typography.caption, styles.badgeLabel]}>Live Preis</Text>
+          <View style={styles.overlayHeader}>
+            <View style={styles.badgeRow}>
+              {venue.tags.livePricing && (
+                <View style={styles.badge}>
+                  <Ionicons name="flash" size={16} color={colors.neon} />
+                  <Text style={[typography.caption, styles.badgeLabel]}>Live Preis</Text>
+                </View>
+              )}
+              <View style={[styles.badge, styles.locationBadge]}>
+                <Ionicons name="navigate" size={16} color={colors.aqua} />
+                <Text style={[typography.caption, styles.badgeLabel]}>{venue.city}</Text>
               </View>
-            )}
-            <View style={[styles.badge, styles.locationBadge]}>
-              <Ionicons name="navigate" size={16} color={colors.aqua} />
-              <Text style={[typography.caption, styles.badgeLabel]}>{venue.city}</Text>
             </View>
+            {onToggleFavorite && (
+              <TouchableOpacity
+                onPress={(event) => {
+                  event.stopPropagation();
+                  onToggleFavorite();
+                }}
+                accessibilityRole="button"
+                accessibilityLabel={isFavorite ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}
+                style={[styles.favoriteButton, isFavorite && styles.favoriteButtonActive]}
+              >
+                <Ionicons
+                  name={isFavorite ? 'heart' : 'heart-outline'}
+                  size={18}
+                  color={isFavorite ? '#05080F' : 'white'}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </ImageBackground>
@@ -102,6 +123,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 16
   },
+  overlayHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
+  },
   badgeRow: {
     flexDirection: 'row',
     justifyContent: 'space-between'
@@ -124,6 +150,17 @@ const styles = StyleSheet.create({
   badgeLabel: {
     marginLeft: 6,
     color: 'white'
+  },
+  favoriteButton: {
+    padding: 8,
+    borderRadius: 16,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)'
+  },
+  favoriteButtonActive: {
+    backgroundColor: 'rgba(92,225,230,0.9)',
+    borderColor: 'rgba(92,225,230,0.9)'
   },
   body: {
     padding: 20

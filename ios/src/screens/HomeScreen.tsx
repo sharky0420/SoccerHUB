@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -20,6 +21,7 @@ import { RootStackParamList, TabParamList } from '../types/navigation';
 import { useTheme } from '../theme/ThemeProvider';
 import { useFilters } from '../context/FiltersContext';
 import { filterVenues } from '../utils/filtering';
+import { useFavorites } from '../context/FavoritesContext';
 
 type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'Home'>,
@@ -70,6 +72,8 @@ export const HomeScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
   const { filters } = useFilters();
   const [activeFilters, setActiveFilters] = useState<Set<FilterKey>>(new Set());
+  const [searchQuery, setSearchQuery] = useState('');
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const advancedFiltered = useMemo(() => filterVenues(venues, filters), [filters]);
 
@@ -86,6 +90,18 @@ export const HomeScreen = ({ navigation }: Props) => {
     );
   }, [activeFilters, advancedFiltered]);
 
+  const visibleVenues = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) {
+      return filteredVenues;
+    }
+
+    return filteredVenues.filter((venue) => {
+      const haystacks = [venue.name, venue.city, venue.address, venue.description].filter(Boolean);
+      return haystacks.some((item) => item!.toLowerCase().includes(query));
+    });
+  }, [filteredVenues, searchQuery]);
+
   const toggleFilter = (key: FilterKey) => {
     setActiveFilters((prev) => {
       const next = new Set(prev);
@@ -100,7 +116,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
   const clearFilters = () => setActiveFilters(new Set<FilterKey>());
 
-  const featuredVenue = filteredVenues[0];
+  const featuredVenue = visibleVenues[0];
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
@@ -127,6 +143,28 @@ export const HomeScreen = ({ navigation }: Props) => {
               style={styles.avatar}
             />
           </TouchableOpacity>
+        </View>
+
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={18} color={colors.aqua} style={styles.searchIcon} />
+          <TextInput
+            style={[typography.caption, styles.searchInput]}
+            placeholder="Suche nach Halle, Stadt oder Adresse"
+            placeholderTextColor="rgba(255,255,255,0.45)"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            returnKeyType="search"
+            clearButtonMode="while-editing"
+          />
+          {searchQuery.length > 0 && (
+            <TouchableOpacity
+              onPress={() => setSearchQuery('')}
+              accessibilityRole="button"
+              accessibilityLabel="Suche löschen"
+            >
+              <Ionicons name="close-circle" size={18} color="rgba(255,255,255,0.5)" />
+            </TouchableOpacity>
+          )}
         </View>
 
         {featuredVenue && (
@@ -207,7 +245,7 @@ export const HomeScreen = ({ navigation }: Props) => {
           <View>
             <Text style={[typography.headingL, styles.listTitle]}>Standorte</Text>
             <Text style={[typography.caption, styles.listSubtitle]}>
-              {filteredVenues.length} {filteredVenues.length === 1 ? 'Treffer' : 'Treffer'}
+              {visibleVenues.length} {visibleVenues.length === 1 ? 'Treffer' : 'Treffer'}
             </Text>
           </View>
           <TouchableOpacity style={styles.viewAllButton} onPress={() => navigation.navigate('Filters')}>
@@ -215,15 +253,17 @@ export const HomeScreen = ({ navigation }: Props) => {
           </TouchableOpacity>
         </View>
 
-        {filteredVenues.map((venue) => (
+        {visibleVenues.map((venue) => (
           <VenueCard
             key={venue.id}
             venue={venue}
             onPress={() => navigation.navigate('VenueDetail', { venueId: venue.id })}
+            isFavorite={isFavorite(venue.id)}
+            onToggleFavorite={() => toggleFavorite(venue.id)}
           />
         ))}
 
-        {filteredVenues.length === 0 && (
+        {visibleVenues.length === 0 && (
           <GlassCard style={styles.emptyStateCard} contentStyle={styles.emptyStateContent}>
             <Ionicons name="sparkles-outline" size={28} color={colors.aqua} />
             <Text style={[typography.headingM, styles.emptyStateTitle]}>Keine passenden Courts</Text>
@@ -251,6 +291,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 24
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 20,
+    backgroundColor: 'rgba(9,14,24,0.6)',
+    borderWidth: 1,
+    borderColor: 'rgba(92,225,230,0.25)',
+    marginBottom: 24,
+    gap: 10
+  },
+  searchIcon: {
+    marginRight: 4
+  },
+  searchInput: {
+    flex: 1,
+    color: 'white'
   },
   caption: {
     color: 'rgba(255,255,255,0.65)'
