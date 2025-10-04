@@ -7,11 +7,11 @@ import { RootNavigator } from './src/navigation/RootNavigator';
 import { ThemeProvider, useTheme } from './src/theme/ThemeProvider';
 
 const ThemedNavigation = () => {
-  const { navigationTheme } = useTheme();
+  const { navigationTheme, statusBarStyle } = useTheme();
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      <StatusBar style="light" />
+      <StatusBar style={statusBarStyle} animated />
       <RootNavigator />
     </NavigationContainer>
   );

@@ -1,385 +1,193 @@
 import { Ionicons } from '@expo/vector-icons';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { CompositeNavigationProp } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useMemo, useState } from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { GlassCard } from '../components/GlassCard';
-import { MapPreview } from '../components/MapPreview';
-import { VenueCard } from '../components/VenueCard';
-import { Venue, venues } from '../data/venues';
-import { RootStackParamList, TabParamList } from '../types/navigation';
+import React, { useMemo } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { GlassCard, GlassHeader, GLASS_HEADER_HEIGHT, GlassSheet } from '../glass';
 import { useTheme } from '../theme/ThemeProvider';
 
-type HomeScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, 'Home'>,
-  NativeStackNavigationProp<RootStackParamList>
->;
-
-interface Props {
-  navigation: HomeScreenNavigationProp;
-}
-
-type FilterKey = 'livePricing' | 'showers' | 'catering' | 'accessible';
-
-type FilterConfig = {
-  key: FilterKey;
-  label: string;
+type Highlight = {
+  title: string;
+  description: string;
   icon: keyof typeof Ionicons.glyphMap;
-  predicate: (venue: Venue) => boolean;
 };
 
-const quickFilters: FilterConfig[] = [
+const highlights: Highlight[] = [
   {
-    key: 'livePricing',
-    label: 'Live Preis',
-    icon: 'flash-outline',
-    predicate: (venue) => venue.tags.livePricing
+    title: 'Play instantly',
+    description: 'Drop-in matches open all day with live availability.',
+    icon: 'flash-outline'
   },
   {
-    key: 'showers',
-    label: 'Duschen',
-    icon: 'water-outline',
-    predicate: (venue) => venue.tags.hasShowers
+    title: 'Team management',
+    description: 'Invite friends and lock squads with one tap.',
+    icon: 'people-outline'
   },
   {
-    key: 'catering',
-    label: 'Gastro',
-    icon: 'restaurant-outline',
-    predicate: (venue) => venue.tags.hasCatering
-  },
-  {
-    key: 'accessible',
-    label: 'Barrierefrei',
-    icon: 'walk-outline',
-    predicate: (venue) => venue.tags.accessible
+    title: 'Advanced analytics',
+    description: 'Track form, fatigue and game rhythm in real time.',
+    icon: 'analytics-outline'
   }
 ];
 
-export const HomeScreen = ({ navigation }: Props) => {
-  const { typography, colors } = useTheme();
-  const [activeFilters, setActiveFilters] = useState<Set<FilterKey>>(new Set());
+const upcomingMatches = [
+  { id: '1', opponent: 'Urban Strikers', location: 'Arena Nord', time: 'Heute · 19:30' },
+  { id: '2', opponent: 'FC Südwind', location: 'City Dome', time: 'Sa · 17:00' }
+];
 
-  const filteredVenues = useMemo(() => {
-    if (activeFilters.size === 0) {
-      return venues;
-    }
-
-    return venues.filter((venue) =>
-      Array.from(activeFilters).every((key) => {
-        const filter = quickFilters.find((item) => item.key === key);
-        return filter ? filter.predicate(venue) : true;
-      })
-    );
-  }, [activeFilters]);
-
-  const toggleFilter = (key: FilterKey) => {
-    setActiveFilters((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
-  };
-
-  const clearFilters = () => setActiveFilters(new Set<FilterKey>());
-
-  const featuredVenue = filteredVenues[0];
+export const HomeScreen = () => {
+  const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
+  const scrollY = useMemo(() => new Animated.Value(0), []);
+  const contentTop = GLASS_HEADER_HEIGHT + insets.top + 32;
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <ScrollView
-        style={styles.container}
-        contentInsetAdjustmentBehavior="automatic"
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <GlassHeader title="SoccerHUB" subtitle="Liquid Glass experience" scrollY={scrollY} />
+      <Animated.ScrollView
         showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+          useNativeDriver: false
+        })}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingTop: contentTop,
+            paddingBottom: Math.max(insets.bottom, 20) + 96
+          }
+        ]}
       >
-        <View style={styles.header}>
-          <View>
-            <Text style={[typography.caption, styles.caption]}>Aktuell verfügbar</Text>
-            <Text style={[typography.headingXL, styles.title]}>Finde deinen Court</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.avatarButton}
-            accessibilityRole="button"
-            accessibilityLabel="Open profile"
-            onPress={() => navigation.navigate('Profile')}
-          >
-            <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=256&q=80'
-              }}
-              style={styles.avatar}
-            />
-          </TouchableOpacity>
-        </View>
-
-        {featuredVenue && (
-          <MapPreview>
-            <View style={styles.mapOverlay}>
-              <GlassCard contentStyle={styles.mapCalloutContent} intensity={80}>
-                <Text style={[typography.caption, styles.caption]}>Spotlight</Text>
-                <Text style={[typography.headingM, styles.calloutTitle]} numberOfLines={2}>
-                  {featuredVenue.name}
-                </Text>
-                <View style={styles.calloutMeta}>
-                  <Ionicons name="navigate" size={16} color={colors.aqua} />
-                  <Text style={[typography.caption, styles.calloutLabel]}>{featuredVenue.city}</Text>
-                </View>
-                <TouchableOpacity
-                  style={styles.ctaButton}
-                  onPress={() => navigation.navigate('VenueDetail', { venueId: featuredVenue.id })}
-                >
-                  <Text style={[typography.caption, styles.ctaText]}>Details ansehen</Text>
-                  <Ionicons name="arrow-forward" size={16} color="white" />
-                </TouchableOpacity>
-              </GlassCard>
-            </View>
-          </MapPreview>
-        )}
-
         <GlassCard>
-          <View style={styles.quickFiltersHeader}>
-            <Text style={[typography.headingM, styles.quickFiltersTitle]}>Schnellfilter</Text>
-            <TouchableOpacity
-              style={[
-                styles.manageButton,
-                activeFilters.size === 0 && styles.manageButtonDisabled
-              ]}
-              onPress={clearFilters}
-              disabled={activeFilters.size === 0}
-            >
-              <Ionicons
-                name={activeFilters.size === 0 ? 'options-outline' : 'close-circle-outline'}
-                size={16}
-                color={colors.aqua}
-              />
-              <Text style={[typography.caption, styles.manageLabel]}>
-                {activeFilters.size === 0 ? 'Zurücksetzen' : 'Filter löschen'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.quickFiltersRow}>
-            {quickFilters.map((filter) => {
-              const isActive = activeFilters.has(filter.key);
-              return (
-                <TouchableOpacity
-                  key={filter.label}
-                  style={[styles.filterChip, isActive && styles.filterChipActive]}
-                  onPress={() => toggleFilter(filter.key)}
-                >
-                  <Ionicons
-                    name={filter.icon}
-                    size={16}
-                    color={isActive ? '#05080F' : colors.aqua}
-                  />
-                  <Text
-                    style={[
-                      typography.caption,
-                      styles.filterLabel,
-                      isActive && { color: '#05080F' }
-                    ]}
-                  >
-                    {filter.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+          <Text style={[styles.cardTitle, { color: colors.text }]}>Match readiness</Text>
+          <Text style={[styles.body, { color: colors.mutedText }]}>Stay hydrated, arrive 10 minutes early and sync your wearables for richer stats.</Text>
+          <View style={styles.statRow}>
+            <View style={[styles.statPill, { backgroundColor: `${colors.accent}1A` }]}> 
+              <Ionicons name="pulse-outline" size={18} color={colors.accent} />
+              <Text style={[styles.statLabel, { color: colors.accent }]}>Peak form</Text>
+            </View>
+            <View style={[styles.statPill, { backgroundColor: `${colors.accentSoft}1A` }]}> 
+              <Ionicons name="cloud-outline" size={18} color={colors.accentSoft} />
+              <Text style={[styles.statLabel, { color: colors.accentSoft }]}>Indoor climate</Text>
+            </View>
           </View>
         </GlassCard>
 
-        <View style={styles.listHeader}>
-          <View>
-            <Text style={[typography.headingL, styles.listTitle]}>Standorte</Text>
-            <Text style={[typography.caption, styles.listSubtitle]}>
-              {filteredVenues.length} {filteredVenues.length === 1 ? 'Treffer' : 'Treffer'}
-            </Text>
+        <GlassCard>
+          <Text style={[styles.cardTitle, { color: colors.text }]}>Why players love SoccerHUB</Text>
+          <View style={styles.highlightList}>
+            {highlights.map((item) => (
+              <View key={item.title} style={styles.highlightItem}>
+                <View style={[styles.iconBadge, { backgroundColor: `${colors.accent}14` }]}> 
+                  <Ionicons name={item.icon} size={18} color={colors.accent} />
+                </View>
+                <View style={styles.highlightCopy}>
+                  <Text style={[styles.highlightTitle, { color: colors.text }]}>{item.title}</Text>
+                  <Text style={[styles.body, { color: colors.mutedText }]}>{item.description}</Text>
+                </View>
+              </View>
+            ))}
           </View>
-          <TouchableOpacity style={styles.viewAllButton} onPress={() => navigation.navigate('Filters')}>
-            <Text style={[typography.caption, styles.viewAllLabel]}>Erweiterte Filter</Text>
-          </TouchableOpacity>
-        </View>
+        </GlassCard>
 
-        {filteredVenues.map((venue) => (
-          <VenueCard
-            key={venue.id}
-            venue={venue}
-            onPress={() => navigation.navigate('VenueDetail', { venueId: venue.id })}
-          />
-        ))}
-
-        {filteredVenues.length === 0 && (
-          <GlassCard style={styles.emptyStateCard} contentStyle={styles.emptyStateContent}>
-            <Ionicons name="sparkles-outline" size={28} color={colors.aqua} />
-            <Text style={[typography.headingM, styles.emptyStateTitle]}>Keine passenden Courts</Text>
-            <Text style={[typography.caption, styles.emptyStateCopy]}>
-              Passe deine Filter an, um weitere Standorte im Rhein-Neckar-Gebiet zu entdecken.
-            </Text>
-          </GlassCard>
-        )}
-      </ScrollView>
-    </SafeAreaView>
+        <GlassSheet>
+          <Text style={[styles.sheetTitle, { color: colors.text }]}>Nächste Matches</Text>
+          {upcomingMatches.map((match) => (
+            <View key={match.id} style={[styles.matchRow, { borderColor: colors.elevatedBorder }]}>
+              <View style={styles.matchInfo}>
+                <Text style={[styles.matchOpponent, { color: colors.text }]}>{match.opponent}</Text>
+                <Text style={[styles.matchMeta, { color: colors.mutedText }]}>{match.location}</Text>
+              </View>
+              <Text style={[styles.matchTime, { color: colors.accent }]}>{match.time}</Text>
+            </View>
+          ))}
+        </GlassSheet>
+      </Animated.ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: '#05080F'
-  },
   container: {
+    flex: 1
+  },
+  scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 12
+    gap: 18
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 24
-  },
-  caption: {
-    color: 'rgba(255,255,255,0.65)'
-  },
-  title: {
-    color: 'white',
-    marginTop: 4
-  },
-  avatarButton: {
-    borderRadius: 22,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: 'rgba(92,225,230,0.25)'
-  },
-  avatar: {
-    width: 44,
-    height: 44
-  },
-  mapOverlay: {
-    position: 'absolute',
-    bottom: 24,
-    left: 24,
-    right: 24
-  },
-  mapCalloutContent: {
-    padding: 18
-  },
-  calloutTitle: {
-    color: 'white',
-    marginTop: 6
-  },
-  calloutMeta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8
-  },
-  calloutLabel: {
-    color: 'rgba(255,255,255,0.75)',
-    marginLeft: 6
-  },
-  ctaButton: {
-    marginTop: 16,
-    alignSelf: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 16,
-    backgroundColor: 'rgba(63,111,219,0.85)'
-  },
-  ctaText: {
-    color: 'white',
-    marginRight: 8
-  },
-  quickFiltersHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16
-  },
-  quickFiltersTitle: {
-    color: 'white'
-  },
-  manageButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    backgroundColor: 'rgba(92,225,230,0.12)'
-  },
-  manageButtonDisabled: {
-    opacity: 0.6
-  },
-  manageLabel: {
-    color: 'white',
-    marginLeft: 6
-  },
-  quickFiltersRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap'
-  },
-  filterChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 12,
-    marginBottom: 12,
-    backgroundColor: 'rgba(15,30,48,0.65)'
-  },
-  filterChipActive: {
-    backgroundColor: 'rgba(92,225,230,0.85)'
-  },
-  filterLabel: {
-    color: 'white',
-    marginLeft: 6
-  },
-  listHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 28,
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: '700',
     marginBottom: 12
   },
-  listTitle: {
-    color: 'white'
+  body: {
+    fontSize: 15,
+    lineHeight: 20
   },
-  listSubtitle: {
-    color: 'rgba(255,255,255,0.65)',
-    marginTop: 4
+  statRow: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 16
   },
-  viewAllButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12
-  },
-  viewAllLabel: {
-    color: 'rgba(255,255,255,0.7)'
-  },
-  emptyStateCard: {
-    marginTop: 12,
-    marginBottom: 40
-  },
-  emptyStateContent: {
+  statPill: {
+    borderRadius: 18,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: 8
+  },
+  statLabel: {
+    fontSize: 13,
+    fontWeight: '600'
+  },
+  highlightList: {
+    gap: 16
+  },
+  highlightItem: {
+    flexDirection: 'row',
     gap: 12
   },
-  emptyStateTitle: {
-    color: 'white'
+  iconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  emptyStateCopy: {
-    color: 'rgba(255,255,255,0.7)',
-    textAlign: 'center'
+  highlightCopy: {
+    flex: 1,
+    gap: 4
+  },
+  highlightTitle: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  sheetTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 16
+  },
+  matchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 14,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderColor: 'transparent'
+  },
+  matchInfo: {
+    flex: 1
+  },
+  matchOpponent: {
+    fontSize: 16,
+    fontWeight: '600'
+  },
+  matchMeta: {
+    marginTop: 4,
+    fontSize: 13
+  },
+  matchTime: {
+    fontSize: 13,
+    fontWeight: '600'
   }
 });

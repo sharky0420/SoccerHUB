@@ -1,17 +1,14 @@
+import React, { memo } from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { BlurView } from 'expo-blur';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { GlassTabBarBackground } from '../glass';
 import { useTheme } from '../theme/ThemeProvider';
 import { HomeScreen } from '../screens/HomeScreen';
-import { VenueDetailScreen } from '../screens/VenueDetailScreen';
-import { FiltersScreen } from '../screens/FiltersScreen';
+import { ExploreScreen } from '../screens/ExploreScreen';
 import { ProfileScreen } from '../screens/ProfileScreen';
-import { FavoritesScreen } from '../screens/FavoritesScreen';
 import { RootStackParamList, TabParamList } from '../types/navigation';
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -19,62 +16,55 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const TAB_ICONS: Record<keyof TabParamList, keyof typeof Ionicons.glyphMap> = {
   Home: 'home-outline',
-  Favorites: 'heart-outline',
-  Filters: 'options-outline',
-  Profile: 'person-outline'
+  Explore: 'compass-outline',
+  Profile: 'person-circle-outline'
 };
 
-const GlassTabBar = ({ state, navigation }: BottomTabBarProps) => {
+const FloatingTabBar = memo(({ state, navigation }: BottomTabBarProps) => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.tabBarContainer, { paddingBottom: insets.bottom + 12 }]}>
-      <BlurView intensity={60} tint="dark" style={styles.blurLayer}>
-        <LinearGradient
-          colors={[colors.surface, 'rgba(5,8,15,0.5)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.gradient}
-        >
-          {state.routes.map((route, index) => {
-            const isFocused = state.index === index;
-            const iconName = TAB_ICONS[route.name as keyof TabParamList];
+    <View pointerEvents="box-none" style={[styles.tabBarWrapper, { paddingBottom: Math.max(insets.bottom, 12) + 8 }]}>
+      <GlassTabBarBackground style={styles.tabBarBackground}>
+        {state.routes.map((route, index) => {
+          const isFocused = state.index === index;
+          const icon = TAB_ICONS[route.name as keyof TabParamList];
+          const scale = isFocused ? 1.05 : 1;
+          const opacity = isFocused ? 1 : 0.7;
 
-            const onPress = () => {
-              const event = navigation.emit({
-                type: 'tabPress',
-                target: route.key,
-                canPreventDefault: true
-              });
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: route.key,
+              canPreventDefault: true
+            });
 
-              if (!isFocused && !event.defaultPrevented) {
-                navigation.navigate(route.name);
-              }
-            };
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
 
-            return (
-              <TouchableOpacity
-                key={route.key}
-                accessibilityRole="button"
-                accessibilityState={isFocused ? { selected: true } : {}}
-                accessibilityLabel={route.name}
-                onPress={onPress}
-                style={[styles.tabButton, isFocused && styles.tabButtonActive]}
-              >
-                <Ionicons
-                  name={iconName}
-                  size={isFocused ? 26 : 22}
-                  color={isFocused ? colors.white : 'rgba(255,255,255,0.7)'}
-                />
-              </TouchableOpacity>
-            );
-          })}
-        </LinearGradient>
-      </BlurView>
+          return (
+            <TouchableOpacity
+              key={route.key}
+              accessibilityRole="button"
+              accessibilityState={isFocused ? { selected: true } : {}}
+              accessibilityLabel={route.name}
+              onPress={onPress}
+              style={styles.tabButton}
+              activeOpacity={0.9}
+            >
+              <View style={{ transform: [{ scale }] }}>
+                <Ionicons name={icon} size={26} color={isFocused ? colors.accent : colors.mutedText} style={{ opacity }} />
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </GlassTabBarBackground>
     </View>
   );
-};
+});
 
 const Tabs = () => {
   const { colors } = useTheme();
@@ -84,60 +74,46 @@ const Tabs = () => {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.white,
-        tabBarInactiveTintColor: 'rgba(255,255,255,0.7)'
+        tabBarStyle: { display: 'none' },
+        sceneStyle: { backgroundColor: colors.background }
       }}
-      tabBar={(props) => <GlassTabBar {...props} />}
+      tabBar={(props) => <FloatingTabBar {...props} />}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Filters" component={FiltersScreen} />
+      <Tab.Screen name="Explore" component={ExploreScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 };
 
 export const RootNavigator = () => {
-  const { navigationTheme } = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: navigationTheme.colors.background }
+        contentStyle: { backgroundColor: colors.background }
       }}
     >
       <Stack.Screen name="Tabs" component={Tabs} />
-      <Stack.Screen name="VenueDetail" component={VenueDetailScreen} />
     </Stack.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  tabBarContainer: {
+  tabBarWrapper: {
     position: 'absolute',
     left: 16,
     right: 16,
-    bottom: 0
+    bottom: 0,
+    alignItems: 'center'
   },
-  blurLayer: {
-    borderRadius: 28,
-    overflow: 'hidden'
-  },
-  gradient: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16
+  tabBarBackground: {
+    width: '100%'
   },
   tabButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-    borderRadius: 20
-  },
-  tabButtonActive: {
-    backgroundColor: 'rgba(255,255,255,0.08)'
+    flex: 1,
+    alignItems: 'center'
   }
 });

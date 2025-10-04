@@ -1,11 +1,9 @@
 export type TabParamList = {
   Home: undefined;
-  Favorites: undefined;
-  Filters: undefined;
+  Explore: undefined;
   Profile: undefined;
 };
 
 export type RootStackParamList = {
   Tabs: undefined;
-  VenueDetail: { venueId: string } | undefined;
 };
