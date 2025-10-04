@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -15,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { GlassCard } from '../components/GlassCard';
 import { MapPreview } from '../components/MapPreview';
 import { VenueCard } from '../components/VenueCard';
-import { venues } from '../data/venues';
+import { Venue, venues } from '../data/venues';
 import { RootStackParamList, TabParamList } from '../types/navigation';
 import { useTheme } from '../theme/ThemeProvider';
 
@@ -28,8 +28,74 @@ interface Props {
   navigation: HomeScreenNavigationProp;
 }
 
+type FilterKey = 'livePricing' | 'showers' | 'catering' | 'accessible';
+
+type FilterConfig = {
+  key: FilterKey;
+  label: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  predicate: (venue: Venue) => boolean;
+};
+
+const quickFilters: FilterConfig[] = [
+  {
+    key: 'livePricing',
+    label: 'Live Preis',
+    icon: 'flash-outline',
+    predicate: (venue) => venue.tags.livePricing
+  },
+  {
+    key: 'showers',
+    label: 'Duschen',
+    icon: 'water-outline',
+    predicate: (venue) => venue.tags.hasShowers
+  },
+  {
+    key: 'catering',
+    label: 'Gastro',
+    icon: 'restaurant-outline',
+    predicate: (venue) => venue.tags.hasCatering
+  },
+  {
+    key: 'accessible',
+    label: 'Barrierefrei',
+    icon: 'walk-outline',
+    predicate: (venue) => venue.tags.accessible
+  }
+];
+
 export const HomeScreen = ({ navigation }: Props) => {
   const { typography, colors } = useTheme();
+  const [activeFilters, setActiveFilters] = useState<Set<FilterKey>>(new Set());
+
+  const filteredVenues = useMemo(() => {
+    if (activeFilters.size === 0) {
+      return venues;
+    }
+
+    return venues.filter((venue) =>
+      Array.from(activeFilters).every((key) => {
+        const filter = quickFilters.find((item) => item.key === key);
+        return filter ? filter.predicate(venue) : true;
+      })
+    );
+  }, [activeFilters]);
+
+  const toggleFilter = (key: FilterKey) => {
+    setActiveFilters((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const clearFilters = () => setActiveFilters(new Set<FilterKey>());
+
+  const featuredVenue = filteredVenues[0];
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
@@ -40,8 +106,8 @@ export const HomeScreen = ({ navigation }: Props) => {
       >
         <View style={styles.header}>
           <View>
-            <Text style={[typography.caption, styles.caption]}>Tonight in NYC</Text>
-            <Text style={[typography.headingXL, styles.title]}>Find your match</Text>
+            <Text style={[typography.caption, styles.caption]}>Aktuell verfügbar</Text>
+            <Text style={[typography.headingXL, styles.title]}>Finde deinen Court</Text>
           </View>
           <TouchableOpacity
             style={styles.avatarButton}
@@ -58,64 +124,113 @@ export const HomeScreen = ({ navigation }: Props) => {
           </TouchableOpacity>
         </View>
 
-        <MapPreview>
-          <View style={styles.mapOverlay}>
-            <GlassCard contentStyle={styles.mapCalloutContent} intensity={80}>
-              <Text style={[typography.headingM, styles.calloutTitle]}>Liquid Glass Pavilion</Text>
-              <View style={styles.calloutMeta}>
-                <Ionicons name="navigate" size={16} color={colors.aqua} />
-                <Text style={[typography.caption, styles.calloutLabel]}>2.5 mi • Slots at 9:30 PM</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.ctaButton}
-                onPress={() => navigation.navigate('VenueDetail', { venueId: '2' })}
-              >
-                <Text style={[typography.caption, styles.ctaText]}>View detail</Text>
-                <Ionicons name="arrow-forward" size={16} color="white" />
-              </TouchableOpacity>
-            </GlassCard>
-          </View>
-        </MapPreview>
+        {featuredVenue && (
+          <MapPreview>
+            <View style={styles.mapOverlay}>
+              <GlassCard contentStyle={styles.mapCalloutContent} intensity={80}>
+                <Text style={[typography.caption, styles.caption]}>Spotlight</Text>
+                <Text style={[typography.headingM, styles.calloutTitle]} numberOfLines={2}>
+                  {featuredVenue.name}
+                </Text>
+                <View style={styles.calloutMeta}>
+                  <Ionicons name="navigate" size={16} color={colors.aqua} />
+                  <Text style={[typography.caption, styles.calloutLabel]}>{featuredVenue.city}</Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.ctaButton}
+                  onPress={() => navigation.navigate('VenueDetail', { venueId: featuredVenue.id })}
+                >
+                  <Text style={[typography.caption, styles.ctaText]}>Details ansehen</Text>
+                  <Ionicons name="arrow-forward" size={16} color="white" />
+                </TouchableOpacity>
+              </GlassCard>
+            </View>
+          </MapPreview>
+        )}
 
         <GlassCard>
           <View style={styles.quickFiltersHeader}>
-            <Text style={[typography.headingM, styles.quickFiltersTitle]}>Quick filters</Text>
-            <TouchableOpacity style={styles.manageButton}>
-              <Ionicons name="options-outline" size={16} color={colors.aqua} />
-              <Text style={[typography.caption, styles.manageLabel]}>Manage</Text>
+            <Text style={[typography.headingM, styles.quickFiltersTitle]}>Schnellfilter</Text>
+            <TouchableOpacity
+              style={[
+                styles.manageButton,
+                activeFilters.size === 0 && styles.manageButtonDisabled
+              ]}
+              onPress={clearFilters}
+              disabled={activeFilters.size === 0}
+            >
+              <Ionicons
+                name={activeFilters.size === 0 ? 'options-outline' : 'close-circle-outline'}
+                size={16}
+                color={colors.aqua}
+              />
+              <Text style={[typography.caption, styles.manageLabel]}>
+                {activeFilters.size === 0 ? 'Zurücksetzen' : 'Filter löschen'}
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.quickFiltersRow}>
-            {quickFilters.map((filter) => (
-              <TouchableOpacity key={filter.label} style={styles.filterChip}>
-                <Ionicons name={filter.icon} size={16} color={colors.aqua} />
-                <Text style={[typography.caption, styles.filterLabel]}>{filter.label}</Text>
-              </TouchableOpacity>
-            ))}
+            {quickFilters.map((filter) => {
+              const isActive = activeFilters.has(filter.key);
+              return (
+                <TouchableOpacity
+                  key={filter.label}
+                  style={[styles.filterChip, isActive && styles.filterChipActive]}
+                  onPress={() => toggleFilter(filter.key)}
+                >
+                  <Ionicons
+                    name={filter.icon}
+                    size={16}
+                    color={isActive ? '#05080F' : colors.aqua}
+                  />
+                  <Text
+                    style={[
+                      typography.caption,
+                      styles.filterLabel,
+                      isActive && { color: '#05080F' }
+                    ]}
+                  >
+                    {filter.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </GlassCard>
 
         <View style={styles.listHeader}>
-          <Text style={[typography.headingL, styles.listTitle]}>Available tonight</Text>
-          <TouchableOpacity style={styles.viewAllButton}>
-            <Text style={[typography.caption, styles.viewAllLabel]}>View all</Text>
+          <View>
+            <Text style={[typography.headingL, styles.listTitle]}>Standorte</Text>
+            <Text style={[typography.caption, styles.listSubtitle]}>
+              {filteredVenues.length} {filteredVenues.length === 1 ? 'Treffer' : 'Treffer'}
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.viewAllButton} onPress={() => navigation.navigate('Filters')}>
+            <Text style={[typography.caption, styles.viewAllLabel]}>Erweiterte Filter</Text>
           </TouchableOpacity>
         </View>
 
-        {venues.map((venue) => (
-          <VenueCard key={venue.id} venue={venue} onPress={() => navigation.navigate('VenueDetail', { venueId: venue.id })} />
+        {filteredVenues.map((venue) => (
+          <VenueCard
+            key={venue.id}
+            venue={venue}
+            onPress={() => navigation.navigate('VenueDetail', { venueId: venue.id })}
+          />
         ))}
+
+        {filteredVenues.length === 0 && (
+          <GlassCard style={styles.emptyStateCard} contentStyle={styles.emptyStateContent}>
+            <Ionicons name="sparkles-outline" size={28} color={colors.aqua} />
+            <Text style={[typography.headingM, styles.emptyStateTitle]}>Keine passenden Courts</Text>
+            <Text style={[typography.caption, styles.emptyStateCopy]}>
+              Passe deine Filter an, um weitere Standorte im Rhein-Neckar-Gebiet zu entdecken.
+            </Text>
+          </GlassCard>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const quickFilters = [
-  { label: 'Tonight only', icon: 'time-outline' as const },
-  { label: 'Roof access', icon: 'cloud-outline' as const },
-  { label: 'Locker rooms', icon: 'lock-closed-outline' as const },
-  { label: 'Under $120', icon: 'cash-outline' as const }
-];
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -159,7 +274,8 @@ const styles = StyleSheet.create({
     padding: 18
   },
   calloutTitle: {
-    color: 'white'
+    color: 'white',
+    marginTop: 6
   },
   calloutMeta: {
     flexDirection: 'row',
@@ -201,6 +317,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: 'rgba(92,225,230,0.12)'
   },
+  manageButtonDisabled: {
+    opacity: 0.6
+  },
   manageLabel: {
     color: 'white',
     marginLeft: 6
@@ -219,6 +338,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: 'rgba(15,30,48,0.65)'
   },
+  filterChipActive: {
+    backgroundColor: 'rgba(92,225,230,0.85)'
+  },
   filterLabel: {
     color: 'white',
     marginLeft: 6
@@ -233,11 +355,31 @@ const styles = StyleSheet.create({
   listTitle: {
     color: 'white'
   },
+  listSubtitle: {
+    color: 'rgba(255,255,255,0.65)',
+    marginTop: 4
+  },
   viewAllButton: {
     paddingVertical: 6,
     paddingHorizontal: 12
   },
   viewAllLabel: {
     color: 'rgba(255,255,255,0.7)'
+  },
+  emptyStateCard: {
+    marginTop: 12,
+    marginBottom: 40
+  },
+  emptyStateContent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12
+  },
+  emptyStateTitle: {
+    color: 'white'
+  },
+  emptyStateCopy: {
+    color: 'rgba(255,255,255,0.7)',
+    textAlign: 'center'
   }
 });
