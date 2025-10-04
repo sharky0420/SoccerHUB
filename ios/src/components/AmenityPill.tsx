@@ -1,35 +1,42 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Amenity } from '../data/venues';
 import { useTheme } from '../theme/ThemeProvider';
 
-const iconMap: Record<Amenity, keyof typeof Ionicons.glyphMap> = {
-  lights: 'bulb-outline',
-  locker: 'lock-closed-outline',
-  parking: 'car-outline',
-  refreshments: 'cafe-outline',
-  indoor: 'home-outline',
+const iconMap: Record<string, keyof typeof Ionicons.glyphMap> = {
+  duschen: 'water-outline',
+  dusche: 'water-outline',
+  umkleiden: 'shirt-outline',
+  parkplätze: 'car-outline',
+  parkplatz: 'car-outline',
+  gastronomie: 'restaurant-outline',
+  verpflegung: 'fast-food-outline',
+  shop: 'bag-handle-outline',
+  barrierefrei: 'walk-outline',
+  klimaanlage: 'snow-outline',
+  kartenzahlung: 'card-outline',
+  wlan: 'wifi-outline',
+  sportsbar: 'beer-outline',
+  "3g": 'shield-outline',
+  "4g": 'shield-outline',
+  freiluft: 'leaf-outline',
   outdoor: 'leaf-outline',
-  coaching: 'school-outline'
+  indoor: 'home-outline'
 };
 
-const labelMap: Record<Amenity, string> = {
-  lights: 'Pro lighting',
-  locker: 'Locker rooms',
-  parking: 'Parking',
-  refreshments: 'Fuel bar',
-  indoor: 'Indoor',
-  outdoor: 'Outdoor',
-  coaching: 'Pro coaching'
+const resolveIcon = (amenity: string): keyof typeof Ionicons.glyphMap => {
+  const key = amenity.trim().toLowerCase();
+  return iconMap[key] ?? 'checkmark-outline';
 };
 
-export const AmenityPill = ({ amenity }: { amenity: Amenity }) => {
+export const AmenityPill = ({ amenity }: { amenity: string }) => {
   const { colors, typography } = useTheme();
   return (
-    <View style={[styles.container, { borderColor: 'rgba(140,255,218,0.25)' }]}> 
-      <Ionicons name={iconMap[amenity]} size={16} color={colors.aqua} style={styles.icon} />
-      <Text style={[typography.caption, styles.label]}>{labelMap[amenity]}</Text>
+    <View style={[styles.container, { borderColor: 'rgba(140,255,218,0.25)' }]}>
+      <Ionicons name={resolveIcon(amenity)} size={16} color={colors.aqua} style={styles.icon} />
+      <Text style={[typography.caption, styles.label]} numberOfLines={1}>
+        {amenity}
+      </Text>
     </View>
   );
 };
@@ -50,6 +57,7 @@ const styles = StyleSheet.create({
     marginRight: 6
   },
   label: {
-    color: 'white'
+    color: 'white',
+    maxWidth: 140
   }
 });
